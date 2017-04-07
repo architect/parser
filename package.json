@@ -1,0 +1,15 @@
+{
+  "name": "@smallwins/arc-parser",
+  "version": "1.0.0",
+  "description": "parse arc text into json",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/**/test-*.js | tap-spec"
+  },
+  "author": "Brian LeRoux",
+  "license": "Apache-2",
+  "devDependencies": {
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}

@@ -1,6 +1,6 @@
-# arc parser
+# <kbd>:cloud_with_lightning: @architect/parser</kbd>
 
-`arc` is a simplistic text format for storing structured data. `arc-parser` is a function that accepts text and returns a plain JavaScript Object.
+> `.arc` is a simplistic text format for storing structured data; `@architect/parser` is a function that accepts text and returns a plain JavaScript `Object`
 
 The format:
 

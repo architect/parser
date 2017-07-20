@@ -1,6 +1,6 @@
 {
   "name": "@smallwins/arc-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "parse arc text into json",
   "main": "index.js",
   "scripts": {

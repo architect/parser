@@ -1,0 +1,10 @@
+@foo
+get-index
+  PUBLIC_URL https://api.begin.com
+
+@views
+screens
+  /
+  /begin
+  /today
+

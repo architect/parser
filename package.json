@@ -1,7 +1,7 @@
 {
-  "name": "@smallwins/arc-parser",
+  "name": "@architect/parser",
   "version": "1.0.2",
-  "description": "parse arc text into json",
+  "description": "function that accepts .arc text and returns a plain JavaScript Object",
   "main": "index.js",
   "scripts": {
     "test": "tape test/**/test-*.js | tap-spec"

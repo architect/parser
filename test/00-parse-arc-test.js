@@ -1,4 +1,3 @@
-var validate = require('@smallwins/validate')
 var test = require('tape')
 var fs = require('fs')
 var parse = require('../')

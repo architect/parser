@@ -1,6 +1,6 @@
 {
   "name": "@architect/parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "function that accepts .arc text and returns a plain JavaScript Object",
   "main": "index.js",
   "scripts": {

@@ -8,7 +8,7 @@ An .arc text must have an opening @section.
   }
 
   // splits text into array of arrays
-  var sections = text.split('@').filter(Boolean).map(c=> c.split('\n').filter(Boolean).map(s=>s.trimRight()))
+  var sections = text.split('@').filter(Boolean).map(c=> c.split(/\r?\n/).filter(Boolean).map(s=>s.trimRight()))
   
   // validates sections
   sections.forEach(section=> {

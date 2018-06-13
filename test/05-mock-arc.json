@@ -42,7 +42,7 @@
     }
   ],
   "xml": [{
-    "get": "index.rss"
+    "get": "/index.rss"
   }],
   "events": ["send-welcome-sms"],
   "tables": [{

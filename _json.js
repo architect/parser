@@ -99,7 +99,7 @@ _json.stringify = function _stringify(json) {
   if (raw.aws) {
     result += `@aws\n`
     result += `region ${raw.aws.region}\n`
-    result += `profile ${raw.aws.region}\n`
+    result += `profile ${raw.aws.profile}\n`
     result += '\n'
   }
   if (raw.static) {

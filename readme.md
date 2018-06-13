@@ -68,3 +68,14 @@ Output
   }]
 }
 ```
+
+### Experimental Support
+
+To facilitate interop the main module exported here has the additional methods that are specific to the Architect .arc format: 
+
+- `parse.json(jsonText)` returns `.arc` compatible `Object`
+- `parse.yaml(yamlText)` returns `.arc` compatible `Object`
+- `parse.json.stringify` returns `.arc` compatible `String`
+- `parse.yaml.stringify` returns `.arc` compatible `String`
+
+It is worth noting that `parse` is a generic `.arc` format parser in a similar vien to yaml and json. the impl above `parse.json` and `parse.yaml` are Architect grammer specific dialects of json and yaml.

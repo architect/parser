@@ -4,7 +4,8 @@
   "description": "function that accepts .arc text and returns a plain JavaScript Object",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/**/*-test.js | tap-spec"
+    "test": "tape test/**/*-test.js | tap-spec",
+    "t": "node test/04-scheduled.js | tap-spec"
   },
   "author": "Brian LeRoux",
   "license": "Apache-2",

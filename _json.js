@@ -70,6 +70,9 @@ function _json(raw) {
     if (section === 'events')
       result.events = json[section]
 
+    if (section === 'queues')
+      result.queues = json[section]
+
     if (section === 'tables')
       result.tables = json[section]
 

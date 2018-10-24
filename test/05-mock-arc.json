@@ -10,6 +10,10 @@
     "staging": "testapp-bucket",
     "production": "testapp-buckea-prod"
   },
+  "http": [
+    {"get": "/http/route"},
+    {"post": "/http/routetwo"}
+  ],
   "html": [
     {"get": "/"},
     {"post": "/login"}

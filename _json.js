@@ -34,6 +34,38 @@ function _json(raw) {
       ]
     }
 
+    if (section === 'http') {
+      result.http = json[section].map(route=> {
+        let method = Object.keys(route)[0]
+        let path = route[method]
+        return [method, path]
+      })
+    }
+
+    if (section === 'events')
+      result.events = json[section]
+
+    if (section === 'queues')
+      result.queues = json[section]
+
+    if (section === 'tables')
+      result.tables = json[section]
+
+    if (section === 'indexes')
+      result.indexes= json[section]
+
+    if (section === 'scheduled') {
+      result.scheduled = []
+      Object.keys(json[section]).forEach(name=> {
+        let val = json[section][name]
+        result.scheduled.push([name, val])
+      })
+    }
+
+    if (section === 'slack')
+      result.slack = json[section]
+
+    // TODO START OF DEPRECATED METHODS
     if (section === 'html') {
       result.html = json[section].map(route=> {
         let method = Object.keys(route)[0]
@@ -66,29 +98,8 @@ function _json(raw) {
         return [method, path]
       })
     }
+    // TODO END DEPRECATED
 
-    if (section === 'events')
-      result.events = json[section]
-
-    if (section === 'queues')
-      result.queues = json[section]
-
-    if (section === 'tables')
-      result.tables = json[section]
-
-    if (section === 'indexes')
-      result.indexes= json[section]
-
-    if (section === 'scheduled') {
-      result.scheduled = []
-      Object.keys(json[section]).forEach(name=> {
-        let val = json[section][name]
-        result.scheduled.push([name, val])
-      })
-    }
-
-    if (section === 'slack')
-      result.slack = json[section]
 
   })
   return result
@@ -111,6 +122,16 @@ _json.stringify = function _stringify(json) {
     result += `production ${raw.static.production}\n`
     result += '\n'
   }
+  if (raw.http) {
+    result += `@http\n`
+    raw.http.forEach(route=> {
+      let verb = Object.keys(route)[0]
+      let path = route[verb]
+      result += `${verb} ${path}\n`
+    })
+    result += '\n'
+  }
+  // TODO START DEPREC
   if (raw.html) {
     result += `@html\n`
     raw.html.forEach(route=> {
@@ -159,6 +180,7 @@ _json.stringify = function _stringify(json) {
     })
     result += '\n'
   }
+  // TODO END DEPREC
   if (raw.events) {
     result += `@events\n`
     raw.events.forEach(e=> {

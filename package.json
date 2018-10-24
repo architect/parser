@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tape test/**/*-test.js | tap-spec",
-    "t": "node test/04-scheduled.js | tap-spec"
+    "t": "node test/05-arc-json-test.js | tap-spec"
   },
   "author": "Brian LeRoux",
   "license": "Apache-2",

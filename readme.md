@@ -1,4 +1,5 @@
-# <kbd>:cloud_with_lightning: @architect/parser</kbd>
+## [`@architect/parser`](https://www.npmjs.com/package/@architect/parser)
+[![Build Status](https://travis-ci.com/arc-repos/arc-parser.svg?branch=master)](https://travis-ci.com/arc-repos/arc-parser)
 
 > `.arc` is a simplistic text format for storing structured data; `@architect/parser` is a function that accepts text and returns a plain JavaScript `Object`
 

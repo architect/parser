@@ -3,8 +3,6 @@
 
 > `.arc` is a simplistic text format for storing structured data; `@architect/parser` is a function that accepts text and returns a plain JavaScript `Object`
 
-[ ![Codeship Status for arc-repos/arc-parser](https://app.codeship.com/projects/8ac91c80-4f9d-0135-36b3-22bcd0c3040e/status?branch=master)](https://app.codeship.com/projects/234098)
-
 The format:
 
 - Starts with a `@section`

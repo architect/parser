@@ -1,1 +1,4 @@
+.eslintignore
+.estlintrc.js
+.travis.yml
 test

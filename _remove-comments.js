@@ -4,6 +4,7 @@
  * - empty lines
  * - trailing spaces
  */
+// eslint-disable-next-line
 var comments = /\#.*/gm
 var emptyLines = /(^[ \t]*\n)/gm
 var trailingSpaces = / (\n|\r)/g

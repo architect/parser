@@ -8,12 +8,12 @@ module.exports = function visit(section) {
 
 function bool(s) {
   if (s === 'true') return true
-  if (s === 'false') return false 
+  if (s === 'false') return false
   return s
 }
 
 function parseMembers(rtrn) {
-  
+
   var num = s=> isNaN(s)? s : +s
   var name = Object.keys(rtrn)[0]
   var members = rtrn[name]
@@ -22,7 +22,7 @@ function parseMembers(rtrn) {
   var lastObj = 0
 
   members.forEach(member=> {
-    
+
     // this line has no spaces
     var isSingle = !/ /g.test(member)
 
@@ -56,7 +56,7 @@ function parseMembers(rtrn) {
       index += 1
     }
     else if (isSingle) {
-      finals.push(isNaN(member)? bool(member) : +member)  
+      finals.push(isNaN(member)? bool(member) : +member)
       index += 1
     }
     else {

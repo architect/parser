@@ -2,14 +2,14 @@ let _parse = require('./_parse')
 let _json = require('./_json')
 let _yaml = require('./_yaml')
 
-// to remain backwards compat we augment _parse 
+// to remain backwards compat we augment _parse
 // and treat it as a namespace for these extended fns
 // everything is pure here so its cool..
 _parse.json = _json
 _parse.yaml = _yaml
 
 /**
- * parse 
+ * parse
  * parse .arc text into a js intermediate obj
  *
  * usage
@@ -18,7 +18,7 @@ _parse.yaml = _yaml
  *
  * ---
  *
- * parse.json 
+ * parse.json
  * parse json text into a js intermediate obj
  *
  * usage
@@ -33,16 +33,16 @@ _parse.yaml = _yaml
  * usage
  *   let parse = require('@architect/parser')
  *   parse.yaml(txt)
- * 
+ *
  * ---
  *
- * parse.stringify 
+ * parse.stringify
  * stringify intermediate obj to .arc format
  *
  * usage
  *   let parse = require('@architect/parser')
  *   parse.stringify({
- *     app: ['testapp'], 
+ *     app: ['testapp'],
  *     html:[['get', '/']]
  *   })
  *

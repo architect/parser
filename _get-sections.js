@@ -1,5 +1,5 @@
 module.exports = function getSections(text) {
-  
+
   if (!text.startsWith('@')) {
     throw SyntaxError(`invalid_arc
 An .arc text must have an opening @section.
@@ -28,10 +28,11 @@ An .arc text must have an opening @section.
 @sections must be a string of non whitespace characters.
               
 Invalid value: "${name}"
-       `)  
+       `)
     }
 
     // validates section values
+    // eslint-disable-next-line
     var index = 0
     var lastToken = false
     clone.forEach(val=> {
@@ -55,7 +56,7 @@ Invalid value: "${val}"
 Object name must be a string with no spaces.
               
 Invalid value: "${val}"
-           `)  
+           `)
         }
       }
       lastToken = val

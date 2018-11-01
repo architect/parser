@@ -2,13 +2,13 @@
  * accepts json text and returns js intermediate obj
  *
  * usage
- *   
+ *
  *   let parse = require('@architect/parser')
  *   console.log(parse.json(jsontext))
  */
 function _json(raw) {
 
-  let json = JSON.parse(raw)  
+  let json = JSON.parse(raw)
   let result = {}
 
   // each @section
@@ -22,14 +22,14 @@ function _json(raw) {
 
     if (section === 'aws') {
       result.aws = [
-        ['region', json[section].region], 
+        ['region', json[section].region],
         ['profile', json[section].profile]
       ]
     }
 
     if (section === 'static') {
       result.static = [
-        ['staging', json[section].staging], 
+        ['staging', json[section].staging],
         ['production', json[section].production]
       ]
     }
@@ -106,7 +106,7 @@ function _json(raw) {
 }
 
 _json.stringify = function _stringify(json) {
-  let raw = JSON.parse(json)  
+  let raw = JSON.parse(json)
   let result = ''
   result += '@app\n'
   result += `${raw.app}\n\n`
@@ -193,7 +193,7 @@ _json.stringify = function _stringify(json) {
     raw.tables.forEach(table=> {
       let name = Object.keys(table)[0]
       let props = Object.keys(table[name])
-      result += `${name}\n`  
+      result += `${name}\n`
       props.forEach(prop=> {
         result += `  ${prop} ${table[name][prop]}\n`
       })
@@ -205,7 +205,7 @@ _json.stringify = function _stringify(json) {
     raw.tables.forEach(table=> {
       let name = Object.keys(table)[0]
       let props = Object.keys(table[name])
-      result += `${name}\n`  
+      result += `${name}\n`
       props.forEach(prop=> {
         result += `  ${prop} ${table[name][prop]}\n`
       })

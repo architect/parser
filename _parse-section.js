@@ -52,7 +52,7 @@ function parseMembers(rtrn) {
       finals[idx][name][prop] = tupleMember.length === 1? tupleMember[0] : (tupleMember.length === 0? false : tupleMember)
     }
     else if (isVector) {
-      finals.push(member.split(' ').map(num).map(bool))
+      finals.push(member.replace(/( ){1,}/g, ' ').split(' ').map(num).map(bool))
       index += 1
     }
     else if (isSingle) {

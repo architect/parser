@@ -31,3 +31,5 @@ another-obj
   another-key another_value/baz.txt
   undef # empty key will have a default false value
   asdf 1 2 3 four
+
+spacey    tuple # tuple with lots of spaces

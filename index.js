@@ -1,6 +1,6 @@
-let _parse = require('./_parse')
-let _json = require('./_json')
-let _yaml = require('./_yaml')
+let _parse = require('./src/_parse')
+let _json = require('./src/_json')
+let _yaml = require('./src/_yaml')
 
 // to remain backwards compat we augment _parse
 // and treat it as a namespace for these extended fns

@@ -1,6 +1,6 @@
 var test = require('tape')
 var fs = require('fs')
-var _remove = require('../_remove-comments')
+var _remove = require('../src/_remove-comments')
 
 test('removed comments', t=> {
   t.plan(1)

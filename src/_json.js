@@ -23,7 +23,9 @@ function _json(raw) {
     if (section === 'aws') {
       result.aws = [
         ['region', json[section].region],
-        ['profile', json[section].profile]
+        ['profile', json[section].profile],
+        ['runtime', json[section].runtime],
+        ['layers', json[section].layers]
       ]
     }
 
@@ -114,6 +116,15 @@ _json.stringify = function _stringify(json) {
     result += `@aws\n`
     result += `region ${raw.aws.region}\n`
     result += `profile ${raw.aws.profile}\n`
+    if (raw.aws.runtime) {
+      result += `runtime ${raw.aws.runtime}\n`
+    }
+
+    if (raw.aws.layers) {
+      raw.aws.layers.forEach(layer=> {
+        result += `layer ${layer}\n`
+      })
+    }
     result += '\n'
   }
   if (raw.static) {

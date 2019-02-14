@@ -5,6 +5,10 @@ domain: testapp.com
 aws:
   region: us-west-2
   profile: personal
+  runtime: nodejs8.10
+  layers:
+    - arn:aws:lambda:us-west-2:111111111111:layer:test:2
+    - arn:aws:lambda:us-west-2:111111111111:layer:test:1
 static:
   staging: testapp-bucket
   production: testapp-buckea-prod

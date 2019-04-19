@@ -11,8 +11,8 @@
   "author": "Brian LeRoux",
   "license": "Apache-2",
   "devDependencies": {
-    "eslint": "^5.9.0",
     "tap-spec": "^5.0.0",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "eslint": "^5.16.0"
   }
 }

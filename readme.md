@@ -1,7 +1,7 @@
-## [`@architect/parser`](https://www.npmjs.com/package/@architect/parser)
-[![Build Status](https://travis-ci.com/arc-repos/arc-parser.svg?branch=master)](https://travis-ci.com/arc-repos/arc-parser)
+# [`@architect/parser`](https://www.npmjs.com/package/@architect/parser) [![Travis Build Status](https://travis-ci.com/architect/parser.svg?branch=master)](https://travis-ci.com/architect/parser) [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/o4gha7lhovdwommh/branch/master?svg=true)](https://ci.appveyor.com/project/ArchitectCI/parser/branch/master) [![codecov](https://codecov.io/gh/architect/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/architect/parser)
 
-> `.arc` is a simplistic text format for storing structured data; `@architect/parser` is a function that accepts text and returns a plain JavaScript `Object`
+> `.arc` is a simplistic text format for storing structured data; `@architect/parser`
+> is a function that accepts text and returns a plain JavaScript `Object`
 
 The format:
 
@@ -11,35 +11,26 @@ The format:
 - Scalar values are either `String`, `Number` or `Boolean`
 - `Vector` values are space seperated scalar values on a single line
 - A `Map` is defined by a scalar value followed by Vectors indented two spaces
-- Comments follow # symbols
+- Comments follow `#` symbols
 
-### Install
+## Install
 
-  npm i arc-parser
+    npm i @architect/parser
 
-### Example Usage
+## Example
 
-```javascript
-var parser = require('arc-parser')
-var fs = require('fs')
-var text = fs.readFileSync('./some-arc-file.txt').toString()
-var result = parse(text)
-```
-
-### Example
-
-Input
+Consider a file `some-arc-file.txt` with the following contents:
 
 ```
 # this is a comment
 @section-one
 simple-string-value # String
-another-value 
+another-value
 4.2 # Number
 true # Boolean
 
 @another-section-of-vectors
-vector of values 
+vector of values
 vector tuple
 
 @this-section-has-a-map
@@ -47,7 +38,17 @@ hello-world
   name some-value
 ```
 
-Output
+Running the following inside nodejs:
+
+```javascript
+var parser = require('@architect/parser')
+var fs = require('fs')
+var text = fs.readFileSync('./some-arc-file.txt').toString()
+var result = parse(text)
+```
+
+Would yield the following:
+
 ```javascript
 {
   "section-one": [
@@ -68,13 +69,20 @@ Output
 }
 ```
 
-### Experimental Support
+## API
 
-To facilitate interop the main module exported here has the additional methods that are specific to the Architect .arc format: 
+### `parse(text)`
 
-- `parse.json(jsonText)` returns `.arc` compatible `Object`
-- `parse.yaml(yamlText)` returns `.arc` compatible `Object`
-- `parse.json.stringify` returns `.arc` compatible `String`
-- `parse.yaml.stringify` returns `.arc` compatible `String`
+Takes as input raw `.arc` file text and outputs an @architect parsed `Object`.
 
-It is worth noting that `parse` is a generic `.arc` format parser in a similar vien to yaml and json. the impl above `parse.json` and `parse.yaml` are Architect grammer specific dialects of json and yaml.
+### `parse.json(jsonText)`
+
+Takes as input raw JSON text representing an @architect parsed `Object` and
+trims it down to only relevant @architect `Object` properties.
+
+### `parse.yaml(yamlText)`
+
+Takes as input raw YAML text representing an @architect parsed `Object`,
+converts it to JSON and trims it down to only relevant @architect `Object` properties.
+
+[npm]: https://www.npmjs.com/package/@architect/parser

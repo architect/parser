@@ -6,7 +6,7 @@ test('arc file must start with an @section', t=> {
   t.plan(1)
   var mock = fs.readFileSync('./test/01-mock-invalid-arc').toString()
   try {
-    var parsed = parse(mock)
+    parse(mock)
     t.fail('no opening @')
   }
   catch(e) {

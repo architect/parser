@@ -2,8 +2,6 @@ var test = require('tape')
 var fs = require('fs')
 var parse = require('../')
 
-
-var parsed
 test('test base mock file', t=> {
   var mock = fs.readFileSync('./test/00-mock-simple-arc').toString()
   var parsed = parse(mock)

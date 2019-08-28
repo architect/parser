@@ -1,4 +1,5 @@
 let _parse = require('./src/_parse')
+let _stringify = require('./src/_stringify')
 let _json = require('./src/_json')
 let _yaml = require('./src/_yaml')
 
@@ -7,6 +8,7 @@ let _yaml = require('./src/_yaml')
 // everything is pure here so its cool..
 _parse.json = _json
 _parse.yaml = _yaml
+_parse.stringify = _stringify
 
 /**
  * parse

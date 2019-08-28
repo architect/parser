@@ -1,0 +1,17 @@
+@app
+yolololo
+
+@static
+folder dist
+
+@http
+get /some/:stuff
+
+@tables
+data
+  scopeID *String
+  dataID **String
+  ttl TTL
+
+@custom
+ya boi

@@ -1,11 +1,12 @@
-var test = require('tape')
-var fs = require('fs')
-var parse = require('../')
+const test = require('tape')
+const fs = require('fs')
+const parse = require('../')
 
-test('@stringify', t=> {
+test('@stringify', t => {
   t.plan(1)
-  var mock = fs.readFileSync('./test/05-mock-arc.json').toString()
-  var parsed = parse.yaml.stringify(mock)
-  t.ok(parsed, 'parsed yaml')
+  let mock = fs.readFileSync('./test/00-mock-arc').toString()
+  let parsed = parse(mock)
+  let actual = parse.stringify(parsed)
   console.log(parsed)
+  t.equal(mock, actual, 'Stringified parsed arc file 🙌')
 })

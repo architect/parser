@@ -1,7 +1,5 @@
 module.exports = function stringify (obj) {
-  if (typeof obj !== 'object') {
-    return
-  }
+  if (typeof obj !== 'object') return
 
   let keys = Object.keys(obj)
   let out = ''
@@ -23,7 +21,8 @@ module.exports = function stringify (obj) {
           let label = prop[0]
           let value = prop[1]
           out += `${label} ${value}\n`
-        } else {
+        }
+        else {
           for (let key in prop) {
             out += `${key}`
             let subs = prop[key]

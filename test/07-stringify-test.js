@@ -8,5 +8,6 @@ test('@stringify', t => {
   let parsed = parse(mock)
   let actual = parse.stringify(parsed)
   console.log(parsed)
+  console.log(actual)
   t.equal(mock, actual, 'Stringified parsed arc file 🙌')
 })

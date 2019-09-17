@@ -96,6 +96,10 @@ _json.stringify = function _stringify(json) {
     result += '\n'
   }
 
+  if (raw.ws) {
+    result += `@ws\n\n`
+  }
+
   if (raw.events) {
     result += `@events\n`
     raw.events.forEach(e => {

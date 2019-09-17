@@ -11,7 +11,7 @@ function _json(raw) {
   let json = JSON.parse(raw)
   let result = {}
 
-  const BASIC_SECTIONS = ['app', 'domain', 'events', 'queues', 'tables', 'indexes', 'slack', 'ws']
+  const BASIC_SECTIONS = ['app', 'domain', 'events', 'queues', 'tables', 'indexes', 'slack']
 
   // each @section
   Object.keys(json).forEach(section => {
@@ -27,6 +27,10 @@ function _json(raw) {
         ['runtime', json[section].runtime],
         ['layers', json[section].layers]
       ]
+    }
+
+    if (section === 'ws') {
+      result.ws = true;
     }
 
     if (section === 'static') {

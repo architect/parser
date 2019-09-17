@@ -91,56 +91,7 @@ _json.stringify = function _stringify(json) {
     })
     result += '\n'
   }
-  // TODO START DEPREC
-  if (raw.html) {
-    result += `@html\n`
-    raw.html.forEach(route=> {
-      let verb = Object.keys(route)[0]
-      let path = route[verb]
-      result += `${verb} ${path}\n`
-    })
-    result += '\n'
-  }
-  if (raw.css) {
-    result += `@css\n`
-    raw.css.forEach(route=> {
-      result += `${route}\n`
-    })
-    result += '\n'
-  }
-  if (raw.js) {
-    result += `@js\n`
-    raw.js.forEach(route=> {
-      result += `${route}\n`
-    })
-    result += '\n'
-  }
-  if (raw.text) {
-    result += `@text\n`
-    raw.text.forEach(route=> {
-      result += `${route}\n`
-    })
-    result += '\n'
-  }
-  if (raw.json) {
-    result += `@json\n`
-    raw.json.forEach(route=> {
-      let verb = Object.keys(route)[0]
-      let path = route[verb]
-      result += `${verb} ${path}\n`
-    })
-    result += '\n'
-  }
-  if (raw.xml) {
-    result += `@xml\n`
-    raw.xml.forEach(route=> {
-      let verb = Object.keys(route)[0]
-      let path = route[verb]
-      result += `${verb} ${path}\n`
-    })
-    result += '\n'
-  }
-  // TODO END DEPREC
+
   if (raw.events) {
     result += `@events\n`
     raw.events.forEach(e=> {

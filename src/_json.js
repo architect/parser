@@ -11,14 +11,14 @@ function _json(raw) {
   let json = JSON.parse(raw)
   let result = {}
 
+  const BASIC_SECTIONS = ['app', 'domain', 'events', 'queues', 'tables', 'indexes', 'slack']
+
   // each @section
-  Object.keys(json).forEach(section=> {
+  Object.keys(json).forEach(section => {
 
-    if (section === 'app')
-      result.app = [json[section]]
-
-    if (section === 'domain')
-      result.domain = [json[section]]
+    if (BASIC_SECTIONS.includes(section)) {
+      result[section] = [json[section]]
+    }
 
     if (section === 'aws') {
       result.aws = [
@@ -44,18 +44,6 @@ function _json(raw) {
       })
     }
 
-    if (section === 'events')
-      result.events = json[section]
-
-    if (section === 'queues')
-      result.queues = json[section]
-
-    if (section === 'tables')
-      result.tables = json[section]
-
-    if (section === 'indexes')
-      result.indexes= json[section]
-
     if (section === 'scheduled') {
       result.scheduled = []
       Object.keys(json[section]).forEach(name=> {
@@ -64,8 +52,6 @@ function _json(raw) {
       })
     }
 
-    if (section === 'slack')
-      result.slack = json[section]
 
     // TODO START OF DEPRECATED METHODS
     if (section === 'html') {

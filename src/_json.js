@@ -37,7 +37,7 @@ function _json(raw) {
     }
 
     if (section === 'http') {
-      result.http = json[section].map(route=> {
+      result.http = json[section].map(route => {
         let method = Object.keys(route)[0]
         let path = route[method]
         return [method, path]
@@ -46,7 +46,7 @@ function _json(raw) {
 
     if (section === 'scheduled') {
       result.scheduled = []
-      Object.keys(json[section]).forEach(name=> {
+      Object.keys(json[section]).forEach(name => {
         let val = json[section][name]
         result.scheduled.push([name, val])
       })
@@ -70,7 +70,7 @@ _json.stringify = function _stringify(json) {
     }
 
     if (raw.aws.layers) {
-      raw.aws.layers.forEach(layer=> {
+      raw.aws.layers.forEach(layer => {
         result += `layer ${layer}\n`
       })
     }
@@ -84,7 +84,7 @@ _json.stringify = function _stringify(json) {
   }
   if (raw.http) {
     result += `@http\n`
-    raw.http.forEach(route=> {
+    raw.http.forEach(route => {
       let verb = Object.keys(route)[0]
       let path = route[verb]
       result += `${verb} ${path}\n`
@@ -94,18 +94,18 @@ _json.stringify = function _stringify(json) {
 
   if (raw.events) {
     result += `@events\n`
-    raw.events.forEach(e=> {
+    raw.events.forEach(e => {
       result += `${e}\n`
     })
     result += '\n'
   }
   if (raw.tables) {
     result += `@tables\n`
-    raw.tables.forEach(table=> {
+    raw.tables.forEach(table => {
       let name = Object.keys(table)[0]
       let props = Object.keys(table[name])
       result += `${name}\n`
-      props.forEach(prop=> {
+      props.forEach(prop => {
         result += `  ${prop} ${table[name][prop]}\n`
       })
     })
@@ -113,11 +113,11 @@ _json.stringify = function _stringify(json) {
   }
   if (raw.indexes) {
     result += `@indexes\n`
-    raw.tables.forEach(table=> {
+    raw.tables.forEach(table => {
       let name = Object.keys(table)[0]
       let props = Object.keys(table[name])
       result += `${name}\n`
-      props.forEach(prop=> {
+      props.forEach(prop => {
         result += `  ${prop} ${table[name][prop]}\n`
       })
     })
@@ -125,7 +125,7 @@ _json.stringify = function _stringify(json) {
   }
   if (raw.scheduled) {
     result += `@scheduled\n`
-    Object.keys(raw.scheduled).forEach(k=> {
+    Object.keys(raw.scheduled).forEach(k => {
       let v = raw.scheduled[k]
       result += `${k} ${v}\n`
     })
@@ -133,7 +133,7 @@ _json.stringify = function _stringify(json) {
   }
   if (raw.slack) {
     result += `@slack\n`
-    raw.events.forEach(e=> {
+    raw.events.forEach(e => {
       result += `${e}\n`
     })
     result += '\n'

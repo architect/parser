@@ -1,9 +1,8 @@
 module.exports = function stringify (obj) {
   if (typeof obj !== 'object') return
-
-  let keys = Object.keys(obj)
+  let pragmas = Object.keys(obj)
   let out = ''
-  keys.forEach(function (pragma, i) {
+  pragmas.forEach(function (pragma, i) {
     let props = obj[pragma]
     out += i === 0
       ? `@${pragma}\n`

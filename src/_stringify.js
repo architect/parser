@@ -8,8 +8,7 @@ module.exports = function stringify (obj) {
       ? `@${pragma}\n`
       : `\n@${pragma}\n`
 
-    for (let k = 0; k < props.length; k++) {
-      let prop = props[k]
+    props.forEach(function (prop) {
       if (typeof prop === 'string') {
         out += `${prop}\n`
       }
@@ -31,7 +30,7 @@ module.exports = function stringify (obj) {
           }
         }
       }
-    }
+    })
   })
   return out
 }

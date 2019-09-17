@@ -3,8 +3,7 @@ module.exports = function stringify (obj) {
 
   let keys = Object.keys(obj)
   let out = ''
-  for (let i = 0; i < keys.length; i++) {
-    let pragma = keys[i]
+  keys.forEach(function (pragma, i) {
     let props = obj[pragma]
     out += i === 0
       ? `@${pragma}\n`
@@ -34,6 +33,6 @@ module.exports = function stringify (obj) {
         }
       }
     }
-  }
+  })
   return out
 }

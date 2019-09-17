@@ -11,7 +11,7 @@ function _json(raw) {
   let json = JSON.parse(raw)
   let result = {}
 
-  const BASIC_SECTIONS = ['app', 'domain', 'events', 'queues', 'tables', 'indexes', 'slack']
+  const BASIC_SECTIONS = ['app', 'domain', 'events', 'queues', 'tables', 'indexes', 'slack', 'ws']
 
   // each @section
   Object.keys(json).forEach(section => {

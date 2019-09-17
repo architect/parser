@@ -52,43 +52,6 @@ function _json(raw) {
       })
     }
 
-
-    // TODO START OF DEPRECATED METHODS
-    if (section === 'html') {
-      result.html = json[section].map(route=> {
-        let method = Object.keys(route)[0]
-        let path = route[method]
-        return [method, path]
-      })
-    }
-
-    if (section === 'css')
-      result.css = json[section]
-
-    if (section === 'js')
-      result.js = json[section]
-
-    if (section === 'text')
-      result.text = json[section]
-
-    if (section === 'json') {
-      result.json = json[section].map(route=> {
-        let method = Object.keys(route)[0]
-        let path = route[method]
-        return [method, path]
-      })
-    }
-
-    if (section === 'xml') {
-      result.xml = json[section].map(route=> {
-        let method = Object.keys(route)[0]
-        let path = route[method]
-        return [method, path]
-      })
-    }
-    // TODO END DEPRECATED
-
-
   })
   return result
 }

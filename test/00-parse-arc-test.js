@@ -6,6 +6,7 @@ test('test base mock file', t=> {
   var mock = fs.readFileSync('./test/00-mock-simple-arc').toString()
   var parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
+  // eslint-disable-next-line
   t.ok(parsed.hasOwnProperty('attr'), 'has attr')
   t.ok(Array.isArray(parsed.attr), 'attr is array')
   t.ok(parsed.attr[0] === 'single', "1st member is string 'single'")

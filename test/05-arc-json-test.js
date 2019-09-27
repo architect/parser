@@ -91,7 +91,7 @@ test('should parse mock arc.json', t=> {
 
 test('should serialize mock arc.json to .arc', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/05-mock-arc.json').toString()
+  var mock = fs.readFileSync('./test/05-mock-arc.json', 'utf-8')
   var parsed = parse.json.stringify(mock)
   t.ok(parsed, 'parsed json')
   console.log(parsed)

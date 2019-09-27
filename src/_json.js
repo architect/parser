@@ -13,6 +13,13 @@ function _json(jsonText) {
 
   const BASIC_SECTIONS = ['events', 'queues', 'tables', 'indexes', 'slack', 'ws']
   const ARRAY_SECTIONS = ['app', 'domain']
+  // A long Array of individual, 2 item Arrays which are actually key: value pairs.
+  // Not sure why why is used instead of either an Object
+  // Or if, order matters, an array of objects
+  // See https://github.com/architect/parser/issues/22
+  const OBJECT_TO_ARRAY_OF_ARRAYS_SECTIONS = ['aws', 'static', 'scheduled']
+  const ARRAY_OF_OBJECTS_TO_ARRAY_OF_ARRAYS_SECTIONS = ['http']
+
 
   // each @section
   Object.keys(json).forEach(section => {
@@ -25,38 +32,15 @@ function _json(jsonText) {
       result[section] = [json[section]]
     }
 
-    if (section === 'aws') {
-      result.aws = [
-        ['region', json[section].region],
-        ['profile', json[section].profile],
-        ['runtime', json[section].runtime],
-        ['layers', json[section].layers]
-      ]
+    if (OBJECT_TO_ARRAY_OF_ARRAYS_SECTIONS.includes(section)) {
+      result[section] = Object.entries(json[section])
     }
 
-    if (section === 'static') {
-      result.static = [
-        ['staging', json[section].staging],
-        ['production', json[section].production]
-      ]
-    }
-
-    if (section === 'http') {
-      result.http = json[section].map(route => {
-        let method = Object.keys(route)[0]
-        let path = route[method]
-        return [method, path]
+    if (ARRAY_OF_OBJECTS_TO_ARRAY_OF_ARRAYS_SECTIONS.includes(section)) {
+      result[section] = json[section].map(function(object) {
+        return Object.entries(object)[0]
       })
     }
-
-    if (section === 'scheduled') {
-      result.scheduled = []
-      Object.keys(json[section]).forEach(name => {
-        let val = json[section][name]
-        result.scheduled.push([name, val])
-      })
-    }
-
   })
   return result
 }

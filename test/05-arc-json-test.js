@@ -84,9 +84,7 @@ test('should parse mock arc.json', t=> {
     "ws": []
   }
   assert.deepEqual(parsed, expected)
-  
   t.ok(parsed, 'parsed json')
-  console.log(JSON.stringify(parsed, null, 2))
 })
 
 test('should serialize mock arc.json to .arc', t=> {
@@ -94,5 +92,4 @@ test('should serialize mock arc.json to .arc', t=> {
   var mock = fs.readFileSync('./test/05-mock-arc.json', 'utf-8')
   var parsed = parse.json.stringify(mock)
   t.ok(parsed, 'parsed json')
-  console.log(parsed)
 })

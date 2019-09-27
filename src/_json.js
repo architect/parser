@@ -6,9 +6,9 @@
  *   let parse = require('@architect/parser')
  *   console.log(parse.json(jsontext))
  */
-function _json(raw) {
+function _json(jsonText) {
 
-  let json = JSON.parse(raw)
+  let json = JSON.parse(jsonText)
   let result = {}
 
   const BASIC_SECTIONS = ['events', 'queues', 'tables', 'indexes', 'slack', 'ws']

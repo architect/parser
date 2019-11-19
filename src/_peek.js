@@ -14,7 +14,6 @@ module.exports = {
     let matches = copy.match(NEWLINE)
     let end = matches && matches.index? matches.index : code.length
     let token = copy.slice(0, end).trim()
-    console.log('HEY TOKEN', token)
     if (!DASHERIZED.test(token.substring(1))) //ignore the leading @
       throw SyntaxError(`pragma "${token}" contains illegal characters`)
     return token

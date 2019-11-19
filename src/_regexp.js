@@ -53,9 +53,9 @@ const STRING = /(\/)|([a-zA-Z])|(-)|(\_)|(\.)|(\$)|(\*)|(\')|(\")/
  * numbers can be floats
  * will tokenize as a string so as not to be lossy (this burned us w slack client ids..)
  * (open q: allow for comma?)
- * TODO impl e notation (relaxing e and +)
+ * TODO impl e notation (relaxing e and +)//^\-?\d*\.?\d*$/
  */
-const NUMBER = /^\d*\.?\d+$/
+const NUMBER = /(\-)|(\d)/
 
 /**
  * arc supports boolean literals: true and false

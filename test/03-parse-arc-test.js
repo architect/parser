@@ -3,7 +3,8 @@ var fs = require('fs')
 var parse = require('../')
 
 test('test base mock file', t=> {
-  var mock = fs.readFileSync('./test/00-mock-simple-arc').toString()
+  t.plan(12)
+  var mock = fs.readFileSync('./test/mock/simple.arc').toString()
   var parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line
@@ -18,7 +19,6 @@ test('test base mock file', t=> {
   t.ok(parsed.attr[5].length === 7, '7th member is a vector of seven members')
   t.ok(typeof parsed.attr[6] == 'object' && parsed.attr[6] !== null, '8th member is a plain object')
   t.ok(parsed.attr[4].length === 2, '9th member is also a tuple')
-  t.end()
   console.log(JSON.stringify(parsed, null, 2))
 })
 
@@ -69,7 +69,7 @@ test('test base mock file', t=> {
 
 test('test aws arc by parsing mock-arc', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/00-mock-aws-arc').toString()
+  var mock = fs.readFileSync('./test/mock/aws.arc').toString()
   var parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
   console.log(JSON.stringify(parsed, null, 2))

@@ -20,6 +20,7 @@ module.exports = {
     'no-console': 'off',
     'no-inner-declarations': 'off',
     'no-redeclare': 'off',
+    'no-useless-escape': 'off',
     // style specific
     'no-trailing-spaces': 'error'
   }

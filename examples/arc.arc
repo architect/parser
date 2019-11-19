@@ -15,6 +15,12 @@ fingerprint true
 
 @http
 get /
+post /login
+post /logout
+post /posts
+patch /posts/:postID
+delete /posts/:postID
+get /posts/:postID
 
 @ws
 join

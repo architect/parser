@@ -9,11 +9,9 @@ The format:
 - Comments follow `#` symbols
 - Starts with a `@pragma`
 - Pragmas start with `@`
-- Pragmas contain either scalar values, `Array`, `Vector` or `Map`
-- Scalar values are either `String`, `Number` or `Boolean`
-- `Array` values are space seperated scalar values on a single line
-- `Vector` is a named array with newline seperated scalar values 
-- `Map` is defined by a scalar value followed by vectors indented two spaces
+- Pragmas contain; scalar values or complex values
+- Scalar values are: `string`, `number` and `boolean`
+- Complex values are: `array`, `vector` and `map`
 
 ## Example
 
@@ -27,9 +25,15 @@ another-value
 4.2 # Number
 true # Boolean
 
-@another-section-of-vectors
+@section-of-arrays
 vector of values
 vector tuple
+
+@vectors-section
+named
+  vector
+  of
+  values
 
 @this-section-has-a-map
 hello-world
@@ -58,9 +62,12 @@ Prints the following plain object to the console:
     4.2,
     true
   ],
-  "another-section-of-vectors": [
+  "section-of-arrays": [
     ["vector", "of", "values"],
     ["vector", "tuple"]
+  ],
+  "vectors-section": [
+    {named: ["vector", "of", "values"]},
   ],
   "this-section-has-a-map": [{
     "hello-world": {
@@ -69,5 +76,11 @@ Prints the following plain object to the console:
   }]
 }
 ```
+
+Things to notice:
+
+- `array` values are space seperated scalar values on a single line
+- `vector` is a named `array` with scalar values indented two spaces on newlines
+- `map` is a named value followed by keys and values indented two spaces
 
 [npm]: https://www.npmjs.com/package/@architect/parser

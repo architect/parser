@@ -5,11 +5,13 @@ Goals
 # Structure with Pragmas
 
 # Scalar Values
-- String
-- Number
-- Boolean
+
+- string
+- number
+- boolean
 
 # Collection Values
 
-- Map
-- Vector
+- array
+- vector
+- map

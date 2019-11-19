@@ -1,7 +1,5 @@
 .eslintignore
 .estlintrc.js
-.travis.yml
 test
-appveyor.yml
 codecov.yaml
 coverage/

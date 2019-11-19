@@ -1,14 +1,15 @@
 {
   "name": "@architect/parser",
-  "version": "1.2.0",
+  "version": "1.2.2-RC.0",
   "description": "Architect Parser accepts plaintext, JSON, or YAML .arc manifests and returns a plain JavaScript Object",
   "main": "./src/index.js",
   "scripts": {
-    "lint": "eslint . --fix",
+    "lint": "npx eslint . --fix",
     "test:unit": "tape test/**/*-test.js | tap-spec",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
     "_test": "npm run lint && npm run coverage",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "rc": "npm version prerelease --preid RC"
   },
   "author": "Brian LeRoux",
   "license": "Apache-2",
@@ -17,6 +18,7 @@
     "eslint": "^6.4.0",
     "nyc": "^14.1.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "assert-diff": "^2.0.3"
   }
 }

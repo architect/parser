@@ -1,4 +1,5 @@
-# [`@architect/parser`](https://www.npmjs.com/package/@architect/parser) [![Travis Build Status](https://travis-ci.com/architect/parser.svg?branch=master)](https://travis-ci.com/architect/parser) [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/o4gha7lhovdwommh/branch/master?svg=true)](https://ci.appveyor.com/project/ArchitectCI/parser/branch/master) [![codecov](https://codecov.io/gh/architect/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/architect/parser)
+# [`@architect/parser`](https://www.npmjs.com/package/@architect/parser) [![GitHub CI status](https://github.com/architect/parser/workflows/Node%20CI/badge.svg)](https://github.com/architect/parser/actions?query=workflow%3A%22Node+CI%22)
+<!-- [![codecov](https://codecov.io/gh/architect/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/architect/parser) -->
 
 > `.arc` is a text format for storing structured data; `@architect/parser`
 > is a function that accepts text and returns a plain JavaScript `Object`

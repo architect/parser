@@ -2,7 +2,7 @@ const test = require('tape')
 const fs = require('fs')
 const parse = require('../')
 
-test.only('parse.stringify', t => {
+test('parse.stringify', t => {
   t.plan(1)
   let mock = fs.readFileSync('./test/mock/aws.arc').toString()
   let parsed = parse(mock)

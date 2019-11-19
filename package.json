@@ -7,8 +7,7 @@
     "lint": "npx eslint . --fix",
     "test:unit": "tape test/**/*-test.js | tap-spec",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
-    "_test": "npm run lint && npm run coverage",
-    "test": "npm run lint && npm run test:unit",
+    "test": "npm run lint && npm run coverage",
     "rc": "npm version prerelease --preid RC"
   },
   "author": "Brian LeRoux",

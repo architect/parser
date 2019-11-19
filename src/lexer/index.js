@@ -6,9 +6,9 @@ let {
   STRING,
   NUMBER,
   BOOLEAN
-} = require('./_regexp')
+} = require('./regexp')
 
-let peek = require('./_peek')
+let peek = require('./get-lexeme')
 
 /**
  * tokenizes code including spaces and newlines (which are significant) and comments (which are not)

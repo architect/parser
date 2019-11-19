@@ -12,8 +12,8 @@ const COMMENT = /\#/
  *
  * not allowed:
  *
- * - # (not disallowed so much as will ovrride TODO escape \#)
- * - @
+ * - # comments
+ * - @ pragmas
  * - \ (we need for c style escaping like \n)
  *
  * alloweds:
@@ -24,11 +24,11 @@ const COMMENT = /\#/
  * dashes -
  * underscore _
  * dot .
+ * comma ,
+ * colon :
  * dolla $
  * star * (we use this for **String and *String for succinct Dynamo tables)
  * single and double quote (TODO impl "" and '' capture)
- * comma ,
- * colon :
  * question ?
  * ampersand &
  * bang !
@@ -47,7 +47,7 @@ const COMMENT = /\#/
  * angle brackets <>
  *
  */
-const STRING = /(\/)|([a-zA-Z])|(-)|(\_)|(\.)|(\$)|(\*)|(\')|(\")/
+const STRING = /(\/)|([a-zA-Z])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\')|(\")/
 
 /**
  * numbers can be floats

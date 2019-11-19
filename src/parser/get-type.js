@@ -1,7 +1,7 @@
 let notempty = require('./_not-empty')
-let array = require('./_array')
-let vector = require('./_vector')
-let map = require('./_map')
+let array = require('./array')
+let vector = require('./vector')
+let map = require('./map')
 /**
  * extracts scalar, array, vector and map values
  *
@@ -34,7 +34,6 @@ module.exports = function type({tokens, index}) {
 
   // working copy of the relevant tokens
   let working = tokens.slice(index, tokens.length)
-  //console.log('WORKING', working)
 
   // get the indices of all newlines
   let newlines = working.map((t, i)=> t.type === 'newline'? i : false).filter(Boolean)
@@ -74,8 +73,7 @@ module.exports = function type({tokens, index}) {
     return {end: 1, value: tokens[index].value}
 
   if(is.array)
-    return array(lines, index)
-  //return {end: newlines[0], value: lines[0].filter(notempty).map(t=> t.value)}
+    return array(lines)
 
   if (is.vector)
     return vector(lines, index)

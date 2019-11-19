@@ -1,4 +1,4 @@
-const {DASHERIZED, SPACE, NEWLINE, STRING} = require('./_regexp')
+const {DASHERIZED, SPACE, NEWLINE, STRING} = require('./regexp')
 
 /**
  * helper for slicing out a lexeme token: pragma, comment, boolean, number or a string

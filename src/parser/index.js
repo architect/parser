@@ -1,6 +1,6 @@
 let trim = require('./_trim')
 let compact = require('./_compact')
-let type = require('./_type')
+let type = require('./get-type')
 
 /**
  * parses tokens into JSON friendly structure if possible

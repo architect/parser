@@ -1,6 +1,6 @@
 let test = require('tape')
 let lex = require('../src/lexer')
-let trim = require('../src/_trim')
+let trim = require('../src/parser/_trim')
 
 let arcfile = `
 # comment with spaces

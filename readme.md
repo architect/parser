@@ -6,13 +6,14 @@
 
 The format:
 
+- Comments follow `#` symbols
 - Starts with a `@pragma`
 - Pragmas start with `@`
-- Pragmas contain either scalar values, `Vector` or `Map`
+- Pragmas contain either scalar values, `Array`, `Vector` or `Map`
 - Scalar values are either `String`, `Number` or `Boolean`
-- `Vector` values are space seperated scalar values on a single line
-- A `Map` is defined by a scalar value followed by Vectors indented two spaces
-- Comments follow `#` symbols
+- `Array` values are space seperated scalar values on a single line
+- `Vector` is a named array with newline seperated scalar values 
+- `Map` is defined by a scalar value followed by vectors indented two spaces
 
 ## Example
 

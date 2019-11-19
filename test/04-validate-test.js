@@ -4,7 +4,7 @@ var parse = require('../')
 
 test('arc file must start with an @section', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/01-mock-invalid-arc').toString()
+  var mock = fs.readFileSync('./test/mock/invalid.arc').toString()
   try {
     parse(mock)
     t.fail('no opening @')
@@ -17,7 +17,7 @@ test('arc file must start with an @section', t=> {
 
 test('@section must be non whitespace', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/01-mock-invalid2-arc').toString()
+  var mock = fs.readFileSync('./test/mock/invalid2.arc').toString()
   try {
     var parsed = parse(mock)
     t.fail('ruh roh')
@@ -31,7 +31,7 @@ test('@section must be non whitespace', t=> {
 
 test('objects name must be a string without spaces', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/01-mock-invalid3-arc').toString()
+  var mock = fs.readFileSync('./test/mock/invalid3.arc').toString()
   try {
     var parsed = parse(mock)
     t.fail('ruh roh')
@@ -45,7 +45,7 @@ test('objects name must be a string without spaces', t=> {
 
 test('indents must follow a single (or double)', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/01-mock-invalid4-arc').toString()
+  var mock = fs.readFileSync('./test/mock/invalid4.arc').toString()
   try {
     var parsed = parse(mock)
     t.fail('ruh roh')

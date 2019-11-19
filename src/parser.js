@@ -11,6 +11,7 @@ let type = require('./_type')
 module.exports = function parse(raw) {
 
   let tokens = trim(compact(raw))
+  //console.log({tokens})
 
   // arcfiles must begin with an @pragma
   if (tokens[0].type != 'pragma')

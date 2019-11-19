@@ -19,7 +19,7 @@ test('test base mock file', t=> {
   t.ok(parsed.attr[5].length === 7, '7th member is a vector of seven members')
   t.ok(typeof parsed.attr[6] == 'object' && parsed.attr[6] !== null, '8th member is a plain object')
   t.ok(parsed.attr[4].length === 2, '9th member is also a tuple')
-  console.log(JSON.stringify(parsed, null, 2))
+  console.log(JSON.stringify(parsed.attr, null, 2))
 })
 
 /*

@@ -1,6 +1,6 @@
 {
   "name": "@architect/parser",
-  "version": "1.2.2-RC.0",
+  "version": "1.2.2",
   "description": "Architect Parser accepts plaintext, JSON, or YAML .arc manifests and returns a plain JavaScript Object",
   "main": "./src/index.js",
   "scripts": {
@@ -15,10 +15,10 @@
   "license": "Apache-2",
   "devDependencies": {
     "assert-diff": "^2.0.3",
-    "codecov": "^3.5.0",
-    "eslint": "^6.4.0",
+    "codecov": "^3.6.1",
+    "eslint": "^6.6.0",
     "nyc": "^14.1.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.6.3"
+    "tape": "^4.11.0"
   }
 }

@@ -11,8 +11,12 @@
     "test": "npm run lint && npm run test:unit",
     "rc": "npm version prerelease --preid RC"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/architect/parser.git"
+  },
   "author": "Brian LeRoux",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "devDependencies": {
     "assert-diff": "^2.0.3",
     "codecov": "^3.6.1",

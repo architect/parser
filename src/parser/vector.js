@@ -6,9 +6,6 @@ module.exports = function vector(lines, index) {
   let end = index + copy[0].length + 1
   let name = copy.shift().filter(notempty)[0].value
 
-  if (!name)
-    throw SyntaxError(`vector name must be string`)
-
   let value = {}
   value[name] = []
 

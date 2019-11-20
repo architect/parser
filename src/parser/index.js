@@ -49,5 +49,9 @@ module.exports = function parse(raw) {
     }
   }
 
+  if (arc.schema && arc.types) {
+    console.log(arc.schema)
+  }
+
   return arc
 }

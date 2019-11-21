@@ -28,6 +28,49 @@ test('parse quoted string with illegal chars', t=> {
   console.log(output)
 })
 
+test('string[]', t=> {
+  t.plan(2)
+  let arcfile = `
+@mystr
+"string with spaces " and another true 2
+`
+  t.ok(arcfile, '.arc')
+  console.log(arcfile)
+  let output = parse(arcfile)
+  t.ok(output, 'parsed result')
+  console.log(output)
+})
+
+test('obj str', t=> {
+  t.plan(2)
+  let arcfile = `
+@mystr
+myobj
+  mykey "string with spaces " and another true 2
+`
+  t.ok(arcfile, '.arc')
+  console.log(arcfile)
+  let output = parse(arcfile)
+  t.ok(output, 'parsed result')
+  console.log(JSON.stringify(output, null, 2))
+})
+
+test('floats', t=> {
+  t.plan(2)
+  let arcfile = `
+@floats
+39239392.32232332
+2323.323232
+
+@quoted-hash
+"invoice-#333"
+`
+  t.ok(arcfile, '.arc')
+  console.log(arcfile)
+  let output = parse(arcfile)
+  t.ok(output, 'parsed result')
+  console.log(JSON.stringify(output, null, 2))
+})
 
 
 

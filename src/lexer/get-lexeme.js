@@ -50,11 +50,34 @@ module.exports = {
     let pointer = cursor
     let character = code[cursor]
     let token = ''
-    while (STRING.test(character)) {
-      token += character
-      character = code[++pointer]
-      // TODO check for invalid characters
+    if (character === '"') {
+      // seek ahead to next instance of " skipping any \" references
+      let copy = code.slice(cursor + 1, code.length)
+      let count = 0
+      let last = (function getNextQuote() {
+        // create a copy of the code string
+        let inner = copy.substring(count, copy.length)
+        let index = inner.indexOf('"')
+        // if we didn't find it blow up hard
+        let notfound = index === -1
+        if (notfound)
+          throw SyntaxError('unclosed quote at ' + cursor)
+        // if is not an excaped value return
+        let escapee = inner[index - 1] === "\\"
+        if (!escapee)
+          return index
+        // by default continue searching
+        count = index
+        getNextQuote()
+      })();
+      return copy.substring(0, last)
     }
-    return token
+    else {
+      while (STRING.test(character)) {
+        token += character
+        character = code[++pointer]
+      }
+      return token
+    }
   }
 }

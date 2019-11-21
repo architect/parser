@@ -1,8 +1,25 @@
+// we-like-strings-like-this-one
 const DASHERIZED = /^([a-zA-Z0-9_-]+)$/
+
+// Emptyness is not nothingness
 const SPACE = / /
 const NEWLINE = /(\r\n|\r|\n)/
+const TAB = /\t/
+
+/**
+ * reserved syntax:
+ *
+ * - # comments
+ * - @ pragmas
+ * - \ (we need for c style escaping like \n)
+ * - () parens
+ * - {} braces
+ * - [] brackets
+ * - <> angle brackets
+ */
 const PRAGMA = /\@/
 const COMMENT = /\#/
+const RESERVED = /\(|\)|\{|\}|\[|\]|\<|\>/
 
 /**
  * strings are REALLY loose in .arc formats!
@@ -10,50 +27,34 @@ const COMMENT = /\#/
  * this allows to have config with full clean paths like
  * ./../foo/bar/baz.buzz
  *
- * not allowed:
+ * allow:
  *
- * - # comments
- * - @ pragmas
- * - \ (we need for c style escaping like \n)
- *
- * alloweds:
- *
- * slashes /
- * letters
- * tilde ~
- * dashes -
- * underscore _
- * dot .
- * comma ,
- * colon :
- * dolla $
- * star * (we use this for **String and *String for succinct Dynamo tables)
- * single and double quote (TODO impl "" and '' capture)
- * question ?
- * ampersand &
- * bang !
- * percent %
- * equals =
- * plus +
- *
- * possible reserved syntax:
- *
- * backtick `
- * pipe |
- * caret ^
- * parens ()
- * braces {}
- * brackets []
- * angle brackets <>
- *
+ * - slash /
+ * - letters
+ * - tilde ~
+ * - dashes -
+ * - underscore _
+ * - dot .
+ * - comma ,
+ * - colon :
+ * - dolla $
+ * - star * (we use this for **String and *String for succinct Dynamo tables)
+ * - question ?
+ * - ampersand &
+ * - bang !
+ * - percent %
+ * - equals =
+ * - plus +
+ * - pipe |
+ * - caret ^
+ * - backtick `
+ * - single quote '
+ * - double quote "
  */
-const STRING = /(\/)|([a-zA-Z])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\')|(\")/
+const STRING = /(\/)|([a-zA-Z])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
 
 /**
- * numbers can be floats
- * will tokenize as a string so as not to be lossy (this burned us w slack client ids..)
- * (open q: allow for comma?)
- * TODO impl e notation (relaxing e and +)//^\-?\d*\.?\d*$/
+ * numbers (integer or float; negative modifier supported)
  */
 const NUMBER = /(\-)|(\d)/
 
@@ -62,4 +63,4 @@ const NUMBER = /(\-)|(\d)/
  */
 const BOOLEAN = /(t)|(f)/
 
-module.exports = {DASHERIZED, SPACE, NEWLINE, PRAGMA, COMMENT, STRING, NUMBER, BOOLEAN}
+module.exports = {DASHERIZED, SPACE, NEWLINE, TAB, PRAGMA, COMMENT, RESERVED, STRING, NUMBER, BOOLEAN}

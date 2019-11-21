@@ -1,5 +1,6 @@
 let {
   SPACE,
+  TAB,
   NEWLINE,
   PRAGMA,
   COMMENT,
@@ -67,6 +68,25 @@ module.exports = function lex(code) {
       continue
     }
 
+    // convert tabs to spaces
+    if (TAB.test(code[cursor])) {
+      tokens.push({
+        type: 'space',
+        value: ' ',
+        line,
+        column
+      })
+      tokens.push({
+        type: 'space',
+        value: ' ',
+        line,
+        column
+      })
+      cursor += 1
+      column += 1
+      continue
+    }
+
     if (NEWLINE.test(code[cursor])) {
       tokens.push({
         type: 'newline',
@@ -113,14 +133,15 @@ module.exports = function lex(code) {
 
     if (STRING.test(code[cursor])) {
       let token = peek.string(cursor, code)
+      let quote = code[cursor] === '"'
       tokens.push({
         type: 'string',
         value: token,
         line,
         column
       })
-      cursor += token.length
-      column += token.length
+      cursor += token.length + (quote? 2 : 0)
+      column += token.length + (quote? 2 : 0)
       continue
     }
 

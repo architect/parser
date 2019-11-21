@@ -1,26 +1,37 @@
-const test = require('tape')
-const fs = require('fs')
-const lex = require('../src/lexer')
-const parse = require('../')
+let test = require('tape')
+let parse = require('../')
 
-
-test('check lex', t=> {
-  t.plan(1)
-  let tbl = `table
-  type map
-  min 1
-  max 4
-  required *:partition
-  optional 
-    *:sort 
-    *:ttl 
-    stream:boolean
-  `
-  let output = lex(tbl)
-  t.ok(output, 'lexed')
+test('parse quoted string', t=> {
+  t.plan(3)
+  let output = parse(`
+@mystr
+"string with spaces"
+`)
+  t.ok(output, 'parsed')
+  t.ok(Array.isArray(output.mystr), 'output.mystr')
+  t.ok(output.mystr[0] === 'string with spaces', 'has string with spaces')
   console.log(output)
 })
 
+test('parse quoted string with illegal chars', t=> {
+  t.plan(2)
+  let arcfile = `
+@mystr
+"string with spaces 
+
+    and otherwise '#illegal' <chars> b@brian.io"
+`
+  t.ok(arcfile, '.arc')
+  console.log(arcfile)
+  let output = parse(arcfile)
+  t.ok(output, 'parsed result')
+  console.log(output)
+})
+
+
+
+
+  /*
 test('parse.arc', t => {
   t.plan(1)
   t.ok(parse.arc, 'parse.arc is defined')
@@ -31,4 +42,4 @@ test('parse.arc', t => {
   //let string = JSON.stringify(parsed)
   //let actual = JSON.stringify(parse(parse.stringify(parsed)))
   //t.equal(string, actual, 'Stringified parsed arc file 🙌')
-})
+})*/

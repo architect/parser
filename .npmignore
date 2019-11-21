@@ -1,5 +1,8 @@
 .eslintignore
 .estlintrc.js
-test
+.git/
+.github/
+.nyc_output/
 codecov.yaml
 coverage/
+test/

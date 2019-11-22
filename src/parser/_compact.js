@@ -1,4 +1,5 @@
 let notempty = require('./_not-empty')
+
 /**
  * removes comments and empty lines
  *
@@ -28,15 +29,21 @@ module.exports = function compact(tokens) {
   }, [])
 
   // flatten result
-  let result = []
+  let found = false
   let index = 0
-  lines.forEach(line=> {
-    line.forEach(token=> {
-      result.push(token)
-    })
+  let result = []
+
+  for (let line of lines) {
+    for (let t of line) {
+      let ignore = t.type == 'space' || t.type == 'newline' || t.type == 'comment'
+      if (ignore === false && found === false)
+        found = true
+      if (found)
+        result.push(t)
+    }
     result.push(newlinemap[index])
     index += 1
-  })
+  }
 
   return result
 }

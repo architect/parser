@@ -1,5 +1,12 @@
 let notempty = require('./_not-empty')
 
+/**
+ * extract a vector value
+ *
+ * @param {array} lines
+ * @param {number} index
+ * @returns {object} {end, value}
+ */
 module.exports = function vector(lines, index) {
 
   let copy = lines.slice(0)

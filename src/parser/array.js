@@ -1,5 +1,11 @@
 let notempty = require('./_not-empty')
 
+/**
+ * extract an array value from a list of tokens
+ *
+ * @param {lines} an array of tokens
+ * @returns {object} {end, value}
+ */
 module.exports = function array(lines) {
 
   let copy = lines.slice(0)

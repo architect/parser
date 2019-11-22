@@ -1,4 +1,3 @@
-let trim = require('./_trim')
 let compact = require('./_compact')
 let type = require('./get-type')
 
@@ -10,7 +9,7 @@ let type = require('./get-type')
  */
 module.exports = function parse(raw) {
 
-  let tokens = trim(compact(raw))
+  let tokens = compact(raw)
   //console.log({tokens})
 
   // arcfiles must begin with an @pragma

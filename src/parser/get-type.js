@@ -2,6 +2,7 @@ let notempty = require('./_not-empty')
 let array = require('./array')
 let vector = require('./vector')
 let map = require('./map')
+
 /**
  * extracts scalar, array, vector and map values
  *
@@ -60,7 +61,7 @@ module.exports = function type({tokens, index}) {
   let scalar = first.filter(notempty).length === 1
 
   // do we have a scalar string|number|boolean value?
-  // do we have a possible array or (vertical) vector value?
+  // do we have a possible array or vector value?
   // do we have a possible map value?
   let is = {
     scalar: scalar && indent === false, // string, number or boolean

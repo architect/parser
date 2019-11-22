@@ -1,4 +1,12 @@
-const {DASHERIZED, SPACE, NEWLINE, STRING} = require('./regexp')
+const {
+  DASHERIZED,
+  SPACE,
+  NEWLINE,
+  STRING
+} = require('./regexp')
+
+const PragmaSyntaxError = require('../errors/lex-pragma-syntax')
+const CloseQuoteNotFoundError = require('../errors/lex-close-quote-not-found')
 
 /**
  * helper for slicing out a lexeme token: pragma, comment, boolean, number or a string
@@ -9,13 +17,13 @@ const {DASHERIZED, SPACE, NEWLINE, STRING} = require('./regexp')
  */
 module.exports = {
 
-  pragma(cursor, code) {
+  pragma(cursor, code, line, column) {
     let copy = code.slice(cursor, code.length)
     let matches = copy.match(NEWLINE)
     let end = matches && matches.index? matches.index : code.length
     let token = copy.slice(0, end).trim()
     if (!DASHERIZED.test(token.substring(1))) //ignore the leading @
-      throw SyntaxError(`pragma "${token}" contains illegal characters`)
+      throw new PragmaSyntaxError({token, line, column})
     return token
   },
 
@@ -46,7 +54,7 @@ module.exports = {
     return copy.slice(0, end).trim()
   },
 
-  string(cursor, code) {
+  string(cursor, code, line, column) {
     let pointer = cursor
     let character = code[cursor]
     let token = ''
@@ -61,7 +69,7 @@ module.exports = {
         // if we didn't find it blow up hard
         let notfound = index === -1
         if (notfound)
-          throw SyntaxError('unclosed quote at ' + cursor)
+          throw new CloseQuoteNotFoundError({line, column})
         // if is not an excaped value return
         let escapee = inner[index - 1] === "\\"
         if (!escapee)

@@ -11,6 +11,8 @@ let {
 
 let peek = require('./get-lexeme')
 
+let UnknownError = require('../errors/lex-unknown')
+
 /**
  * tokenizes code including spaces and newlines (which are significant) and comments (which are not)
  *
@@ -31,7 +33,7 @@ module.exports = function lex(code) {
   while (cursor < code.length) {
 
     if (PRAGMA.test(code[cursor])) {
-      let token = peek.pragma(cursor, code)
+      let token = peek.pragma(cursor, code, line, column)
       tokens.push({
         type: 'pragma',
         value: token.substring(1),
@@ -132,7 +134,7 @@ module.exports = function lex(code) {
     }
 
     if (STRING.test(code[cursor])) {
-      let token = peek.string(cursor, code)
+      let token = peek.string(cursor, code, line, column)
       let quote = code[cursor] === '"'
       tokens.push({
         type: 'string',
@@ -145,7 +147,7 @@ module.exports = function lex(code) {
       continue
     }
 
-    throw SyntaxError('Unknown character: ' + code[cursor])
+    throw new UnknownError({character: code[cursor], line, column})
   }
   return tokens
 }

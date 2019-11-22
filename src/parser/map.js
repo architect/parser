@@ -1,5 +1,12 @@
 let notempty = require('./_not-empty')
 
+/**
+ * extracts a map value
+ *
+ * @param {lines}
+ * @param {number} index
+ * @returns {object} {end, value}
+ */
 module.exports = function map(lines, index) {
 
   // extract the `name` and create the `end` index

@@ -100,28 +100,3 @@ obj
   t.ok(output, 'parsed result')
   console.log(JSON.stringify(output, null, 2))
 })
-
-test('pragma errors', t=> {
-  t.plan(2)
-  try {
-    parse(`@pragm&`)
-  }
-  catch(e) {
-    t.ok(e.name === 'PragmaSyntaxError', e.name)
-    t.ok(e.line === 1, 'line one')
-    console.log(e)
-  }
-})
-
-test('missing close quote errors', t=> {
-  t.plan(2)
-  try {
-    parse(`@pragma
-"string with no close quote`)
-  }
-  catch(e) {
-    t.ok(e.name === 'CloseQuoteNotFoundError', e.name)
-    t.ok(e.line === 2, 'on line two')
-    console.log(e)
-  }
-})

@@ -1,7 +1,8 @@
-let notempty = require('./_not-empty')
-let array = require('./array')
-let vector = require('./vector')
-let map = require('./map')
+const notempty = require('./_not-empty')
+const array = require('./array')
+const vector = require('./vector')
+const map = require('./map')
+const TypeUnknown = require('../errors/parse-type-unknown')
 
 /**
  * extracts scalar, array, vector and map values
@@ -82,5 +83,5 @@ module.exports = function type({tokens, index}) {
   if (is.map)
     return map(lines, index)
 
-  throw TypeError('unknown type')
+  throw new TypeUnknown(tokens[index])
 }

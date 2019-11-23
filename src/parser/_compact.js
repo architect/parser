@@ -28,14 +28,14 @@ module.exports = function compact(tokens) {
     return collection
   }, [])
 
-  // flatten result
+  // flatten result; ignoring leading spaces and newlines
   let found = false
   let index = 0
   let result = []
 
   for (let line of lines) {
     for (let t of line) {
-      let ignore = t.type == 'space' || t.type == 'newline' || t.type == 'comment'
+      let ignore = t.type == 'space' || t.type == 'newline'
       if (ignore === false && found === false)
         found = true
       if (found)

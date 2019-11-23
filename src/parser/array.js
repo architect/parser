@@ -1,4 +1,5 @@
-let notempty = require('./_not-empty')
+const notempty = require('./_not-empty')
+const SpaceError = require('../errors/parse-array-illegal-space')
 
 /**
  * extract an array value from a list of tokens
@@ -14,7 +15,7 @@ module.exports = function array(lines) {
 
   let nextline = copy.length > 1 && lines[1][0].type == 'space'
   if (nextline)
-    throw SyntaxError('illegal leading space on line ' + lines[1][0].line)
+    throw new SpaceError(lines[1][0])
 
   return {end, value}
 }

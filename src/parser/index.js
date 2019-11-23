@@ -1,5 +1,7 @@
-let compact = require('./_compact')
-let type = require('./get-type')
+const compact = require('./_compact')
+const type = require('./get-type')
+const NotFound = require('../errors/parse-pragma-not-found')
+const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
 
 /**
  * parses tokens into JSON friendly structure if possible
@@ -10,11 +12,11 @@ let type = require('./get-type')
 module.exports = function parse(raw) {
 
   let tokens = compact(raw)
-  //console.log({tokens})
+  // console.log({tokens})
 
   // arcfiles must begin with an @pragma
   if (tokens[0].type != 'pragma')
-    throw SyntaxError('arcfile must define an opening @pragma')
+    throw new NotFound
 
   let arc = {}
   let pragma = false
@@ -27,7 +29,7 @@ module.exports = function parse(raw) {
     if (token.type === 'pragma') {
       // pragmas must be unique
       if ({}.hasOwnProperty.call(arc, token.value)) {
-        throw ReferenceError(`@${token.value} pragma already defined`)
+        throw new AlreadyDefined(token)
       }
       // create the pragma
       arc[token.value] = []

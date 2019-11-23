@@ -1,4 +1,5 @@
-let notempty = require('./_not-empty')
+const notempty = require('./_not-empty')
+const NameError = require('../errors/parse-vector-name-not-string')
 
 /**
  * extract a vector value
@@ -11,7 +12,11 @@ module.exports = function vector(lines, index) {
 
   let copy = lines.slice(0)
   let end = index + copy[0].length + 1
-  let name = copy.shift().filter(notempty)[0].value
+  let raw = copy.shift().filter(notempty)[0]
+  let name = raw.value
+
+  if (!name || raw.type != 'string')
+    throw new NameError(lines[0][0])
 
   let value = {}
   value[name] = []

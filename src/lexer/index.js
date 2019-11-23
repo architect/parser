@@ -24,6 +24,9 @@ module.exports = function lex(code) {
   // state bag for our tokens
   let tokens = []
 
+  // ensure code is terminated by a newline (stripped out later)
+  code += '\n'
+
   // counters
   let cursor = 0
   let line = 1
@@ -40,6 +43,7 @@ module.exports = function lex(code) {
         line,
         column
       })
+      //console.log('PRAGMA', token)
       cursor += token.length
       column += token.length
       continue
@@ -53,6 +57,7 @@ module.exports = function lex(code) {
         line,
         column
       })
+      //console.log('COMMENT', token)
       cursor += token.length
       column += token.length
       continue
@@ -65,6 +70,7 @@ module.exports = function lex(code) {
         line,
         column
       })
+      //console.log('SPACE')
       cursor += 1
       column += 1
       continue
@@ -96,6 +102,7 @@ module.exports = function lex(code) {
         line,
         column
       })
+      //console.log('NEWLINE')
       cursor += 1
       line += 1
       column = 1
@@ -113,6 +120,7 @@ module.exports = function lex(code) {
           line,
           column
         })
+        //console.log('BOOLEAN', tmp===false? false :true)
         cursor += tmp.length
         column += tmp.length
         continue
@@ -128,6 +136,7 @@ module.exports = function lex(code) {
         line,
         column
       })
+      //console.log('NUMBER', token)
       cursor += token.length
       column += token.length
       continue
@@ -136,6 +145,7 @@ module.exports = function lex(code) {
     if (STRING.test(code[cursor])) {
       let token = peek.string(cursor, code, line, column)
       let quote = code[cursor] === '"'
+      //console.log('STR', token)
       tokens.push({
         type: 'string',
         value: token,
@@ -149,5 +159,6 @@ module.exports = function lex(code) {
 
     throw new UnknownError({character: code[cursor], line, column})
   }
+
   return tokens
 }

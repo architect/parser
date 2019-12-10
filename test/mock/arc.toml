@@ -1,0 +1,17 @@
+app="ahi"
+
+http=[
+  ["get", "/"],
+  ["post", "/login"],
+  ["post", "/logout"]
+]
+
+[static]
+fingerprint=true
+
+[[tables]]
+[tables.data]
+scopeID="*String"
+dataID="**String"
+stream=true
+ttl="TTL"

@@ -1,21 +1,25 @@
-let arc = require('./compat/arc')
+let lexer = require('./lexer')
+let parser = require('./parser')
 let json = require('./compat/json')
 let yaml = require('./compat/yaml')
+let toml = require('./compat/toml')
 let stringify = require('./compat/stringify')
-let lex = require('./lexer')
-let parser = require('./parser')
+let read = require('./read')
 
 /**
  * @param {string} code
  * @returns {string} parsed arc object
  */
 function parse(code) {
-  return parser(lex(code))
+  return parser(lexer(code))
 }
 
-parse.arc = arc
+parse.lexer = lexer
+parse.parser = parser
 parse.json = json
 parse.yaml = yaml
+parse.toml = toml
 parse.stringify = stringify
+parse.read = read
 
 module.exports = parse

@@ -1,3 +1,5 @@
 src/compat/js-yaml-3.13.1.min.js
+src/compat/ajv-6.10.2.js
+src/compat/iarna-toml-2.2.3.js
 coverage/
 .nyc_output/

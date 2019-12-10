@@ -1,0 +1,222 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://arc.codes/schema.json",
+	"type": "object",
+	"title": "OpenJS Architect JSON Schema",
+	"required": [
+		"app",
+		"aws"
+	],
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": ["string", "number", "boolean", "array", "object"]
+    } 
+  },
+	"properties": {
+		"app": {
+			"$id": "#/properties/app",
+			"title": "@app",
+			"description": "Application namespace",
+			"type": ["string", "array"],
+			"maxItems": 1,
+		  "pattern": "^[a-z][a-z|\\-|0-9]+$",
+			"items": {
+				"type": "string",
+				"pattern": "^[a-z][a-z|\\-|0-9]+$"
+			}
+		},
+		"aws": {
+			"$id": "#/properties/aws",
+			"title": "@aws",
+			"description": "AWS specific configuration",
+			"type": ["array", "object"],
+			"uniqueItems": true,
+			"items": {
+				"type": ["array", "object"],
+				"maxItems": 2,
+				"items": [{
+				  "type": "string",
+				  "enum": ["region", "profile", "bucket"]
+        },
+        {
+          "type": "string"
+        }]
+      },
+      "required": ["bucket"],
+      "properties": {
+        "region": {
+        	 "type": "string", 
+           "enum": [
+            	"us-east-1",
+              "us-east-2",
+              "us-west-1",
+              "us-west-2",
+              "ca-central-1",
+              "eu-west-1",
+              "eu-central-1",
+              "eu-west-2",
+              "eu-west-3",
+              "eu-north-1",
+              "ap-northeast-1",
+              "ap-northeast-2",
+              "ap-southeast-1",
+              "ap-southeast-2",
+              "ap-south-1",
+              "sa-east-1",
+              "us-gov-west-1",
+              "us-gov-east-1"
+            ]
+          },
+        "profile": {"type":"string"},
+				"bucket": {"type":"string"}   
+			}
+		},
+		"static": {
+			"$id": "#/properties/static",
+			"type": ["array", "object"],
+			"title": "@static",
+			"description": "S3 website configuration",
+			"uniqueItems": true,
+			"items": {
+				"type": ["array", "object"],
+				"maxItems": 4,
+				"items": {
+          "type": "array",
+          "items": [
+            {
+					    "type": "string",
+					    "enum": ["folder", "fingerprint", "ignore", "spa"]
+            },
+            {"type": ["string", "boolean", "array", "object"]}
+				  ]
+        }
+			},
+      "properties": {
+        "folder": {"type":"string"},
+        "fingerprint": {"type":"boolean"},
+        "ignore": {"type":["string", "object", "array"]},
+        "spa": {"type":"boolean"}
+      }
+		},
+		"ws": {
+			"$id": "#/properties/ws",
+			"type": "array",
+			"title": "@ws",
+			"description": "API Gateway web socket configuration",
+			"uniqueItems": true,
+			"items": {
+				"type": "string",
+				"title": "web socket handlers",
+				"pattern": "^[a-z][a-z|\\-|0-9]+$"
+			}
+		},
+		"http": {
+			"$id": "#/properties/http",
+			"title": "@http",
+			"description": "API Gateway configuration",
+			"type": "array",
+			"uniqueItems": true,
+			"items": {
+				"type": ["array", "object"],
+				"maxItems": 2,
+				"items": [{
+						"type": "string",
+						"enum": ["get", "post", "put", "delete", "patch"]
+					},
+					{
+						"type": "string",
+						"pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+					}
+				]
+			}
+		},
+		"events": {
+			"$id": "#/properties/events",
+			"type": "array",
+			"title": "@events",
+			"uniqueItems": true,
+			"items": {
+				"type": "string",
+				"title": "event handlers",
+				"pattern": "^[a-z][a-z|\\-|0-9]+$"
+			}
+		},
+		"queues": {
+			"$id": "#/properties/events",
+			"type": "array",
+			"title": "@queues",
+			"uniqueItems": true,
+			"items": {
+				"$id": "#/properties/events/items",
+				"type": "string",
+				"title": "queue handlers",
+				"pattern": "^[a-z][a-z|\\-|0-9]+$"
+			}
+		},
+		"macros": {
+			"$id": "#/properties/events",
+			"type": "array",
+			"title": "@macros",
+			"uniqueItems": true,
+			"items": {
+				"$id": "#/properties/events/items",
+				"type": "string",
+				"title": "macro functions",
+				"pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+			}
+		},
+		"scheduled": {
+			"$id": "#/properties/scheduled",
+			"type": "array",
+			"title": "@scheduled",
+			"uniqueItems": true,
+			"items": {
+				"$id": "#/properties/scheduled/items",
+				"type": "array",
+				"title": "scheduled handlers",
+				"items": [
+          {
+						"type": "string",
+						"pattern": "^[a-z][a-z|\\-|0-9]+$"
+					},
+					{
+						"type": "string",
+						"pattern": "^(rate|cron)"
+					}
+				]
+			}
+		},
+		"tables": {
+			"$id": "#/properties/tables",
+			"type": "array",
+			"title": "@tables",
+			"uniqueItems": true,
+			"items": {
+				"type": "object",
+				"title": "DynamoDB table",
+        "propertyNames": {
+					"pattern": "^[a-z][a-z|\\-|0-9]+$"
+        },
+        "minProperties": 1,
+        "maxProperties": 1
+			}
+		},
+		"indexes": {
+			"$id": "#/properties/indexes",
+			"type": "array",
+			"title": "@indexes",
+			"uniqueItems": true,
+			"items": {
+				"type": "object",
+				"title": "DynamoDB table",
+        "propertyNames": {
+					"pattern": "^[a-z][a-z|\\-|0-9]+$"
+        },
+        "minProperties": 1,
+        "maxProperties": 1
+			}
+		}
+	}
+}

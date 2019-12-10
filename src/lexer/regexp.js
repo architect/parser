@@ -1,4 +1,4 @@
-// we-like-strings-like-this-one
+// we-like-strings-LikeThisOne_or_2
 const DASHERIZED = /^([a-zA-Z0-9_-]+)$/
 
 // Emptyness is not nothingness
@@ -16,6 +16,8 @@ const TAB = /\t/
  * - {} braces
  * - [] brackets
  * - <> angle brackets
+ *
+ * (note: any of those symbols can be quoted)
  */
 const PRAGMA = /\@/
 const COMMENT = /\#/
@@ -49,7 +51,7 @@ const RESERVED = /\(|\)|\{|\}|\[|\]|\<|\>/
  * - caret ^
  * - backtick `
  * - single quote '
- * - double quote "
+ * - double quote " is greedy, supports newlines and must have a closing "
  */
 const STRING = /(\/)|([a-zA-Z0-9])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
 
@@ -59,7 +61,7 @@ const STRING = /(\/)|([a-zA-Z0-9])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(
 const NUMBER = /(\-)|(\d)/
 
 /**
- * arc supports boolean literals: true and false
+ * boolean literal constants: true and false
  */
 const BOOLEAN = /(t)|(f)/
 

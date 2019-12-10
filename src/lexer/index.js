@@ -9,7 +9,7 @@ let {
   BOOLEAN
 } = require('./regexp')
 
-let peek = require('./get-lexeme')
+let peek = require('./peek')
 
 let UnknownError = require('../errors/lex-unknown')
 
@@ -43,7 +43,6 @@ module.exports = function lex(code) {
         line,
         column
       })
-      //console.log('PRAGMA', token)
       cursor += token.length
       column += token.length
       continue
@@ -57,7 +56,6 @@ module.exports = function lex(code) {
         line,
         column
       })
-      //console.log('COMMENT', token)
       cursor += token.length
       column += token.length
       continue
@@ -70,7 +68,6 @@ module.exports = function lex(code) {
         line,
         column
       })
-      //console.log('SPACE')
       cursor += 1
       column += 1
       continue
@@ -102,7 +99,6 @@ module.exports = function lex(code) {
         line,
         column
       })
-      //console.log('NEWLINE')
       cursor += 1
       line += 1
       column = 1
@@ -120,7 +116,6 @@ module.exports = function lex(code) {
           line,
           column
         })
-        //console.log('BOOLEAN', tmp===false? false :true)
         cursor += tmp.length
         column += tmp.length
         continue
@@ -136,7 +131,6 @@ module.exports = function lex(code) {
         line,
         column
       })
-      //console.log('NUMBER', token)
       cursor += token.length
       column += token.length
       continue
@@ -145,7 +139,6 @@ module.exports = function lex(code) {
     if (STRING.test(code[cursor])) {
       let token = peek.string(cursor, code, line, column)
       let quote = code[cursor] === '"'
-      //console.log('STR', token)
       tokens.push({
         type: 'string',
         value: token,

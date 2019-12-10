@@ -1,66 +1,105 @@
 # define the .arc schema in itself
+#
+# @schema defines @pragmas 
+# leading : colon operator signals 'this is a :type'
+# trailing ! bang operator signals 'this :type is required'
+# trailing ? question operator signals 'this :type is defined once or zero times'
 @schema
-app
-  namespace*
 
+# define @app namespace
+app 
+  :namespace!
+
+# @aws and bucket are required
 aws
-  awsconfig*
+  :bucket!
+  :region?
+  :profile?
+  :runtime?
 
+# zero config! (zero or more of this pragma is ok; basically a noop for docs)
+cdn
+
+# defines @events with zero or more string values
 events
-  string
+  :string
 
-http
-  route
+# defines @http with :route values
+http      
+  :route
 
 macros
-  string
+  :string
 
 queues
-  string
+  :string
 
 scheduled
-  rate
-  cron
+  :rate
+  :cron
 
 static
-  folder
-  spa
-  fingerprint
-  ignore
+  :folder
+  :spa
+  :fingerprint
+  :ignore
 
 tables
-  table
+  :table
 
 indexes
-  index
+  :index
 
 ws
-  string
+  :string
 
-# (* star modifier marks a type as required)
-# all types are colon prefixed :string :number :boolean :vector :map
+# @types (builtins :string :number :boolean :array :vector :map)
 @types
 namespace
   type :string
   max 10
   min 1
-  pattern /a-zA-Z/
+  match /a-zA-Z/ 
 
 pair
   type :array
   max 2
   min 2
 
+# @aws
+bucket
+  type :pair
+  first bucket 
+  rest :string
+
+region
+  type :pair
+  first region
+  rest :string
+
+profile
+  type :pair
+  first profile
+  rest :string
+
+runtime
+  type :pair
+  first runtime
+  rest 
+    nodejs10.x
+    python3.8
+    ruby2.5
+    java8
+    go1.x
+    dotnetcore2.1
+
+# @http 
 route
   type :pair
   first get post put delete patch
   rest :string
 
-awsconfig
-  type :pair
-  first region profile bucket
-  rest :string
-
+# @static 
 folder
   type :pair
   first folder
@@ -88,14 +127,16 @@ ignores
   rest :string
   min 1
 
+# @scheduled
+# weekly 
+#   cron 0/10 * ? * MON-FRI *
+# daily
+#   rate 1 day
 cron
   type :map
   min 1
   max 1
   required cron:crontab
-
-# weekly 
-#   cron 0/10 * ? * MON-FRI *
 
 crontab
   type :array
@@ -113,30 +154,28 @@ ratevalue
   first :number
   rest day days hour hours minute minutes second seconds
 
-# daily
-#   rate 1 day
-
+# @tables
 table
   type :map
   min 1
   max 4
-  required *:partition
-  optional *:sort *:ttl stream:boolean
+  required :partition
+  optional :sort :ttl stream:boolean
 
 index
   type :map
   min 1
   max 2
-  required *:partition
-  optional *:sort
+  required :partition
+  optional :sort
 
 partition
   type :string
-  match *String *Number
+  match *String *Number *string *number
 
 sort
   type :string
-  match **String **Number
+  match **String **Number **string **number
 
 ttl
   type :string

@@ -9,7 +9,7 @@ const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
  * @param {array} raw tokens
  * @returns {object}
  */
-module.exports = function parse(raw) {
+module.exports = function parse(raw, sourcemap=false) {
 
   let tokens = compact(raw)
   // console.log({tokens})
@@ -19,6 +19,7 @@ module.exports = function parse(raw) {
     throw new NotFound
 
   let arc = {}
+  let src = {}
   let pragma = false
   let index = 0
 
@@ -27,12 +28,17 @@ module.exports = function parse(raw) {
     let token = tokens[index]
 
     if (token.type === 'pragma') {
+
       // pragmas must be unique
-      if ({}.hasOwnProperty.call(arc, token.value)) {
+      if ({}.hasOwnProperty.call(arc, token.value))
         throw new AlreadyDefined(token)
-      }
+
       // create the pragma
       arc[token.value] = []
+
+      // create a source map
+      src[token.value] = []
+
       // keep a ref to the current pragma
       pragma = token.value
       index += 1
@@ -46,13 +52,10 @@ module.exports = function parse(raw) {
     if (token.type === 'number' || token.type === 'boolean' || token.type === 'string') {
       let {end, value} = type({tokens, index})
       arc[pragma].push(value)
+      src[pragma].push({start: token, end: tokens[index + end]})
       index += end
     }
   }
 
-  if (arc.schema && arc.types) {
-    console.log(arc.schema)
-  }
-
-  return arc
+  return sourcemap? {arc, src} : arc
 }

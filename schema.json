@@ -169,12 +169,12 @@
 		},
 		"scheduled": {
 			"$id": "#/properties/scheduled",
-			"type": "array",
+			"type": ["array", "object"],
 			"title": "@scheduled",
 			"uniqueItems": true,
 			"items": {
 				"$id": "#/properties/scheduled/items",
-				"type": "array",
+				"type": ["array", "object"],
 				"title": "scheduled handlers",
 				"items": [
           {

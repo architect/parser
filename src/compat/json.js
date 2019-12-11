@@ -1,46 +1,52 @@
 /**
- * accepts json text and returns js intermediate obj
+ * Adjusts cardinality of some Architect specific keys to make them nicer to author in JSON, YAML and TOML
  *
- * usage
- *
- *   let parse = require('@architect/parser')
- *   console.log(parse.json(jsontext))
  */
-module.exports = function parseJSON(jsonText) {
+module.exports = function parseJSON(text) {
 
-  let json = JSON.parse(jsonText)
+  let json = JSON.parse(text)
   let result = {}
 
-  const BASIC_SECTIONS = ['events', 'queues', 'tables', 'indexes', 'slack', 'ws']
-  const ARRAY_SECTIONS = ['app', 'domain']
-  // A long Array of individual, 2 item Arrays which are actually key: value pairs.
-  // Not sure why why is used instead of either an Object
-  // Or if, order matters, an array of objects
-  // See https://github.com/architect/parser/issues/22
-  const OBJECT_TO_ARRAY_OF_ARRAYS_SECTIONS = ['aws', 'static', 'scheduled']
-  const ARRAY_OF_OBJECTS_TO_ARRAY_OF_ARRAYS_SECTIONS = ['http']
-
-
-  // each @section
   Object.keys(json).forEach(section => {
 
-    if (BASIC_SECTIONS.includes(section)) {
+    // passthru
+    let SKIP = ['events', 'queues', 'tables', 'indexes', 'cdn', 'ws']
+    if (SKIP.includes(section))
       result[section] = json[section]
-    }
 
-    if (ARRAY_SECTIONS.includes(section)) {
+    // convert key:value to key:[value] (app)
+    if (section === 'app' && Array.isArray(json[section]) === false)
       result[section] = [json[section]]
-    }
 
-    if (OBJECT_TO_ARRAY_OF_ARRAYS_SECTIONS.includes(section)) {
-      result[section] = Object.entries(json[section])
-    }
-
-    if (ARRAY_OF_OBJECTS_TO_ARRAY_OF_ARRAYS_SECTIONS.includes(section)) {
-      result[section] = json[section].map(function(object) {
-        return Object.entries(object)[0]
+    // convert plain objects to array (aws, static, scheduled)
+    if (Array.isArray(json[section]) === false && typeof json[section] === 'object') {
+      if (!result[section])
+        result[section] = []
+      Object.keys(json[section]).forEach(key=> {
+        let value = [key, json[section][key]]
+        result[section].push(value)
       })
     }
+
+    // convert array of objects [{get: '/'}] to array of arrays [['get', '/']]
+    if (section === 'http') {
+      if (!result[section])
+        result[section] = []
+      json[section].forEach(route=> {
+        if (Array.isArray(route) === false && typeof route === 'object') {
+          let verb = Object.keys(route)[0]
+          let tuple = [verb, route[verb]]
+          result[section].push(tuple)
+        }
+        else if (Array.isArray(route)) {
+          result[section].push(route)
+        }
+        else {
+          throw Error('invalid route type')
+        }
+      })
+    }
+
   })
   return result
 }

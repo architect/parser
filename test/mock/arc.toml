@@ -6,6 +6,11 @@ http=[
   ["post", "/logout"]
 ]
 
+[aws]
+region="us-west-1"
+profile="foobar"
+bucket="foobar-west-1"
+
 [static]
 fingerprint=true
 

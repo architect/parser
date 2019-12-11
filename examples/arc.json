@@ -5,7 +5,7 @@
     "region": "ca-central-1",
     "bucket": "mybucket-central-1"
   },
-  "cdn": {},
+  "cdn": [],
   "static": {
     "folder": "dist",
     "fingerprint": true

@@ -5,9 +5,9 @@ var parse = require('../')
 
 test('should parse mock arc.json', t=> {
   t.plan(1)
-  var mock = fs.readFileSync('./test/mock/arc.json').toString()
-  var parsed = parse.json(mock)
-  const expected = {
+  let mock = fs.readFileSync('./test/mock/arc.json').toString()
+  let parsed = parse.json(mock)
+  let expected = {
     "app": [
       "testapp"
     ],
@@ -84,7 +84,7 @@ test('should parse mock arc.json', t=> {
     "ws": []
   }
   assert.deepEqual(parsed, expected)
-  t.ok(parsed, 'parsed json')
+  t.ok(true, 'parsed json')
 })
 
 test('should serialize mock arc.json to .arc', t=> {

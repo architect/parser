@@ -2,7 +2,7 @@ let path = require('path')
 let test = require('tape')
 let parse = require('../')
 
-test.only('validation with bad JSON schema', t=> {
+test('validation with bad JSON schema', t=> {
   t.plan(1)
   let output = parse.read({cwd: path.join(__dirname, 'mock', 'bad')})
   t.ok(Array.isArray(output.errors), 'parsed')

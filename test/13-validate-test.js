@@ -15,4 +15,5 @@ test('validation with good JSON schema', t=> {
   let output = parse.read({cwd: path.join(__dirname, 'mock', 'good')})
   t.ok(output.errors === false, 'parsed')
   console.log(JSON.stringify(output, null, 2))
+  console.log(parse(parse.stringify(output.arc)))
 })

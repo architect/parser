@@ -12,7 +12,6 @@ const TAB = /\t/
  * - # comments
  * - @ pragmas
  * - \ (we need for c style escaping like \n)
- * - () parens
  * - {} braces
  * - [] brackets
  * - <> angle brackets
@@ -21,7 +20,7 @@ const TAB = /\t/
  */
 const PRAGMA = /\@/
 const COMMENT = /\#/
-const RESERVED = /\(|\)|\{|\}|\[|\]|\<|\>/
+const RESERVED = /\{|\}|\[|\]|\<|\>/
 
 /**
  * strings are REALLY loose in .arc formats!
@@ -31,6 +30,8 @@ const RESERVED = /\(|\)|\{|\}|\[|\]|\<|\>/
  *
  * allow:
  *
+ * - open paren (
+ * - close paren )
  * - slash /
  * - letters
  * - tilde ~
@@ -53,7 +54,7 @@ const RESERVED = /\(|\)|\{|\}|\[|\]|\<|\>/
  * - single quote '
  * - double quote " is greedy, supports newlines and must have a closing "
  */
-const STRING = /(\/)|([a-zA-Z0-9])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
+const STRING = /(\()|(\))|(\/)|([a-zA-Z0-9])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
 
 /**
  * numbers (integer or float; negative modifier supported)

@@ -8,7 +8,7 @@ let read = require('./read')
 
 /**
  * @param {string} code
- * @returns {string} parsed arc object
+ * @returns {object} parsed arc object
  */
 function parse(code) {
   return parser(lexer(code))

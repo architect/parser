@@ -13,7 +13,7 @@ let exists = fs.existsSync
 let join = path.join
 
 /**
- * Look up .arc falling back to: app.arc, arc.json, arc.yaml, arc.toml
+ * Look up .arc falling back to: app.arc, arc.json, arc.yaml, arc.yml, arc.toml
  *
  * @param {object} params
  * @param {string} params.cwd - path to current working directory (process.cwd() used if not defined)
@@ -27,6 +27,7 @@ module.exports = function readArc(params={}) {
   let appDotArcPath = join(cwd, 'app.arc')
   let arcJsonPath = join(cwd, 'arc.json')
   let arcYamlPath = join(cwd, 'arc.yaml')
+  let arcYmlPath = join(cwd, 'arc.yml')
   let arcTomlPath = join(cwd, 'arc.toml')
 
   let raw
@@ -46,6 +47,10 @@ module.exports = function readArc(params={}) {
   }
   else if (exists(arcYamlPath)) {
     raw = read(arcYamlPath)
+    arc = yaml(raw)
+  }
+  else if (exists(arcYmlPath)) {
+    raw = read(arcYmlPath)
     arc = yaml(raw)
   }
   else if (exists(arcTomlPath)) {

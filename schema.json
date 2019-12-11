@@ -1,5 +1,42 @@
 {
-	"definitions": {},
+	"definitions": {
+    "name": {
+      "type":"string",
+		  "pattern": "^[a-z][a-z|\\-|0-9]+$"
+    },
+    "region": {
+      "type":"string",
+      "enum": [
+        "us-east-1",
+        "us-east-2",
+        "us-west-1",
+        "us-west-2",
+        "ca-central-1",
+        "eu-west-1",
+        "eu-central-1",
+        "eu-west-2",
+        "eu-west-3",
+        "eu-north-1",
+        "ap-northeast-1",
+        "ap-northeast-2",
+        "ap-southeast-1",
+        "ap-southeast-2",
+        "ap-south-1",
+        "sa-east-1",
+        "us-gov-west-1",
+        "us-gov-east-1"
+      ]
+    },
+    "table": {
+		  "type": "object",
+			"title": "DynamoDB table",
+      "propertyNames": {
+				"pattern": "^[a-z][a-z|\\-|0-9]+$"
+      },
+      "minProperties": 1,
+      "maxProperties": 1
+	  }
+  },
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"$id": "https://arc.codes/schema.json",
 	"type": "object",
@@ -9,7 +46,7 @@
 		"aws"
 	],
   "additionalProperties": {
-    "type": "array",
+    "type": ["array", "object"],
     "items": {
       "type": ["string", "number", "boolean", "array", "object"]
     } 
@@ -22,23 +59,21 @@
 			"type": ["string", "array"],
 			"maxItems": 1,
 		  "pattern": "^[a-z][a-z|\\-|0-9]+$",
-			"items": {
-				"type": "string",
-				"pattern": "^[a-z][a-z|\\-|0-9]+$"
-			}
+			"items": {"$ref":"#/definitions/name"}
 		},
 		"aws": {
 			"$id": "#/properties/aws",
 			"title": "@aws",
 			"description": "AWS specific configuration",
 			"type": ["array", "object"],
+			"maxItems": 4,
 			"uniqueItems": true,
 			"items": {
 				"type": ["array", "object"],
 				"maxItems": 2,
 				"items": [{
 				  "type": "string",
-				  "enum": ["region", "profile", "bucket"]
+				  "enum": ["region", "profile", "bucket", "runtime"]
         },
         {
           "type": "string"
@@ -46,31 +81,10 @@
       },
       "required": ["bucket"],
       "properties": {
-        "region": {
-        	 "type": "string", 
-           "enum": [
-            	"us-east-1",
-              "us-east-2",
-              "us-west-1",
-              "us-west-2",
-              "ca-central-1",
-              "eu-west-1",
-              "eu-central-1",
-              "eu-west-2",
-              "eu-west-3",
-              "eu-north-1",
-              "ap-northeast-1",
-              "ap-northeast-2",
-              "ap-southeast-1",
-              "ap-southeast-2",
-              "ap-south-1",
-              "sa-east-1",
-              "us-gov-west-1",
-              "us-gov-east-1"
-            ]
-          },
+        "region":{"$ref":"#/definitions/region"},
         "profile": {"type":"string"},
-				"bucket": {"type":"string"}   
+				"bucket": {"type":"string"},   
+				"runtime": {"type":"string"}   
 			}
 		},
 		"static": {
@@ -79,19 +93,18 @@
 			"title": "@static",
 			"description": "S3 website configuration",
 			"uniqueItems": true,
-			"items": {
-				"type": ["array", "object"],
-				"maxItems": 4,
-				"items": {
-          "type": "array",
-          "items": [
-            {
-					    "type": "string",
-					    "enum": ["folder", "fingerprint", "ignore", "spa"]
-            },
-            {"type": ["string", "boolean", "array", "object"]}
-				  ]
-        }
+			"maxItems": 4,
+      "items": {
+				"type": "array",
+				"items": [
+					{
+						"type": "string",
+						"enum": ["folder", "fingerprint", "ignore", "spa"]
+					},
+					{
+						"type": ["string", "boolean", "array", "object"]
+					}
+				]
 			},
       "properties": {
         "folder": {"type":"string"},
@@ -106,11 +119,7 @@
 			"title": "@ws",
 			"description": "API Gateway web socket configuration",
 			"uniqueItems": true,
-			"items": {
-				"type": "string",
-				"title": "web socket handlers",
-				"pattern": "^[a-z][a-z|\\-|0-9]+$"
-			}
+			"items": {"$ref":"#/definitions/name"}
 		},
 		"http": {
 			"$id": "#/properties/http",
@@ -137,35 +146,21 @@
 			"type": "array",
 			"title": "@events",
 			"uniqueItems": true,
-			"items": {
-				"type": "string",
-				"title": "event handlers",
-				"pattern": "^[a-z][a-z|\\-|0-9]+$"
-			}
+			"items": {"$ref":"#/definitions/name"}
 		},
 		"queues": {
-			"$id": "#/properties/events",
+			"$id": "#/properties/queues",
 			"type": "array",
 			"title": "@queues",
 			"uniqueItems": true,
-			"items": {
-				"$id": "#/properties/events/items",
-				"type": "string",
-				"title": "queue handlers",
-				"pattern": "^[a-z][a-z|\\-|0-9]+$"
-			}
+			"items": {"$ref":"#/definitions/name"}
 		},
 		"macros": {
-			"$id": "#/properties/events",
+			"$id": "#/properties/macros",
 			"type": "array",
 			"title": "@macros",
 			"uniqueItems": true,
-			"items": {
-				"$id": "#/properties/events/items",
-				"type": "string",
-				"title": "macro functions",
-				"pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
-			}
+			"items": {"$ref":"#/definitions/name"}
 		},
 		"scheduled": {
 			"$id": "#/properties/scheduled",
@@ -193,30 +188,14 @@
 			"type": "array",
 			"title": "@tables",
 			"uniqueItems": true,
-			"items": {
-				"type": "object",
-				"title": "DynamoDB table",
-        "propertyNames": {
-					"pattern": "^[a-z][a-z|\\-|0-9]+$"
-        },
-        "minProperties": 1,
-        "maxProperties": 1
-			}
+			"items": {"$ref":"#/definitions/table"}
 		},
 		"indexes": {
 			"$id": "#/properties/indexes",
 			"type": "array",
 			"title": "@indexes",
 			"uniqueItems": true,
-			"items": {
-				"type": "object",
-				"title": "DynamoDB table",
-        "propertyNames": {
-					"pattern": "^[a-z][a-z|\\-|0-9]+$"
-        },
-        "minProperties": 1,
-        "maxProperties": 1
-			}
+			"items": {"$ref":"#/definitions/table"}
 		}
 	}
 }

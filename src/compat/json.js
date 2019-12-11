@@ -1,24 +1,30 @@
 /**
  * Adjusts cardinality of some Architect specific keys to make them nicer to author in JSON, YAML and TOML
- *
  */
 module.exports = function parseJSON(text) {
+
+  let SKIP = ['macros', 'events', 'queues', 'tables', 'indexes', 'cdn', 'ws']
+  let KNOWN = ['app', 'aws', 'static', 'http', 'scheduled'].concat(SKIP)
 
   let json = JSON.parse(text)
   let result = {}
 
-  Object.keys(json).forEach(section => {
+  for (let section of Object.keys(json)) {
 
     // passthru
-    let SKIP = ['events', 'queues', 'tables', 'indexes', 'cdn', 'ws']
-    if (SKIP.includes(section))
+    if (SKIP.includes(section)) {
       result[section] = json[section]
+      continue
+    }
 
-    // convert key:value to key:[value] (app)
-    if (section === 'app' && Array.isArray(json[section]) === false)
+    // convert app:name to app:[name]
+    if (section === 'app' && Array.isArray(json[section]) === false) {
       result[section] = [json[section]]
+      continue
+    }
 
-    // convert plain objects to array (aws, static, scheduled)
+    // convert plain objects to tuples (aws, static, scheduled)
+    // this will add unknown pragmas that are top level objects too
     if (Array.isArray(json[section]) === false && typeof json[section] === 'object') {
       if (!result[section])
         result[section] = []
@@ -26,9 +32,16 @@ module.exports = function parseJSON(text) {
         let value = [key, json[section][key]]
         result[section].push(value)
       })
+      continue
     }
 
-    // convert array of objects [{get: '/'}] to array of arrays [['get', '/']]
+    // ensure we add unknown pragmas; just pass thru
+    if (Array.isArray(json[section]) && KNOWN.includes(section) === false) {
+      result[section] = json[section]
+      continue
+    }
+
+    // convert array of objects [{get: '/'}] to tuples [['get', '/']]
     if (section === 'http') {
       if (!result[section])
         result[section] = []
@@ -45,8 +58,16 @@ module.exports = function parseJSON(text) {
           throw Error('invalid route type')
         }
       })
+      continue
     }
 
-  })
+    if (KNOWN.includes(section) && Array.isArray(json[section])) {
+      result[section] = json[section]
+      continue
+    }
+
+    // end of pragma loop
+  }
+
   return result
 }

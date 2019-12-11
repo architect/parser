@@ -13,10 +13,11 @@ let exists = fs.existsSync
 let join = path.join
 
 /**
- * Look up .arc falling back to:
+ * Look up .arc falling back to: app.arc, arc.json, arc.yaml, arc.toml
  *
  * @param {object} params
  * @param {string} params.cwd - path to current working directory (process.cwd() used if not defined)
+ * @returns {object} {arc, raw, errors}
  */
 module.exports = function readArc(params={}) {
 

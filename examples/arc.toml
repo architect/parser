@@ -14,20 +14,21 @@ events=["foo"]
 queues=["bar"]
 ws=["join"]
 macros=["storage"]
-cdn=[]
 
-scheduled=[
-  ["daily", "rate(1 day)"]
-]
-
-[static]
-folder="dist"
-fingerprint=true
+[scheduled]
+daily=["rate(1 day)"]
 
 [aws]
 profile="myprofile"
 region="ca-central-1"
 bucket="mybucket-central-1"
+
+[cdn]
+# no config
+
+[static]
+folder="dist"
+fingerprint=true
 
 [[tables]]
 [tables.data]

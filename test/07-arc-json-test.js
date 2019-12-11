@@ -1,7 +1,7 @@
-var test = require('tape')
-var fs = require('fs')
-var assert = require('assert-diff')
-var parse = require('../')
+let test = require('tape')
+let fs = require('fs')
+let assert = require('assert-diff')
+let parse = require('../')
 
 test('should parse mock arc.json', t=> {
   t.plan(1)
@@ -84,6 +84,7 @@ test('should parse mock arc.json', t=> {
     "ws": []
   }
   assert.deepEqual(parsed, expected)
+  // console.log(parsed, expected)
   t.ok(true, 'parsed json')
 })
 

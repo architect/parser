@@ -59,7 +59,7 @@ namespace
   type :string
   max 10
   min 1
-  match /a-zA-Z/ 
+  match /^[a-z][a-z|\\-|0-9]+$/ 
 
 pair
   type :array

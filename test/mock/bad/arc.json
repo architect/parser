@@ -1,3 +1,8 @@
 {
-  "http": [["any", "asdf"]]
+  "aws":{
+    "region": "knowhere",
+    "bucket": "begin-west-1"
+  },
+  "http": [["any", "asdf"]],
+  "ws":[true]
 }

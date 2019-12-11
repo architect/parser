@@ -1,0 +1,46 @@
+{
+  "app": "testapp",
+  "aws": {
+    "region": "us-west-2",
+    "profile": "personal",
+    "runtime": "nodejs10.x",
+    "bucket": "someapp-preview"
+  },
+  "macros": ["storage"],
+  "storage": ["backups"],
+  "events": ["send-welcome-sms"],
+  "http": [
+    { "get": "/http/route" }, 
+    { "post": "/http/routetwo" }
+  ],
+  "indexes": [
+    {
+      "authors": {
+        "phone": "*String"
+      }
+    }
+  ],
+  "queues": ["some-queue"],
+  "scheduled": {
+    "daily-report": "rate(1 day)"
+  },
+  "static": {
+    "folder": "dist",
+    "fingerprint": true,
+    "spa": true
+  },
+  "tables": [
+    {
+      "notes": {
+        "authorID": "*String",
+        "noteID": "**String"
+      }
+    },
+    {
+      "authors": {
+        "authorID": "*String"
+      }
+    }
+  ],
+  "ws": []
+}

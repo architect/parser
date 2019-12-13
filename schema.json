@@ -197,6 +197,14 @@
           "object"
         ],
         "maxItems": 2,
+        "maxProperties": 1,
+        "properties": {
+          "get": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
+          "post": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
+          "put": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
+          "patch": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
+          "delete": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"}
+        },
         "items": [
           {
             "type": "string",

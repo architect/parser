@@ -1,19 +1,17 @@
-## `parse(text: string, schema: string?) => object`
+## Usage
 
-indiscriminate plaintext arc parsed into plain javascript object
+```javascript
+let parse = require('@architect/parser')
+let {lexer, parser, json, yaml, toml, stringify} = parse
+```
 
-## `parse.arc(arc: string) => object`
+### API
 
-validates OpenJS Architect expected schema
-
-## `parse.json(json: string) => object`
-
-accepts json but otherwise an alias for `parse.architect` 
-
-## `parse.yaml(yaml: string) => object`
-
-accepts yaml but otherwise an alias for `parse.architect` 
-
-## `parse.stringify(source: arcfile) => string`
-
-stringify an arcfile instance
+- `parse(code:string) => object` indescriminate lex/parse of text
+- `lexer(code:string) => array` lex string into `.arc` recognized lexeme tokens
+- `parser(tokens:array) => object` parse lexeme tokens into Architect JSON Schema friendly structure
+- `json(code:string) => object` parse JSON text into Architect JSON Schema
+- `yaml(code:string) => object` parse YAML text into Architect JSON Schema
+- `toml(code:string) => object` parse TOML text into Architect JSON Schema
+- `stringify(json:object) => string` stringify an arcfile instance
+- `read(params:object) => object` read an arcfile from the file system

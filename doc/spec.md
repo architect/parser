@@ -151,6 +151,7 @@ map
 
 This is the maximum nesting possible.
 
+<!--
 # Schema and Types
 
 ## Schema
@@ -158,3 +159,4 @@ This is the maximum nesting possible.
 ## Builtin Types
 
 ## Defining Custom Types
+-->

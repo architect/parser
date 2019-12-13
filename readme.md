@@ -1,17 +1,32 @@
 # [`@architect/parser`](https://www.npmjs.com/package/@architect/parser) [![GitHub CI status](https://github.com/architect/parser/workflows/Node%20CI/badge.svg)](https://github.com/architect/parser/actions?query=workflow%3A%22Node+CI%22)
 <!-- [![codecov](https://codecov.io/gh/architect/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/architect/parser) -->
 
-> `.arc` is a text format for storing structured data; `@architect/parser`
-> is a function that accepts text and returns a plain JavaScript `Object`
+OpenJS Architect is an Infrastructure as Code (IaC) solution. The critical insight of *Infastructure as Code* is determinism. Infrastructure resources are defined in a declarative manifest file with the code that depends on them. This ensures deployment artifacts alway have the exact runtime resources expected for every version of the code. 
 
-The format:
+Architect looks in the following places for the primary definition/configuration manifest file:
+
+- `.arc`
+- `app.arc` - [example](/examples/arc.arc)
+- `arc.json` - [example](/examples/arc.json) - [schema](https://arc.codes/schema.json)
+- `arc.yaml` - [example](/examples/arc.yaml)
+- `arc.toml` - [example](/examples/arc.toml)
+
+> The `.arc` format is unique to Architect with many readability advantages; but is *not required*
+
+---
+
+# `.arc`
+
+> `.arc` is a text format for storing structured configuration data; it is not for serializing or transporting data
+
+The `.arc` format:
 
 - Comments follow `#` symbols
-- Starts with a `@pragma`
-- Pragmas start with `@`
-- Pragmas contain; scalar values or complex values
+- Top level keys start with `@` (example: `@pragma`)
+- Pragmas contain: scalar values or complex values
 - Scalar values are: `string`, `number` and `boolean`
 - Complex values are: `array`, `vector` and `map`
+- Whitespace is significant
 
 ## Example
 

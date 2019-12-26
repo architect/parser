@@ -8,10 +8,10 @@ const NameError = require('../errors/parse-vector-name-not-string')
  * @param {number} index
  * @returns {object} {end, value}
  */
-module.exports = function vector(lines, index) {
+module.exports = function vector(lines) {
 
   let copy = lines.slice(0)
-  let end = index + copy[0].length + 1
+  let end = copy[0].length + 1 // len of the tokes in the line plus one for the line itself
   let raw = copy.shift().filter(notempty)[0]
   let name = raw.value
 

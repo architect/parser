@@ -81,7 +81,7 @@ module.exports = function type({tokens, index}) {
     return vector(lines, index)
 
   if (is.map)
-    return map(lines, index)
+    return map(lines)
 
   throw new TypeUnknown(tokens[index])
 }

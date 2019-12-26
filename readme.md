@@ -8,7 +8,7 @@ Architect looks in the following places for the primary definition/configuration
 - `.arc`
 - `app.arc` - [example](/examples/arc.arc)
 - `arc.json` - [example](/examples/arc.json) - [schema](https://arc.codes/schema.json)
-- `arc.yaml` - [example](/examples/arc.yaml)
+- `arc.yaml` - [example](/examples/arc.yml)
 - `arc.toml` - [example](/examples/arc.toml)
 
 > The `.arc` format is unique to Architect with many readability advantages; but is *not required*

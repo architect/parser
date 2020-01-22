@@ -113,3 +113,5 @@ jobs:
           type: ${{ job.status }}
           job_name: '*Publish*'
           url: ${{ secrets.SLACK_WEBHOOK }}
+          commit: true
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -32,28 +32,35 @@ module.exports = function readArc(params={}) {
 
   let raw
   let arc
+  let filepath
 
   if (exists(arcDefaultPath)) {
+    filepath = arcDefaultPath
     raw = read(arcDefaultPath)
     arc = parser(lexer(raw))
   }
   else if (exists(appDotArcPath)) {
+    filepath = appDotArcPath
     raw = read(appDotArcPath)
     arc = parser(lexer(raw))
   }
   else if (exists(arcJsonPath)) {
+    filepath = arcJsonPath
     raw = read(arcJsonPath)
     arc = json(raw)
   }
   else if (exists(arcYamlPath)) {
+    filepath = arcYamlPath
     raw = read(arcYamlPath)
     arc = yaml(raw)
   }
   else if (exists(arcYmlPath)) {
+    filepath = arcYmlPath
     raw = read(arcYmlPath)
     arc = yaml(raw)
   }
   else if (exists(arcTomlPath)) {
+    filepath = arcTomlPath
     raw = read(arcTomlPath)
     arc = toml(raw)
   }
@@ -62,5 +69,5 @@ module.exports = function readArc(params={}) {
   }
 
   let errors = validate(arc)
-  return {arc, raw, errors}
+  return {arc, raw, filepath, errors}
 }

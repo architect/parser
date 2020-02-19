@@ -42,8 +42,7 @@
   "type": "object",
   "title": "OpenJS Architect JSON Schema",
   "required": [
-    "app",
-    "aws"
+    "app"
   ],
   "additionalProperties": {
     "type": [

@@ -9,7 +9,8 @@
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
     "test": "npm run lint && npm run coverage",
     "t": "npm run lint && npm run test:unit",
-    "rc": "npm version prerelease --preid RC"
+    "rc": "npm version prerelease --preid RC",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,14 @@
   "author": "Brian LeRoux",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
     "assert-diff": "^2.0.3",
     "codecov": "^3.6.1",
     "eslint": "^6.6.0",
     "nyc": "^15.0.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-terser": "^5.2.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.11.0"
   }

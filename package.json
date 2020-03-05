@@ -21,7 +21,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
-    "assert-diff": "^2.0.3",
+    "assert-diff": "^3.0.0",
     "codecov": "^3.6.1",
     "eslint": "^6.6.0",
     "nyc": "^15.0.0",

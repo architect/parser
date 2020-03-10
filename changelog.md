@@ -6,7 +6,12 @@
 
 ### Added
 
-- Parser now returns a default Architect project if one is not found
+- Parser now returns a default Architect project if one is not found in the root of the working directory
+
+
+### Changed
+
+- Updated dependencies
 
 ---
 

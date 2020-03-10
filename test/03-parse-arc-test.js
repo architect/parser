@@ -22,51 +22,6 @@ test('test base mock file', t=> {
   console.log(JSON.stringify(parsed.attr, null, 2))
 })
 
-/*
-{
-  "attr": [
-    "single",
-    false,
-    1,
-    -1,
-    [
-      "tuple",
-      "tuple"
-    ],
-    [
-      1,
-      2.1,
-      33,
-      "fourtyfour",
-      true,
-      false,
-      "v"
-    ],
-    {
-      "object": {
-        "key": "value",
-        "gud": true,
-        "bad": false
-      }
-    },
-    // TODO test these values above
-    "another-single_value",
-    {
-      "another-obj": {
-        "$k": 666,
-        "another-key": "another_value/baz.txt",
-        "undef": false,
-        "asdf": [
-          1,
-          2,
-          3,
-          "four"
-        ]
-      }
-    }
-  ]
-}*/
-
 test('test aws arc by parsing mock-arc', t=> {
   t.plan(1)
   var mock = fs.readFileSync('./test/mock/aws.arc').toString()

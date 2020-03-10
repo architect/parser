@@ -1,17 +1,49 @@
-## 2.0.2 - 2-18-2020
+# Architect Parser changelog
 
-- adds rollup for creating node and browser builds (run `npm run build` if you want those)
+---
+
+## [2.1.0] 2020-03-01
+
+### Added
+
+- Parser now returns a default Architect project if one is not found
+
+---
+
+## [2.0.2] 2-18-2020
+
+### Added
+
+- Adds rollup for creating node and browser builds (run `npm run build` if you want those)
+
+
+### Changed
+
 - `@aws` pragma no longer required by `schema.json`
 
-## 2.0.1 - 12-26-19
+---
 
-- removed lockfile
-- fix #33 some pragmas not serializing correctly
+## [2.0.1] 12-26-19
 
-## 2.0.0 - 12-13-19
+### Fixed
+- Resolved issue preventing some pragmas from not serializing correctly; fixes #33
 
-- lexer/parser rewrite
-- adds `schema.json` and JSON schema validation
-- adds `arc.toml` support
-- adds `read`
-- adds `/examples` and `/doc`
+
+### Changed
+
+- Removed lockfile
+
+---
+
+## [2.0.0] 12-13-19
+
+### Added
+
+- Adds `schema.json` and JSON schema validation
+- Adds `arc.toml` support
+- Adds `read` method
+- Adds `/examples` and `/doc`
+
+### Changed
+
+- Complete lexer / parser rewrite

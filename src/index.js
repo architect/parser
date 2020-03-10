@@ -20,6 +20,7 @@ parse.json = json
 parse.yaml = yaml
 parse.toml = toml
 parse.stringify = stringify
-parse.read = read
+parse.readArc = read
+parse.read = read // Deprecated
 
 module.exports = parse

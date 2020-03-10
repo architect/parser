@@ -12,6 +12,14 @@ let read = p=> fs.readFileSync(p).toString()
 let exists = fs.existsSync
 let join = path.join
 
+let defaultArc = `@app
+app-default
+
+@static
+
+@http
+`
+
 /**
  * Look up .arc falling back to: app.arc, arc.json, arc.yaml, arc.yml, arc.toml
  *
@@ -65,7 +73,9 @@ module.exports = function readArc(params={}) {
     arc = toml(raw)
   }
   else {
-    throw Error('not_found')
+    filepath = false
+    raw = defaultArc
+    arc = parser(lexer(raw))
   }
 
   let errors = validate(arc)

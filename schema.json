@@ -1,8 +1,16 @@
 {
   "definitions": {
-    "name": {
+    "strictName": {
       "type": "string",
-      "pattern": "^[a-z][a-z|\\-|0-9]+$"
+      "pattern": "^[a-z][a-z0-9\\-]+$"
+    },
+    "looseName": {
+      "type": "string",
+      "pattern": "^[a-z][a-zA-Z0-9\\-_]+$"
+    },
+    "macros": {
+      "type": "string",
+      "pattern": "^[a-z][a-zA-Z0-9\\-_/.]+$"
     },
     "region": {
       "type": "string",
@@ -31,7 +39,7 @@
       "type": "object",
       "title": "DynamoDB table",
       "propertyNames": {
-        "pattern": "^[a-z][a-z|\\-|0-9]+$"
+        "pattern": "^[a-z][a-z|0-9|\\-]+$"
       },
       "minProperties": 1,
       "maxProperties": 1
@@ -69,9 +77,8 @@
         "array"
       ],
       "maxItems": 1,
-      "pattern": "^[a-z][a-z|\\-|0-9]+$",
       "items": {
-        "$ref": "#/definitions/name"
+        "$ref": "#/definitions/looseName"
       }
     },
     "aws": {
@@ -181,7 +188,7 @@
       "description": "API Gateway web socket configuration",
       "uniqueItems": true,
       "items": {
-        "$ref": "#/definitions/name"
+        "$ref": "#/definitions/strictName"
       }
     },
     "http": {
@@ -198,11 +205,26 @@
         "maxItems": 2,
         "maxProperties": 1,
         "properties": {
-          "get": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
-          "post": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
-          "put": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
-          "patch": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"},
-          "delete": {"type": "string", "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"}
+          "get": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+          },
+          "post": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+          },
+          "put": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+          },
+          "patch": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+          },
+          "delete": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+          }
         },
         "items": [
           {
@@ -228,7 +250,7 @@
       "title": "@events",
       "uniqueItems": true,
       "items": {
-        "$ref": "#/definitions/name"
+        "$ref": "#/definitions/strictName"
       }
     },
     "queues": {
@@ -237,7 +259,7 @@
       "title": "@queues",
       "uniqueItems": true,
       "items": {
-        "$ref": "#/definitions/name"
+        "$ref": "#/definitions/strictName"
       }
     },
     "macros": {
@@ -246,7 +268,7 @@
       "title": "@macros",
       "uniqueItems": true,
       "items": {
-        "$ref": "#/definitions/name"
+        "$ref": "#/definitions/macros"
       }
     },
     "scheduled": {

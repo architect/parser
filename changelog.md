@@ -2,6 +2,20 @@
 
 ---
 
+## [2.1.1] 2020-03-22
+
+### Added
+
+- Added user-friendly errors for common schema validation issues
+
+
+### Changed
+
+- If schema validation errors are present, `readArc()` errors now returns a string, and not an array of errors
+- Updated dependencies
+
+---
+
 ## [2.1.0] 2020-03-01
 
 ### Added

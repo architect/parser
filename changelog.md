@@ -2,7 +2,7 @@
 
 ---
 
-## [2.1.1] 2020-03-22
+## [2.1.1 - 2.1.2] 2020-03-22
 
 ### Added
 
@@ -13,6 +13,11 @@
 
 - If schema validation errors are present, `readArc()` errors now returns a string, and not an array of errors
 - Updated dependencies
+
+
+### Fixed
+
+- Resolved schema validation errors for `@static staging / production`
 
 ---
 
@@ -45,6 +50,7 @@
 ## [2.0.1] 12-26-19
 
 ### Fixed
+
 - Resolved issue preventing some pragmas from not serializing correctly; fixes #33
 
 

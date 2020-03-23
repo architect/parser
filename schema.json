@@ -132,14 +132,14 @@
     },
     "static": {
       "$id": "#/properties/static",
+      "title": "@static",
+      "description": "Static asset & S3 configuration",
+      "uniqueItems": true,
       "type": [
         "array",
         "object"
       ],
-      "title": "@static",
-      "description": "S3 website configuration",
-      "uniqueItems": true,
-      "maxItems": 4,
+      "maxItems": 6,
       "items": {
         "type": "array",
         "items": [
@@ -149,7 +149,9 @@
               "folder",
               "fingerprint",
               "ignore",
-              "spa"
+              "spa",
+              "staging",
+              "production"
             ]
           },
           {
@@ -185,7 +187,7 @@
       "$id": "#/properties/ws",
       "type": "array",
       "title": "@ws",
-      "description": "API Gateway web socket configuration",
+      "description": "API Gateway WebSocket configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/strictName"
@@ -248,6 +250,7 @@
       "$id": "#/properties/events",
       "type": "array",
       "title": "@events",
+      "description": "Events configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/strictName"
@@ -257,6 +260,7 @@
       "$id": "#/properties/queues",
       "type": "array",
       "title": "@queues",
+      "description": "Queues configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/strictName"
@@ -266,6 +270,7 @@
       "$id": "#/properties/macros",
       "type": "array",
       "title": "@macros",
+      "description": "Deployment macros configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/macros"
@@ -278,6 +283,7 @@
         "object"
       ],
       "title": "@scheduled",
+      "description": "Scheduled event configuration",
       "uniqueItems": true,
       "items": {
         "$id": "#/properties/scheduled/items",
@@ -302,6 +308,7 @@
       "$id": "#/properties/tables",
       "type": "array",
       "title": "@tables",
+      "description": "DynamoDB database tables configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/table"
@@ -311,6 +318,7 @@
       "$id": "#/properties/indexes",
       "type": "array",
       "title": "@indexes",
+      "description": "DynamoDB global secondary indexes configuration",
       "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/table"

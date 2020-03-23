@@ -10,6 +10,10 @@ bucket mahbukkitt
 @static
 fingerprint true
 folder dist
+ignore yep
+spa true
+staging a-bucket
+production another-bucket
 
 @http
 get    /
@@ -44,6 +48,7 @@ moreData
 @indexes
 data
   anotherID *Number
+  anotherKey **String
 
 moreData
   anotherID *Number

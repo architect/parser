@@ -2,6 +2,14 @@
 
 ---
 
+## [2.1.3] 2020-03-25
+
+### Fixed
+
+- Fixes issues where values (usually environment variables in `.arc-env`) that start with a leading digit may be miscategorized and return a `NaN`
+
+---
+
 ## [2.1.1 - 2.1.2] 2020-03-22
 
 ### Added

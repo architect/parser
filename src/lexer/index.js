@@ -125,15 +125,17 @@ module.exports = function lex(code) {
     /* order important! this needs to come before str */
     if (NUMBER.test(code[cursor])) {
       let token = peek.number(cursor, code)
-      tokens.push({
-        type: 'number',
-        value: Number(token),
-        line,
-        column
-      })
-      cursor += token.length
-      column += token.length
-      continue
+      if (!Number.isNaN(Number(token))) {
+        tokens.push({
+          type: 'number',
+          value: Number(token),
+          line,
+          column
+        })
+        cursor += token.length
+        column += token.length
+        continue
+      }
     }
 
     if (STRING.test(code[cursor])) {

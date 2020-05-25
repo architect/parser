@@ -27,7 +27,7 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "assert-diff": "~3.0.0",
-    "codecov": "~3.6.5",
+    "codecov": "~3.7.0",
     "eslint": "~7.0.0",
     "nyc": "^15.0.0",
     "rollup": "^2.1.0",

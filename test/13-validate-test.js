@@ -17,3 +17,9 @@ test('validation with good JSON schema', t=> {
   console.log(JSON.stringify(output, null, 2))
   console.log(parse(parse.stringify(output.arc)))
 })
+
+test('validation with correct JSON schema including @static with "ignore" setting', t=> {
+  t.plan(1)
+  let output = parse.read({cwd: path.join(__dirname, 'mock', 'good', 'static-ignore')})
+  t.ok(output.errors === false, 'parsed with no errors')
+})

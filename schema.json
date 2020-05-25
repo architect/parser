@@ -135,13 +135,10 @@
       "title": "@static",
       "description": "Static asset & S3 configuration",
       "uniqueItems": true,
-      "type": [
-        "array",
-        "object"
-      ],
+      "type": "array",
       "maxItems": 6,
       "items": {
-        "type": "array",
+        "type": ["array", "object"],
         "items": [
           {
             "type": "string",
@@ -162,24 +159,24 @@
               "object"
             ]
           }
-        ]
-      },
-      "properties": {
-        "folder": {
-          "type": "string"
-        },
-        "fingerprint": {
-          "type": "boolean"
-        },
-        "ignore": {
-          "type": [
-            "string",
-            "object",
-            "array"
-          ]
-        },
-        "spa": {
-          "type": "boolean"
+        ],
+        "properties": {
+          "folder": {
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "boolean"
+          },
+          "ignore": {
+            "type": [
+              "string",
+              "object",
+              "array"
+            ]
+          },
+          "spa": {
+            "type": "boolean"
+          }
         }
       }
     },

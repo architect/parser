@@ -4,7 +4,7 @@
   "description": "Architect Parser accepts plaintext, JSON, or YAML .arc manifests and returns a plain JavaScript Object",
   "main": "./src/index.js",
   "scripts": {
-    "deno:test":"deno test -A --unstable mod.test.ts",
+    "deno:test": "deno test -A --unstable mod.test.ts",
     "deno:fmt": "deno fmt mod.ts && deno fmt mod.test.ts",
     "lint": "npx eslint . --fix",
     "test:unit": "tape test/**/*-test.js | tap-spec",

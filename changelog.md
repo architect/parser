@@ -2,6 +2,14 @@
 
 ---
 
+## [2.1.4] 2020-06-04
+
+### Added
+
+- Adds support for `@static fingerprint external` and `@static prefix whatever-folder`
+
+---
+
 ## [2.1.3] 2020-03-25
 
 ### Fixed

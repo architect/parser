@@ -21,7 +21,7 @@ test('Test full Architect project manifest mock', t=> {
   let pragmaConfig = {
     app: 1,
     aws: 4,
-    static: 6,
+    static: 7,
     http: 5,
     ws: 0,
     events: 2,

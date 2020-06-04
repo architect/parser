@@ -12,6 +12,7 @@ fingerprint true
 folder dist
 ignore yep
 spa true
+prefix something
 staging a-bucket
 production another-bucket
 

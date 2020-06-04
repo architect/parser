@@ -8,6 +8,11 @@
 
 - Adds support for `@static fingerprint external` and `@static prefix whatever-folder`
 
+
+### Fixed
+
+- Fixed schema to accept objects as items in the `@static` pragma, thanks @filmaj!
+
 ---
 
 ## [2.1.3] 2020-03-25

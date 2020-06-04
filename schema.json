@@ -143,8 +143,8 @@
           {
             "type": "string",
             "enum": [
-              "folder",
               "fingerprint",
+              "folder",
               "ignore",
               "prefix",
               "spa",

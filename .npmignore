@@ -1,10 +1,12 @@
+.codecov.yaml
 .eslintignore
 .eslintrc.js
 .git/
 .github/
 .nyc_output/
-.codecov.yaml
-examples/
-doc/
 coverage/
+doc/
+examples/
+mod*.ts
+rollup.config.js
 test/

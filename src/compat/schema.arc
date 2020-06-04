@@ -1,13 +1,13 @@
 # define the .arc schema in itself
 #
-# @schema defines @pragmas 
+# @schema defines @pragmas
 # leading : colon operator signals 'this is a :type'
 # trailing ! bang operator signals 'this :type is required'
 # trailing ? question operator signals 'this :type is defined once or zero times'
 @schema
 
 # define @app namespace
-app 
+app
   :namespace!
 
 # @aws and bucket are required
@@ -25,7 +25,7 @@ events
   :string
 
 # defines @http with :route values
-http      
+http
   :route
 
 macros
@@ -39,10 +39,11 @@ scheduled
   :cron
 
 static
-  :folder
-  :spa
   :fingerprint
+  :folder
   :ignore
+  :prefix
+  :spa
 
 tables
   :table
@@ -59,7 +60,7 @@ namespace
   type :string
   max 10
   min 1
-  match /^[a-z][a-z|\\-|0-9]+$/ 
+  match /^[a-z][a-z|\\-|0-9]+$/
 
 pair
   type :array
@@ -69,7 +70,7 @@ pair
 # @aws
 bucket
   type :pair
-  first bucket 
+  first bucket
   rest :string
 
 region
@@ -85,7 +86,7 @@ profile
 runtime
   type :pair
   first runtime
-  rest 
+  rest
     nodejs10.x
     python3.8
     ruby2.5
@@ -93,27 +94,22 @@ runtime
     go1.x
     dotnetcore2.1
 
-# @http 
+# @http
 route
   type :pair
   first get post put delete patch
   rest :string
 
-# @static 
+# @static
+fingerprint
+  type :pair
+  first fingerprint
+  rest :boolean :string
+
 folder
   type :pair
   first folder
   rest :string
-
-spa
-  type :pair
-  first spa
-  rest :boolean
-
-fingerprint
-  type :pair
-  first fingerprint
-  rest :boolean
 
 ignore
   type :array
@@ -127,8 +123,18 @@ ignores
   rest :string
   min 1
 
+prefix
+  type :array
+  first prefix
+  rest :string
+
+spa
+  type :pair
+  first spa
+  rest :boolean
+
 # @scheduled
-# weekly 
+# weekly
 #   cron 0/10 * ? * MON-FRI *
 # daily
 #   rate 1 day

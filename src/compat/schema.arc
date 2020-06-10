@@ -43,6 +43,7 @@ static
   :folder
   :ignore
   :prefix
+  :prune
   :spa
 
 tables
@@ -127,6 +128,11 @@ prefix
   type :array
   first prefix
   rest :string
+
+prune
+  type :pair
+  first prune
+  rest :boolean
 
 spa
   type :pair

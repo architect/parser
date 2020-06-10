@@ -13,6 +13,7 @@ folder dist
 ignore yep
 spa true
 prefix something
+prune true
 staging a-bucket
 production another-bucket
 

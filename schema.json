@@ -147,6 +147,7 @@
               "folder",
               "ignore",
               "prefix",
+              "prune",
               "spa",
               "staging",
               "production"
@@ -180,6 +181,9 @@
           },
           "prefix": {
             "type": "string"
+          },
+          "prune": {
+            "type": "boolean"
           },
           "spa": {
             "type": "boolean"

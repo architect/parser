@@ -2,6 +2,14 @@
 
 ---
 
+## [2.1.5] 2020-06-10
+
+### Added
+
+- Adds support for `@static prune true|false`
+
+---
+
 ## [2.1.4] 2020-06-04
 
 ### Added

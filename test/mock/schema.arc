@@ -23,10 +23,12 @@ scheduled
   cron
 
 static
-  folder
-  spa
   fingerprint
+  folder
   ignore
+  prefix
+  prune
+  spa
 
 tables
   table
@@ -94,7 +96,7 @@ cron
   max 1
   required cron:crontab
 
-# weekly 
+# weekly
 #   cron 0/10 * ? * MON-FRI *
 
 crontab

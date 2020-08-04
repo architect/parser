@@ -4,11 +4,12 @@
     "region": "us-west-2",
     "profile": "personal",
     "runtime": "nodejs10.x",
+    "apigateway": "http",
     "bucket": "someapp-preview"
   },
   "events": ["send-welcome-sms"],
   "http": [
-    { "get": "/http/route" }, 
+    { "get": "/http/route" },
     { "post": "/http/routetwo" }
   ],
   "indexes": [
@@ -40,6 +41,4 @@
     }
   ],
   "ws": []
-  
-  
 }

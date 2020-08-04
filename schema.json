@@ -89,7 +89,7 @@
         "array",
         "object"
       ],
-      "maxItems": 4,
+      "maxItems": 5,
       "uniqueItems": true,
       "items": {
         "type": [
@@ -103,8 +103,9 @@
             "enum": [
               "region",
               "profile",
-              "bucket",
-              "runtime"
+              "runtime",
+              "apigateway",
+              "bucket"
             ]
           },
           {

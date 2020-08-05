@@ -1,6 +1,6 @@
 {
   "name": "@architect/parser",
-  "version": "2.1.6-RC.0",
+  "version": "2.1.6",
   "description": "Architect Parser accepts plaintext, JSON, or YAML .arc manifests and returns a plain JavaScript Object",
   "main": "./src/index.js",
   "scripts": {

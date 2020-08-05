@@ -25,6 +25,10 @@ test('should parse mock arc.json', t=> {
         "nodejs10.x"
       ],
       [
+        "apigateway",
+        "http"
+      ],
+      [
         "bucket",
         "someapp-preview"
       ]

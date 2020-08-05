@@ -2,6 +2,14 @@
 
 ---
 
+## [2.1.6] 2020-08-04
+
+### Added
+
+- Adds support for `@aws apigateway http[v1|v2]|rest`
+
+---
+
 ## [2.1.5] 2020-06-10
 
 ### Added

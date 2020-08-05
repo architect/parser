@@ -2,9 +2,10 @@
 testapp
 
 @aws
-runtime nodejs10.x
 region us-west-1
 profile work
+runtime nodejs10.x
+apigateway http
 bucket mahbukkitt
 
 @static

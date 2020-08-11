@@ -89,7 +89,7 @@
         "array",
         "object"
       ],
-      "maxItems": 9,
+      "maxItems": 12,
       "uniqueItems": true,
       "items": {
         "type": [
@@ -116,7 +116,10 @@
             ]
           },
           {
-            "type": "string"
+            "type": [
+              "string",
+              "number"
+            ]
           }
         ]
       },

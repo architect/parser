@@ -2,6 +2,14 @@
 
 ---
 
+## [2.1.7] 2020-08-11
+
+### Fixed
+
+- Fixed missing support for the following `@aws` settings: `layer` (alternatively `layers`), `memory`, `policy` (alternatively `policies`), and `timeout`
+
+---
+
 ## [2.1.6] 2020-08-04
 
 ### Added

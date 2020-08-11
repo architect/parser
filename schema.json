@@ -103,9 +103,12 @@
             "enum": [
               "apigateway",
               "bucket",
+              "concurrency",
               "layer",
               "layers",
               "memory",
+              "policy",
+              "policies",
               "profile",
               "region",
               "runtime",

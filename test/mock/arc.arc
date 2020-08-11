@@ -4,10 +4,14 @@ testapp
 @aws
 apigateway http
 bucket mahbukkitt
+concurrency 100
 layer foo
 layers
   bar
   baz
+policy fiz
+policies
+  buz
 memory 256
 profile work
 region us-west-1

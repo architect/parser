@@ -2,11 +2,17 @@
 testapp
 
 @aws
-region us-west-1
-profile work
-runtime nodejs10.x
 apigateway http
 bucket mahbukkitt
+layer foo
+layers
+  bar
+  baz
+memory 256
+profile work
+region us-west-1
+runtime nodejs10.x
+timeout 10
 
 @static
 fingerprint true

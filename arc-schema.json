@@ -123,21 +123,58 @@
           }
         ]
       },
-      "required": [
-        "bucket"
-      ],
       "properties": {
-        "region": {
-          "$ref": "#/definitions/region"
-        },
-        "profile": {
+        "apigateway": {
           "type": "string"
         },
         "bucket": {
           "type": "string"
         },
+        "concurrency": {
+          "type": "number"
+        },
+        "layer": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "layers": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "memory": {
+          "type": "number"
+        },
+        "policy": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "policies": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "profile": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
         "runtime": {
           "type": "string"
+        },
+        "timeout": {
+          "type": "number"
         }
       }
     },
@@ -158,10 +195,10 @@
               "folder",
               "ignore",
               "prefix",
+              "production",
               "prune",
               "spa",
-              "staging",
-              "production"
+              "staging"
             ]
           },
           {
@@ -174,14 +211,14 @@
           }
         ],
         "properties": {
-          "folder": {
-            "type": "string"
-          },
           "fingerprint": {
             "type": [
               "boolean",
               "string"
             ]
+          },
+          "folder": {
+            "type": "string"
           },
           "ignore": {
             "type": [
@@ -193,11 +230,17 @@
           "prefix": {
             "type": "string"
           },
+          "production": {
+            "type": "string"
+          },
           "prune": {
             "type": "boolean"
           },
           "spa": {
             "type": "boolean"
+          },
+          "staging": {
+            "type": "string"
           }
         }
       }

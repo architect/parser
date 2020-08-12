@@ -1,12 +1,14 @@
 let Ajv = require('./ajv-6.10.2')
-let schema = require('../../schema.json')
+let arcSchema = require('../../arc-schema.json')
+let arcConfigSchema = require('../../arc-config-schema.json')
 
 /**
  * @param {object} arc
  * @returns {boolean|string} returns either 'false' or a string of errors
  */
-module.exports = function validate(arc) {
+module.exports = function validate({arc, type}) {
   let defn = new Ajv({allErrors: true})
+  let schema = !type || type === 'arc' ? arcSchema : arcConfigSchema
   let valid = defn.validate(schema, arc)
 
   let isValid = valid && !defn.errors

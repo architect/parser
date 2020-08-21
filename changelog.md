@@ -2,7 +2,12 @@
 
 ---
 
-## [2.1.7] 2020-08-11
+## [2.2.0] 2020-08-11
+
+### Added
+
+- Added support for reading and validating Architect function config files (`config.arc`, `.arc-config`, `arc-config.[json|yaml|yml|toml]`) with `readArcConfig()`
+
 
 ### Fixed
 

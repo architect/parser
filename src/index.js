@@ -4,7 +4,8 @@ let json = require('./compat/json')
 let yaml = require('./compat/yaml')
 let toml = require('./compat/toml')
 let stringify = require('./compat/stringify')
-let read = require('./read')
+let readArc = require('./read/arc')
+let readArcConfig = require('./read/arc-config')
 
 /**
  * @param {string} code
@@ -14,13 +15,17 @@ function parse(code) {
   return parser(lexer(code))
 }
 
+// Parser methods
 parse.lexer = lexer
 parse.parser = parser
 parse.json = json
 parse.yaml = yaml
 parse.toml = toml
 parse.stringify = stringify
-parse.readArc = read
-parse.read = read // Deprecated
+
+// Read methods
+parse.readArc = readArc
+parse.read = readArc // Deprecated
+parse.readArcConfig = readArcConfig
 
 module.exports = parse

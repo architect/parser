@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://arc.codes/schema-config.json",
+  "type": "object",
+  "title": "OpenJS Architect Function Configuration JSON Schema",
+  "properties": {
+    "aws": {
+      "$id": "#/properties/aws",
+      "title": "@aws",
+      "description": "AWS specific configuration",
+      "type": [
+        "array",
+        "object"
+      ],
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": [
+          "array",
+          "object"
+        ],
+        "maxItems": 2,
+        "items": [
+          {
+            "type": "string",
+            "enum": [
+              "concurrency",
+              "layer",
+              "layers",
+              "memory",
+              "policy",
+              "policies",
+              "runtime",
+              "timeout"
+            ]
+          },
+          {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "concurrency": {
+          "type": "number"
+        },
+        "layer": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "layers": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "memory": {
+          "type": "number"
+        },
+        "policy": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "policies": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        },
+        "runtime": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

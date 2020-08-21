@@ -1,9 +1,9 @@
-let lexer = require('./lexer')
-let parser = require('./parser')
-let validate = require('./compat/validate')
-let json = require('./compat/json')
-let yaml = require('./compat/yaml')
-let toml = require('./compat/toml')
+let lexer = require('../lexer')
+let parser = require('../parser')
+let validate = require('../compat/validate')
+let json = require('../compat/json')
+let yaml = require('../compat/yaml')
+let toml = require('../compat/toml')
 
 let fs = require('fs')
 let path = require('path')
@@ -31,8 +31,8 @@ module.exports = function readArc(params={}) {
 
   let cwd = params.cwd || process.cwd()
 
-  let arcDefaultPath = join(cwd, '.arc')
-  let appDotArcPath = join(cwd, 'app.arc')
+  let arcDefaultPath = join(cwd, 'app.arc')
+  let dotArcPath = join(cwd, '.arc')
   let arcJsonPath = join(cwd, 'arc.json')
   let arcYamlPath = join(cwd, 'arc.yaml')
   let arcYmlPath = join(cwd, 'arc.yml')
@@ -47,9 +47,9 @@ module.exports = function readArc(params={}) {
     raw = read(arcDefaultPath)
     arc = parser(lexer(raw))
   }
-  else if (exists(appDotArcPath)) {
-    filepath = appDotArcPath
-    raw = read(appDotArcPath)
+  else if (exists(dotArcPath)) {
+    filepath = dotArcPath
+    raw = read(dotArcPath)
     arc = parser(lexer(raw))
   }
   else if (exists(arcJsonPath)) {
@@ -78,6 +78,6 @@ module.exports = function readArc(params={}) {
     arc = parser(lexer(raw))
   }
 
-  let errors = validate(arc)
+  let errors = validate({ arc, type: 'arc' })
   return {arc, raw, filepath, errors}
 }

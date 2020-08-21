@@ -3,21 +3,30 @@ name: Node CI
 # Push tests pushes; PR tests merges
 on: [push, pull_request]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
 
   # Test the build
   build:
     # Setup
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
+        node-version: [10.x, 12.x, 14.x]
         os: [windows-latest, ubuntu-latest, macOS-latest]
 
     # Go
     steps:
     - name: Check out repo
       uses: actions/checkout@v1
+
+    - name: Set up Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        npm config set script-shell "C:\\Program Files\\Git\\bin\\bash.exe"
 
     - name: Set up Node.js
       uses: actions/setup-node@v1
@@ -32,6 +41,7 @@ jobs:
         echo "SHA:        ${{ github.sha }}"
         VER=`node --version`; echo "Node ver:   $VER"
         VER=`npm --version`; echo "npm ver:    $VER"
+        echo "OS ver:     ${{ runner.os }}"
 
     - name: Install
       run: npm install

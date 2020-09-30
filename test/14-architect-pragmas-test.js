@@ -22,7 +22,7 @@ test('Test full Architect project manifest mock', t=> {
     app: 1,
     aws: 12,
     static: 8,
-    http: 5,
+    http: 6,
     ws: 0,
     events: 2,
     scheduled: 1,

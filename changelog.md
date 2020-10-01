@@ -8,6 +8,7 @@
 
 - Add support for `@proxy` pragma for passing through requests via `@http` to an external site
 - Add support for `@http` catchall syntax (e.g. `get /api/*`)
+- Add support for `@http` `any` method syntax (e.g. `any /path`)
 
 ---
 

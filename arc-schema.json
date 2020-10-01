@@ -269,6 +269,10 @@
         "maxItems": 2,
         "maxProperties": 1,
         "properties": {
+          "any": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
           "get": {
             "type": "string",
             "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
@@ -294,6 +298,7 @@
           {
             "type": "string",
             "enum": [
+              "any",
               "get",
               "post",
               "put",

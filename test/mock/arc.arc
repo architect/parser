@@ -35,6 +35,7 @@ put    /put
 patch  /patch
 delete /delete
 get    /path/*
+any    /path
 
 @proxy
 local http://localhost:4444

@@ -2,6 +2,15 @@
 
 ---
 
+## [2.3.0] 2020-10-01
+
+### Added
+
+- Add support for `@proxy` pragma for passing through requests via `@http` to an external site
+- Add support for `@http` catchall syntax (e.g. `get /api/*`)
+
+---
+
 ## [2.2.0] 2020-08-11
 
 ### Added

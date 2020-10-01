@@ -36,6 +36,11 @@ patch  /patch
 delete /delete
 get    /path/*
 
+@proxy
+local http://localhost:4444
+staging https://some.staging.site
+production https://some.production.site
+
 @ws
 
 @events

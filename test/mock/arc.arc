@@ -29,13 +29,15 @@ staging a-bucket
 production another-bucket
 
 @http
-get    /
-post   /post
-put    /put
-patch  /patch
-delete /delete
-get    /path/*
-any    /path
+get      /
+get      /path/*
+post     /post
+put      /put
+patch    /patch
+delete   /delete
+head     /head
+options  /options
+any      /any
 
 @proxy
 local http://localhost:4444

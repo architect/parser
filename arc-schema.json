@@ -292,6 +292,14 @@
           "delete": {
             "type": "string",
             "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
+          "head": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
+          "options": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           }
         },
         "items": [
@@ -302,8 +310,10 @@
               "get",
               "post",
               "put",
+              "patch",
               "delete",
-              "patch"
+              "head",
+              "options"
             ]
           },
           {

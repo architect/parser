@@ -269,41 +269,99 @@
         "maxItems": 2,
         "maxProperties": 1,
         "properties": {
+          "any": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
           "get": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           },
           "post": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           },
           "put": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           },
           "patch": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           },
           "delete": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
+          "head": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          },
+          "options": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
           }
         },
         "items": [
           {
             "type": "string",
             "enum": [
+              "any",
               "get",
               "post",
               "put",
+              "patch",
               "delete",
-              "patch"
+              "head",
+              "options"
             ]
           },
           {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9\\/\\-:\\._]+$"
+            "pattern": "^[a-zA-Z0-9\\/\\-:\\._\\*]+$"
+          }
+        ]
+      }
+    },
+    "proxy": {
+      "$id": "#/properties/http",
+      "title": "@proxy",
+      "description": "Proxy",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": [
+          "array",
+          "object"
+        ],
+        "maxItems": 3,
+        "maxProperties": 1,
+        "properties": {
+          "testing": {
+            "type": "string",
+            "pattern": "^https?:\\/\\/.+$"
+          },
+          "staging": {
+            "type": "string",
+            "pattern": "^https?:\\/\\/.+$"
+          },
+          "production": {
+            "type": "string",
+            "pattern": "^https?:\\/\\/.+$"
+          }
+        },
+        "items": [
+          {
+            "type": "string",
+            "enum": [
+              "testing",
+              "staging",
+              "production"
+            ]
+          },
+          {
+            "type": "string",
+            "pattern": "^https?:\\/\\/.+$"
           }
         ]
       }

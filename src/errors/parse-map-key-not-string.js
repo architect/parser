@@ -1,5 +1,5 @@
 module.exports = class MapKeyNotStrng extends SyntaxError {
-  constructor({line, column}) {
+  constructor ({ line, column }) {
     super(`map key is not a string (line: ${line} column: ${column})`)
     this.line = line
     this.column = column

@@ -9,7 +9,7 @@ const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
  * @param {array} raw tokens
  * @returns {object}
  */
-module.exports = function parse(raw, sourcemap=false) {
+module.exports = function parse (raw, sourcemap = false) {
 
   let tokens = compact(raw)
   // console.log({tokens})
@@ -50,12 +50,12 @@ module.exports = function parse(raw, sourcemap=false) {
       index += 1
 
     if (token.type === 'number' || token.type === 'boolean' || token.type === 'string') {
-      let {end, value} = type({tokens, index})
+      let { end, value } = type({ tokens, index })
       arc[pragma].push(value)
-      src[pragma].push({start: token, end: tokens[index + end]})
+      src[pragma].push({ start: token, end: tokens[index + end] })
       index += end
     }
   }
 
-  return sourcemap? {arc, src} : arc
+  return sourcemap ? { arc, src } : arc
 }

@@ -6,8 +6,8 @@
   "scripts": {
     "deno:test": "deno test -A --unstable mod.test.ts",
     "deno:fmt": "deno fmt mod.ts && deno fmt mod.test.ts",
-    "lint": "npx eslint . --fix",
-    "test:unit": "tape 'test/**/*-test.js' | tap-spec",
+    "lint": "eslint . --fix",
+    "test:unit": "cross-env tape 'test/**/*-test.js' | tap-spec",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
     "test": "npm run lint && npm run coverage",
     "t": "npm run lint && npm run test:unit",
@@ -24,15 +24,20 @@
   "author": "Brian LeRoux",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@architect/eslint-config": "0.0.1",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.0.3",
     "assert-diff": "~3.0.1",
     "codecov": "~3.8.0",
+    "cross-env": "~7.0.2",
     "eslint": "~7.11.0",
     "nyc": "^15.1.0",
     "rollup": "^2.13.1",
     "rollup-plugin-terser": "^7.0.0",
     "tap-spec": "^5.0.0",
     "tape": "~5.0.1"
+  },
+  "eslintConfig": {
+    "extends": "@architect/eslint-config"
   }
 }

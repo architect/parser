@@ -2,7 +2,7 @@ let test = require('tape')
 let fs = require('fs')
 let parse = require('../')
 
-test('Test full Architect project manifest mock', t=> {
+test('Test full Architect project manifest mock', t => {
   let mock = fs.readFileSync('./test/mock/arc.arc').toString()
   let arc = parse(mock)
   t.ok(arc, 'parsed mock')

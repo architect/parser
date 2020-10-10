@@ -2,7 +2,7 @@ var test = require('tape')
 var fs = require('fs')
 var parse = require('../')
 
-test('test base mock file', t=> {
+test('test base mock file', t => {
   t.plan(12)
   var mock = fs.readFileSync('./test/mock/simple.arc').toString()
   var parsed = parse(mock)
@@ -22,7 +22,7 @@ test('test base mock file', t=> {
   console.log(JSON.stringify(parsed.attr, null, 2))
 })
 
-test('test aws arc by parsing mock-arc', t=> {
+test('test aws arc by parsing mock-arc', t => {
   t.plan(1)
   var mock = fs.readFileSync('./test/mock/aws.arc').toString()
   var parsed = parse(mock)

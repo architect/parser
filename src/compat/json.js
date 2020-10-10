@@ -1,10 +1,10 @@
 /**
  * Adjusts cardinality of some Architect specific keys to make them nicer to author in JSON, YAML and TOML
  */
-module.exports = function parseJSON(text) {
+module.exports = function parseJSON (text) {
 
-  let SKIP = ['macros', 'events', 'queues', 'tables', 'indexes', 'cdn', 'ws']
-  let KNOWN = ['app', 'aws', 'static', 'http', 'scheduled'].concat(SKIP)
+  let SKIP = [ 'macros', 'events', 'queues', 'tables', 'indexes', 'cdn', 'ws' ]
+  let KNOWN = [ 'app', 'aws', 'static', 'http', 'scheduled' ].concat(SKIP)
 
   let json = JSON.parse(text)
   let result = {}
@@ -19,7 +19,7 @@ module.exports = function parseJSON(text) {
 
     // convert app:name to app:[name]
     if (section === 'app' && Array.isArray(json[section]) === false) {
-      result[section] = [json[section]]
+      result[section] = [ json[section] ]
       continue
     }
 
@@ -28,8 +28,8 @@ module.exports = function parseJSON(text) {
     if (Array.isArray(json[section]) === false && typeof json[section] === 'object') {
       if (!result[section])
         result[section] = []
-      Object.keys(json[section]).forEach(key=> {
-        let value = [key, json[section][key]]
+      Object.keys(json[section]).forEach(key => {
+        let value = [ key, json[section][key] ]
         result[section].push(value)
       })
       continue
@@ -45,10 +45,10 @@ module.exports = function parseJSON(text) {
     if (section === 'http') {
       if (!result[section])
         result[section] = []
-      json[section].forEach(route=> {
+      json[section].forEach(route => {
         if (Array.isArray(route) === false && typeof route === 'object') {
           let verb = Object.keys(route)[0]
-          let tuple = [verb, route[verb]]
+          let tuple = [ verb, route[verb] ]
           result[section].push(tuple)
         }
         else if (Array.isArray(route)) {

@@ -16,7 +16,7 @@ false false false
 foo bar
 `
 
-test('lex', t=> {
+test('lex', t => {
   t.plan(5)
 
   // can lex

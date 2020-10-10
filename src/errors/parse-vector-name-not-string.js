@@ -1,5 +1,5 @@
 module.exports = class VectorNameNotStrng extends SyntaxError {
-  constructor({line, column}) {
+  constructor ({ line, column }) {
     super(`vector name is not a string (line: ${line} column: ${column})`)
     this.line = line
     this.column = column

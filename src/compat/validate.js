@@ -6,8 +6,8 @@ let arcConfigSchema = require('../../arc-config-schema.json')
  * @param {object} arc
  * @returns {boolean|string} returns either 'false' or a string of errors
  */
-module.exports = function validate({arc, type='arc'}) {
-  let defn = new Ajv({allErrors: true})
+module.exports = function validate ({ arc, type = 'arc' }) {
+  let defn = new Ajv({ allErrors: true })
   let schema = type === 'arc' ? arcSchema : arcConfigSchema
   let valid = defn.validate(schema, arc)
 
@@ -17,7 +17,7 @@ module.exports = function validate({arc, type='arc'}) {
     return false
   }
   else if (isInvalid) {
-    let message = ['Architect schema validation error']
+    let message = [ 'Architect schema validation error' ]
     let unknownErrors = 0
     let findPragma = /\w+(?=\[)/
     let findPosition = /(?<=[\[])\d+(?=[\]])/

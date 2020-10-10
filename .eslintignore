@@ -5,3 +5,4 @@ coverage/
 dist/
 rollup.config.js
 .nyc_output/
+mod.test.ts

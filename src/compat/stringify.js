@@ -18,12 +18,12 @@ module.exports = function stringify (obj) {
       }
 
       if (typeof prop === 'boolean') {
-        out += `${prop? 'true' : 'false'}\n`
+        out += `${prop ? 'true' : 'false'}\n`
       }
 
       if (typeof prop === 'object') {
         if (Array.isArray(prop)) {
-          prop.forEach(p=> {
+          prop.forEach(p => {
             out += `${p} `
           })
           out += '\n'

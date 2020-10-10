@@ -1,7 +1,7 @@
 name: Node CI
 
 # Push tests pushes; PR tests merges
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 defaults:
   run:
@@ -15,13 +15,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
-        os: [windows-latest, ubuntu-latest, macOS-latest]
+        node-version: [ 10.x, 12.x, 14.x ]
+        os: [ windows-latest, ubuntu-latest, macOS-latest ]
 
     # Go
     steps:
     - name: Check out repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Set up Windows
       if: matrix.os == 'windows-latest'
@@ -74,7 +74,7 @@ jobs:
     # Go
     steps:
       - name: Check out repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v1

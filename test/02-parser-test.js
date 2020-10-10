@@ -13,7 +13,7 @@ true
 one 2 false
 `
 
-test('lex and parse', t=> {
+test('lex and parse', t => {
   t.plan(3)
   t.ok(lex, 'lex')
   t.ok(parse, 'parse')
@@ -23,7 +23,7 @@ test('lex and parse', t=> {
   console.log(arcfile, arc)
 })
 
-test('vertical vector', t=> {
+test('vertical vector', t => {
   t.plan(1)
   t.ok(true, 'ok')
   let arc = `
@@ -38,7 +38,7 @@ vert
   console.log(arc, lexed, JSON.stringify(parsed, null, 2))
 })
 
-test('anon vertical', t=> {
+test('anon vertical', t => {
   t.plan(1)
   let arc = `
 @anon
@@ -52,7 +52,7 @@ true false
   console.log(arc, lexed, JSON.stringify(parsed, null, 2))
 })
 
-test('map', t=> {
+test('map', t => {
   t.plan(5)
   let arc = `
 @whales
@@ -71,7 +71,7 @@ orca
   console.log(JSON.stringify(parsed, null, 2))
 })
 
-test('map with vector', t=> {
+test('map with vector', t => {
   t.plan(1)
   let arc = `
 @animals

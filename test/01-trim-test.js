@@ -8,7 +8,7 @@ let arcfile = `
 str
 `
 
-test('lex and trim left', t=> {
+test('lex and trim left', t => {
   t.plan(3)
   t.ok(lex, 'lex')
   t.ok(trim, 'trim')

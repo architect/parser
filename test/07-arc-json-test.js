@@ -3,96 +3,96 @@ let fs = require('fs')
 let assert = require('assert-diff')
 let parse = require('../')
 
-test('should parse mock arc.json', t=> {
+test('should parse mock arc.json', t => {
   t.plan(1)
   let mock = fs.readFileSync('./test/mock/arc.json').toString()
   let parsed = parse.json(mock)
   let expected = {
-    "app": [
-      "testapp"
+    'app': [
+      'testapp'
     ],
-    "aws": [
+    'aws': [
       [
-        "region",
-        "us-west-2"
+        'region',
+        'us-west-2'
       ],
       [
-        "profile",
-        "personal"
+        'profile',
+        'personal'
       ],
       [
-        "runtime",
-        "nodejs10.x"
+        'runtime',
+        'nodejs10.x'
       ],
       [
-        "apigateway",
-        "http"
+        'apigateway',
+        'http'
       ],
       [
-        "bucket",
-        "someapp-preview"
+        'bucket',
+        'someapp-preview'
       ]
     ],
-    "events": [
-      "send-welcome-sms"
+    'events': [
+      'send-welcome-sms'
     ],
-    "http": [
+    'http': [
       [
-        "get",
-        "/http/route"
+        'get',
+        '/http/route'
       ],
       [
-        "post",
-        "/http/routetwo"
+        'post',
+        '/http/routetwo'
       ]
     ],
-    "indexes": [
+    'indexes': [
       {
-        "authors": {
-          "phone": "*String"
+        'authors': {
+          'phone': '*String'
         }
       }
     ],
-    "queues": [
-      "some-queue"
+    'queues': [
+      'some-queue'
     ],
-    "scheduled": [
+    'scheduled': [
       [
-        "daily-report",
-        "rate(1 day)"
+        'daily-report',
+        'rate(1 day)'
       ]
     ],
-    "static": [
+    'static': [
       [
-        "staging",
-        "testapp-bucket"
+        'staging',
+        'testapp-bucket'
       ],
       [
-        "production",
-        "testapp-buckea-prod"
+        'production',
+        'testapp-buckea-prod'
       ]
     ],
-    "tables": [
+    'tables': [
       {
-        "notes": {
-          "authorID": "*String",
-          "noteID": "**String"
+        'notes': {
+          'authorID': '*String',
+          'noteID': '**String'
         }
       },
       {
-        "authors": {
-          "authorID": "*String"
+        'authors': {
+          'authorID': '*String'
         }
       }
     ],
-    "ws": []
+    'ws': []
   }
   assert.deepEqual(parsed, expected)
   // console.log(parsed, expected)
   t.ok(true, 'parsed json')
 })
 
-test('should serialize mock arc.json to .arc', t=> {
+test('should serialize mock arc.json to .arc', t => {
   t.plan(1)
   var mock = fs.readFileSync('./test/mock/arc.json', 'utf-8')
   let parsed = parse.json(mock)

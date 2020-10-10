@@ -19,7 +19,7 @@ let UnknownError = require('../errors/lex-unknown')
  * @param {string} code
  * @returns {array} tokens [{type, value, line, column}]
  */
-module.exports = function lex(code) {
+module.exports = function lex (code) {
 
   // state bag for our tokens
   let tokens = []
@@ -112,7 +112,7 @@ module.exports = function lex(code) {
       if (isBoolean) {
         tokens.push({
           type: 'boolean',
-          value: tmp === 'false'? false : true, // questionable
+          value: tmp === 'false' ? false : true, // questionable
           line,
           column
         })
@@ -147,12 +147,12 @@ module.exports = function lex(code) {
         line,
         column
       })
-      cursor += token.length + (quote? 2 : 0)
-      column += token.length + (quote? 2 : 0)
+      cursor += token.length + (quote ? 2 : 0)
+      column += token.length + (quote ? 2 : 0)
       continue
     }
 
-    throw new UnknownError({character: code[cursor], line, column})
+    throw new UnknownError({ character: code[cursor], line, column })
   }
 
   return tokens

@@ -10,7 +10,7 @@ const KeyError = require('../errors/parse-map-key-not-string')
  * @param {number} index
  * @returns {object} {end, value}
  */
-module.exports = function map(lines) {
+module.exports = function map (lines) {
 
   // extract the `name` and create the `end` index
   let copy = lines.slice(0)
@@ -32,7 +32,7 @@ module.exports = function map(lines) {
   while (!done) {
     // figure out the indentation of the next line
     let line = copy.shift()
-    let {onespace, twospace, threespace, fourspace, fivespace} = spaces(line)
+    let { onespace, twospace, threespace, fourspace, fivespace } = spaces(line)
 
     if (onespace || threespace || fivespace)
       throw new SpaceError(line[0])
@@ -57,7 +57,7 @@ module.exports = function map(lines) {
       if (left.type != 'string')
         throw new KeyError(left)
       last = left.value // reuse this for vert vector trapping
-      value[name][left.value] = right.length === 1? right[0].value : right.map(t=> t.value)
+      value[name][left.value] = right.length === 1 ? right[0].value : right.map(t => t.value)
     }
     else {
 
@@ -65,17 +65,17 @@ module.exports = function map(lines) {
       done = true
     }
   }
-  return {end, value}
+  return { end, value }
 }
 
 /** hide this here */
-function spaces(line) {
+function spaces (line) {
   if (!Array.isArray(line))
-    return {onespace: false, twospace: false, threespace: false, fourspace: false, fivespace: false}
+    return { onespace: false, twospace: false, threespace: false, fourspace: false, fivespace: false }
   let onespace = line.length > 2 && line[0].type == 'space' && line[1].type != 'space'
   let twospace = line.length > 2 && line[0].type == 'space' && line[1].type == 'space'
   let threespace = line.length >= 4 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type != 'space'
   let fourspace = line.length >= 5 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type == 'space'
   let fivespace = line.length >= 5 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type == 'space' && line[4].type == 'space'
-  return {onespace, twospace, threespace, fourspace, fivespace}
+  return { onespace, twospace, threespace, fourspace, fivespace }
 }

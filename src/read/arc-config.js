@@ -8,7 +8,7 @@ let toml = require('../compat/toml')
 let { existsSync: exists, readFileSync } = require('fs')
 let { join } = require('path')
 
-let read = p=> readFileSync(p).toString()
+let read = p => readFileSync(p).toString()
 
 /**
  * Look up .arc falling back to: config.arc, arc.json, arc.yaml, arc.yml, arc.toml
@@ -17,7 +17,7 @@ let read = p=> readFileSync(p).toString()
  * @param {string} params.cwd - path to current working directory (process.cwd() used if not defined)
  * @returns {object} {arc, raw, errors}
  */
-module.exports = function readArc(params={}) {
+module.exports = function readArc (params = {}) {
   let { cwd } = params
   cwd = cwd || process.cwd()
 
@@ -69,5 +69,5 @@ module.exports = function readArc(params={}) {
   }
 
   let errors = filepath ? validate({ arc, type: 'arcConfig' }) : null
-  return {arc, raw, filepath, errors}
+  return { arc, raw, filepath, errors }
 }

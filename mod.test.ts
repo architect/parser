@@ -22,7 +22,7 @@ get /
 Deno.test("can parse json", () => {
   let arcfile = JSON.stringify({
     app: "myapp",
-    http: [{get: "/"}],
+    http: [{ get: "/" }],
   });
   let parsed = parser.json(arcfile);
   assert(parsed);
@@ -34,7 +34,7 @@ Deno.test("can parse yaml", () => {
 app: myapp
 http: 
   - get: /
-`
+`;
   let parsed = parser.yaml(arcfile);
   assert(parsed);
   console.log(parsed);

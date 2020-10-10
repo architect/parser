@@ -11,7 +11,7 @@ let readArcConfig = require('./read/arc-config')
  * @param {string} code
  * @returns {object} parsed arc object
  */
-function parse(code) {
+function parse (code) {
   return parser(lexer(code))
 }
 

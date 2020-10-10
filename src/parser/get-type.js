@@ -32,23 +32,23 @@ const TypeUnknown = require('../errors/parse-type-unknown')
  *     of
  *     values
  */
-module.exports = function type({tokens, index}) {
+module.exports = function type ({ tokens, index }) {
 
   // working copy of the relevant tokens
   let working = tokens.slice(index, tokens.length)
 
   // get the indices of all newlines
-  let newlines = working.map((t, i)=> t.type === 'newline'? i : false).filter(Boolean)
+  let newlines = working.map((t, i) => t.type === 'newline' ? i : false).filter(Boolean)
 
   // get collection of lines: [[{token}, {token}], [{token, token}]]
-  let lines = newlines.reduce(function linebreak(collection, newline, index) {
-    let start = index === 0? index : newlines[index - 1] + 1
+  let lines = newlines.reduce(function linebreak (collection, newline, index) {
+    let start = index === 0 ? index : newlines[index - 1] + 1
     collection.push(working.slice(start, newline))
     return collection
   }, [])
 
   // extract the first three lines
-  let [first, second, third] = lines
+  let [ first, second, third ] = lines
 
   // is the second line indented two spaces? (signaling a named vector or map value)
   let indent = Array.isArray(second) && second.length >= 3 && second[0].type === 'space' && second[1].type === 'space'
@@ -72,9 +72,9 @@ module.exports = function type({tokens, index}) {
   }
 
   if (is.scalar)
-    return {end: 1, value: tokens[index].value}
+    return { end: 1, value: tokens[index].value }
 
-  if(is.array)
+  if (is.array)
     return array(lines)
 
   if (is.vector)

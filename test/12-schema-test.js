@@ -1,7 +1,7 @@
 let test = require('tape')
 let parse = require('../')
 
-test('parse quoted string', t=> {
+test('parse quoted string', t => {
   t.plan(3)
   let output = parse(`
 @mystr
@@ -13,7 +13,7 @@ test('parse quoted string', t=> {
   console.log(output)
 })
 
-test('parse quoted string with illegal chars', t=> {
+test('parse quoted string with illegal chars', t => {
   t.plan(2)
   let arcfile = `
 @mystr
@@ -28,7 +28,7 @@ test('parse quoted string with illegal chars', t=> {
   console.log(output)
 })
 
-test('string[]', t=> {
+test('string[]', t => {
   t.plan(2)
   let arcfile = `
 @mystr
@@ -41,7 +41,7 @@ test('string[]', t=> {
   console.log(output)
 })
 
-test('obj str', t=> {
+test('obj str', t => {
   t.plan(2)
   let arcfile = `
 @mystr
@@ -55,7 +55,7 @@ myobj
   console.log(JSON.stringify(output, null, 2))
 })
 
-test('floats and hashes; plus signals string; quoted values', t=> {
+test('floats and hashes; plus signals string; quoted values', t => {
   t.plan(2)
   let arcfile = `
 @floats
@@ -79,7 +79,7 @@ asdf-787
   console.log(JSON.stringify(output, null, 2))
 })
 
-test('nested floats and hashes; plus signals string; quoted values', t=> {
+test('nested floats and hashes; plus signals string; quoted values', t => {
   t.plan(2)
   let arcfile = `
 @values

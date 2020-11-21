@@ -64,7 +64,7 @@ module.exports = function parseJSON (text) {
       else invalidPragma(pragma)
     }
 
-    // Convert plain objects to tuples (aws, static, scheduled)
+    // Convert plain objects to tuples (aws, static, etc.)
     // This will add unknown pragmas that are top level objects, too
     if (CONVERT.includes(pragma)) {
       if (isObject(values))     result[pragma] = Object.entries(values).map(i => i)

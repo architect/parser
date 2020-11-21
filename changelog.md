@@ -2,6 +2,20 @@
 
 ---
 
+## [3.0.0] 2020-11-20
+
+### Added
+
+- Added support for new verbose format in `arc.json` + `arc.yaml`
+
+
+### Changed
+
+- Breaking change: remove filesystem methods (`read`, `readArc`) deprecated, with that role now taken over by Inventory
+- Disabled JSON schema validation, to be moved to Inventory
+
+---
+
 ## [2.3.0] 2020-10-01
 
 ### Added

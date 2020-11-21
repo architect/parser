@@ -4,8 +4,6 @@ let json = require('./compat/json')
 let yaml = require('./compat/yaml')
 let toml = require('./compat/toml')
 let stringify = require('./compat/stringify')
-let readArc = require('./read/arc')
-let readArcConfig = require('./read/arc-config')
 
 /**
  * @param {string} code
@@ -22,10 +20,5 @@ parse.json = json
 parse.yaml = yaml
 parse.toml = toml
 parse.stringify = stringify
-
-// Read methods
-parse.readArc = readArc
-parse.read = readArc // Deprecated
-parse.readArcConfig = readArcConfig
 
 module.exports = parse

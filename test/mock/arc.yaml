@@ -1,48 +1,81 @@
 ---
 app: testapp
-description: Example arc-to-json
-domain: testapp.com
+
+# description: Example arc-to-json
+
 aws:
   region: us-west-2
   profile: personal
-  runtime: nodejs8.10
-  layers:
-    - arn:aws:lambda:us-west-2:111111111111:layer:test:2
-    - arn:aws:lambda:us-west-2:111111111111:layer:test:1
+  runtime: nodejs10.x
+  apigateway: http
+  bucket: someapp-preview
+
+cdn:
+  enable: false
+
+events:
+- send-welcome-sms
+- send-verification-sms:
+    some-property: some-value
+    src: some/events/path
+
+http:
+- get: /http/route
+- post: /http/routetwo
+- /http/routethree:
+    method: any
+    src: some/http/path
+
+macros:
+- "@architect/node-prune"
+- custom-macro
+
+indexes:
+- authors:
+    phone: "*String"
+
+queues:
+- some-queue
+- send-other-queue:
+    src: some/queues/path
+
+scheduled:
+- daily-report: rate(1 day)
+- weekly-report:
+    rate: 1 day
+    src: some/scheduled/path
+
 static:
   staging: testapp-bucket
   production: testapp-bucket-prod
-html:
-- get: "/"
-- post: "/login"
-css:
-- "/index.css"
-js:
-- "/js/index.js"
-- "/js/:mjs"
-text:
-- "/robots.txt"
-- "/humans.txt"
-json:
-- get: "/api/notes"
-- put: "/api/notes/:noteID"
-- post: "/api/notes"
-- delete: "/api/notes/:noteID"
-- patch: "/api/notes/:noteID"
-xml:
-- get: index.rss
-events:
-- send-welcome-sms
+
+streams:
+- notes
+- some-stream-name:
+    table: authors
+    src: some/streams/path
+
 tables:
 - notes:
     authorID: "*String"
     noteID: "**String"
+    stream: true
 - authors:
     authorID: "*String"
-indexes:
-- authors:
-    phone: "*String"
-scheduled:
-  daily-report: rate(1 day)
-slack:
-- statsbot
+
+ws:
+- a-websocket-event
+- another-websocket-event:
+    src: some/ws/path
+
+unknown-obj-pragma:
+  some-value: true
+  some-other-value:
+    is-an-obj: yep
+  some-array-value: [ 1, 2, 3 ]
+
+unknown-array-pragma:
+- some-value: true
+- some-other-value:
+    is-an-obj: yep
+- some-array-value: [ 1, 2, 3 ]

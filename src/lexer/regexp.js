@@ -54,7 +54,7 @@ const RESERVED = /\{|\}|\[|\]|\<|\>/
  * - single quote '
  * - double quote " is greedy, supports newlines and must have a closing "
  */
-const STRING = /(\()|(\))|(\/)|([a-zA-Z0-9])|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
+const STRING = /(\()|(\))|(\/)|(\w)|(\~)|(-)|(\_)|(\.)|(\,)|(\:)|(\$)|(\*)|(\?)|(\&)|(\!)|(\%)|(\=)|(\+)|(\|)|(\^)|(\`)|(\')|(\")/
 
 /**
  * numbers (integer or float; negative modifier supported)

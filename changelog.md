@@ -2,6 +2,19 @@
 
 ---
 
+## [3.0.1] 2020-12-02
+
+### Added
+
+- Added i18n support for non-ascii string chars
+
+
+### Fixed
+
+- Fixed missing tilde from supported string chars
+
+---
+
 ## [3.0.0] 2020-11-20
 
 ### Added

@@ -30,7 +30,7 @@
     "assert-diff": "~3.0.1",
     "codecov": "~3.8.1",
     "cross-env": "~7.0.2",
-    "eslint": "~7.23.0",
+    "eslint": "~7.24.0",
     "nyc": "^15.1.0",
     "rollup": "^2.33.3",
     "rollup-plugin-terser": "^7.0.2",

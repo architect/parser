@@ -15,7 +15,7 @@
     "build": "rollup -c"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "repository": {
     "type": "git",
@@ -24,18 +24,17 @@
   "author": "Brian LeRoux",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@architect/eslint-config": "1.0.0",
-    "@rollup/plugin-commonjs": "^19.0.0",
+    "@architect/eslint-config": "~1.0.0",
+    "@rollup/plugin-commonjs": "~19.0.1",
     "@rollup/plugin-json": "^4.1.0",
-    "assert-diff": "~3.0.1",
-    "codecov": "~3.8.1",
-    "cross-env": "~7.0.2",
+    "assert-diff": "~3.0.2",
+    "cross-env": "~7.0.3",
     "eslint": "~7.31.0",
     "nyc": "^15.1.0",
-    "rollup": "^2.33.3",
+    "rollup": "^2.53.3",
     "rollup-plugin-terser": "^7.0.2",
     "tap-spec": "^5.0.0",
-    "tape": "~5.2.0"
+    "tape": "~5.2.2"
   },
   "eslintConfig": {
     "extends": "@architect/eslint-config"

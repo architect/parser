@@ -1,8 +1,7 @@
-src/compat/js-yaml-3.13.1.min.js
-src/compat/ajv-6.10.2.js
-src/compat/toml-node-3.0.0.js
+.nyc_output/
 coverage/
 dist/
-rollup.config.js
-.nyc_output/
 mod.test.ts
+rollup.config.js
+src/compat/vendor/
+tmp/

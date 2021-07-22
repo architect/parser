@@ -11,3 +11,4 @@ examples/
 mod*.ts
 rollup.config.js
 test/
+tmp/

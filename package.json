@@ -12,7 +12,10 @@
     "test": "npm run lint && npm run coverage",
     "t": "npm run lint && npm run test:unit",
     "rc": "npm version prerelease --preid RC",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "vendor:js-yaml": "mkdir -p tmp && browserify --node --standalone js-yaml --im --no-builtins node_modules/js-yaml/index.js > tmp/js-yaml.js && terser tmp/js-yaml.js -o src/compat/vendor/js-yaml.min.js",
+    "vendor:toml": "mkdir -p tmp && browserify --node --standalone toml --im --no-builtins node_modules/toml/index.js > tmp/toml.js && terser tmp/toml.js -o src/compat/vendor/toml.min.js",
+    "vendor": "npm run vendor:js-yaml && npm run vendor:toml"
   },
   "engines": {
     "node": ">=12"
@@ -28,13 +31,17 @@
     "@rollup/plugin-commonjs": "~19.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "assert-diff": "~3.0.2",
+    "browserify": "~17.0.0",
     "cross-env": "~7.0.3",
     "eslint": "~7.31.0",
+    "js-yaml": "~4.1.0",
     "nyc": "^15.1.0",
     "rollup": "^2.53.3",
     "rollup-plugin-terser": "^7.0.2",
     "tap-spec": "^5.0.0",
-    "tape": "~5.2.2"
+    "tape": "~5.2.2",
+    "terser": "~5.7.1",
+    "toml": "~3.0.0"
   },
   "eslintConfig": {
     "extends": "@architect/eslint-config"

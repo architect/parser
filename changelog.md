@@ -7,6 +7,8 @@
 ### Changed
 
 - Breaking change: removed support for Node.js 10.x (now EOL, and no longer available to created in AWS Lambda)
+- Updated dependencies
+- Updated vendored dependencies (`js-yaml`, `toml`)
 
 ---
 

@@ -33,7 +33,7 @@
     "assert-diff": "~3.0.2",
     "browserify": "~17.0.0",
     "cross-env": "~7.0.3",
-    "eslint": "~7.31.0",
+    "eslint": "~7.32.0",
     "js-yaml": "~4.1.0",
     "nyc": "^15.1.0",
     "rollup": "^2.53.3",

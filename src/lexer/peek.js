@@ -22,7 +22,8 @@ module.exports = {
     let matches = copy.match(NEWLINE)
     let end = matches && matches.index ? matches.index : code.length
     let token = copy.slice(0, end).trim()
-    if (!DASHERIZED.test(token.substring(1))) // ignore the leading @
+    let tidy = token.replace(/\#.*/gm, '').substring(1).trim() // remove comments/whitespace/leading @
+    if (!DASHERIZED.test(tidy))
       throw new PragmaSyntaxError({ token, line, column })
     return token
   },

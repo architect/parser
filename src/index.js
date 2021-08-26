@@ -1,5 +1,6 @@
 let lexer = require('./lexer')
 let parser = require('./parser')
+let ast = require('./ast')
 let json = require('./compat/json')
 let yaml = require('./compat/yaml')
 let toml = require('./compat/toml')
@@ -16,6 +17,7 @@ function parse (code) {
 // Parser methods
 parse.lexer = lexer
 parse.parser = parser
+parse.ast = ast
 parse.json = json
 parse.yaml = yaml
 parse.toml = toml

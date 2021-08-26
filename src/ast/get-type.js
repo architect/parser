@@ -1,5 +1,5 @@
 const notempty = require('./_not-empty')
-// const array = require('./array')
+const array = require('./array')
 // const vector = require('./vector')
 // const map = require('./map')
 const TypeUnknown = require('../errors/parse-type-unknown')
@@ -74,10 +74,10 @@ module.exports = function type ({ tokens, index }) {
   if (is.scalar)
     return { end: 1, value: { ...tokens[index] } }
 
-  /*
   if (is.array)
     return array(lines)
 
+  /*
   if (is.vector)
     return vector(lines, index)
 

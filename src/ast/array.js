@@ -1,4 +1,3 @@
-const notempty = require('./_not-empty')
 const SpaceError = require('../errors/parse-array-illegal-space')
 
 /**
@@ -11,7 +10,7 @@ module.exports = function array (lines) {
 
   let copy = lines.slice(0)
   let end = copy[0].length + 1
-  let value = copy[0].filter(notempty).map(t => t.value)
+  let value = { type: 'array', line: copy[0][0].line, column: copy[0][0].column, values: copy[0] }
 
   let nextline = copy.length > 1 && lines[1][0].type == 'space'
   if (nextline)

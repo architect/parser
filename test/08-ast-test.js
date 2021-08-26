@@ -133,10 +133,9 @@ true`
 
   let parsed = parse.ast(parse.lexer(mock))
   console.dir(parsed, { depth: null })
-  t.same(parsed, expected, 'successfully parsed ast for empty types')
+  t.same(parsed, expected, 'successfully parsed ast for scalar types')
 })
 
-/*
 test('ast arrays', t => {
   t.plan(1)
   let mock = `
@@ -147,29 +146,49 @@ one true 3 # comment2`
 
   let expected = {
     type: 'arcfile',
-    nodes: [
-      { type: 'newline' },
-      { type: 'comment', value: '# comment' },
-      { type: 'newline' },
-      { type: 'pragma', raw: '@pragma', values: [
-        { type: 'array', values: [
-          { type: 'string', value: 'one' },
-          { type: 'space' },
-          { type: 'boolean', value: true },
-          { type: 'space' },
-          { type: 'number', value: 3 },
-          { type: 'space' },
-          { type: 'comment', value: '# comment2' },
-        ]}
-      ]},
+    values: [
+      { type: 'newline', value: '\n', line: 1, column: 1 },
+      { type: 'newline', value: '\n', line: 2, column: 1 },
+      { type: 'comment', value: '# comment', line: 3, column: 1 },
+      { type: 'newline', value: '\n', line: 3, column: 10 },
+      {
+        type: 'pragma',
+        name: 'pragma',
+        raw: 'pragma',
+        line: 4,
+        column: 1,
+        values: [
+          { type: 'newline', value: '\n', line: 4, column: 8 },
+          {
+            type: 'array',
+            line: 5,
+            column: 1,
+            values: [
+              { type: 'string', value: 'one', line: 5, column: 1 },
+              { type: 'space', value: ' ', line: 5, column: 4 },
+              { type: 'boolean', value: true, line: 5, column: 5 },
+              { type: 'space', value: ' ', line: 5, column: 9 },
+              { type: 'number', value: 3, line: 5, column: 10 },
+              { type: 'space', value: ' ', line: 5, column: 11 },
+              {
+                type: 'comment',
+                value: '# comment2',
+                line: 5,
+                column: 12
+              }
+            ]
+          }
+        ]
+      }
     ]
   }
-  //let parsed = parse.ast(mock)
-  //assert.deepEqual(parsed, expected)
-  //t.pass('successfully parsed ast for scalar types')
-  //console.dir(parsed, { depth: null })
+
+  let parsed = parse.ast(parse.lexer(mock))
+  console.dir(parsed, { depth: null })
+  t.same(parsed, expected, 'successfully parsed ast for arrays')
 })
 
+/*
 test('ast should parse vectors', t => {
   t.plan(1)
 

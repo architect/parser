@@ -1,5 +1,4 @@
 let test = require('tape')
-let assert = require('assert-diff')
 let parse = require('../')
 
 /**
@@ -58,7 +57,7 @@ let parse = require('../')
  *   - has name property
  */
 
-test.only('ast empty', t => {
+test('ast empty', t => {
   t.plan(1)
 
   let mock = `
@@ -91,11 +90,9 @@ test.only('ast empty', t => {
 
   let parsed = parse.ast(parse.lexer(mock))
   console.dir(parsed, { depth: null })
-  assert.deepEqual(parsed, expected)
-  t.pass('successfully parsed ast for empty types')
+  t.same(parsed, expected, 'successfully parsed ast for empty types')
 })
 
-/*
 test('ast scalars', t => {
   t.plan(1)
 
@@ -110,26 +107,34 @@ true`
   let expected = {
     type: 'arcfile',
     values: [
-      { type: 'newline' },
-      { type: 'comment', value: '# comment' },
-      { type: 'newline' },
-      { type: 'pragma', name: '@pragma', raw: '@pragma #comment2', values: [
-        { type: 'comment', value: '# comment3' },
-        { type: 'newline' },
-        { type: 'string', value: 'str' },
-        { type: 'newline' },
-        { type: 'number', value: 2 },
-        { type: 'newline' },
-        { type: 'boolean', value: true }
-      ]}
+      { type: 'newline', value: '\n', line: 1, column: 1 },
+      { type: 'comment', value: '# comment', line: 2, column: 1 },
+      { type: 'newline', value: '\n', line: 2, column: 10 },
+      {
+        type: 'pragma',
+        name: 'pragma',
+        raw: 'pragma #comment2',
+        line: 3,
+        column: 1,
+        values: [
+          { type: 'newline', value: '\n', line: 3, column: 18 },
+          { type: 'comment', value: '# comment3', line: 4, column: 1 },
+          { type: 'newline', value: '\n', line: 4, column: 11 },
+          { type: 'string', value: 'str', line: 5, column: 1 },
+          { type: 'newline', value: '\n', line: 5, column: 4 },
+          { type: 'number', value: 2, line: 6, column: 1 },
+          { type: 'newline', value: '\n', line: 6, column: 2 },
+          { type: 'boolean', value: true, line: 7, column: 1 },
+          { type: 'newline', value: '\n', line: 7, column: 5 }
+        ]
+      }
     ]
   }
-  // let parsed = parse.ast(mock)
-  // assert.deepEqual(parsed, expected)
-  // t.pass('successfully parsed ast for scalar types')
-  // console.dir(parsed, { depth: null })
+
+  let parsed = parse.ast(parse.lexer(mock))
+  console.dir(parsed, { depth: null })
+  t.same(parsed, expected, 'successfully parsed ast for empty types')
 })
-*/
 
 /*
 test('ast arrays', t => {

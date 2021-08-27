@@ -15,7 +15,14 @@ module.exports = function isVector (tokens) {
     return false
 
   // subsequent lines start w two spaces are also scalar values
-  return lines.slice(1, lines.length).map(isValidValue).filter(v => v === false).length === 0
+  let good = []
+  for (let line of lines.slice(1, lines.length)) {
+    if (isValidValue(line) === true)
+      good.push(line)
+    else
+      break
+  }
+  return good.length >= 1
 }
 
 /** two spaces followed by a scalar value */

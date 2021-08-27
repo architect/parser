@@ -198,7 +198,8 @@ vec   # hi
   one  # uh oh
   2
   # what about now
-  true`
+  true
+ some stuff here`
   let tokens = parse.lexer(mock)
   let start = tokens.slice(3, tokens.length) // start at 'vec'
   t.ok(isVector(start), 'found a valid vector')

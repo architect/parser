@@ -1,8 +1,12 @@
-const notempty = require('./_not-empty')
-const array = require('./array')
-const vector = require('./vector')
 // const compact = require('./_compact')
-const map = require('./map')
+// const notempty = require('./_not-empty')
+const isScalar = require('./_is-scalar')
+const isVector = require('./_is-vector')
+const isIndent = require('./_is-indent')
+const array = require('./array')
+// const vector = require('./vector')
+// const map = require('./map')
+
 const TypeUnknown = require('../errors/parse-type-unknown')
 
 /**
@@ -25,7 +29,7 @@ const TypeUnknown = require('../errors/parse-type-unknown')
  * map
  *   key value
  *   one true
- *   vector 1 2 3
+ *   ary 1 2 3
  *
  * map
  *   named
@@ -37,53 +41,35 @@ module.exports = function type ({ tokens, index }) {
 
   // working copy of the relevant tokens
   let working = tokens.slice(index, tokens.length)
-  console.log(working)
-
-  // get the indices of all newlines
-  let newlines = working.map((t, i) => t.type === 'newline' ? i : false).filter(Boolean)
-
-  // get collection of lines: [[{token}, {token}], [{token, token}]]
-  let lines = newlines.reduce(function linebreak (collection, newline, index) {
-    let start = index === 0 ? index : newlines[index - 1] + 1
-    collection.push(working.slice(start, newline))
-    return collection
-  }, [])
-
-  // extract the first three lines
-  let [ first, second, third ] = lines
-
-  // is the second line indented two spaces? (signaling a named vector or map value)
-  let indent = Array.isArray(second) && second.length >= 3 && second[0].type === 'space' && second[1].type === 'space'
-
-  // is the third line indented four spaces? (signaling a map with an initial named vector value)
-  let vectorindent = Array.isArray(third) && third.length > 4 && third[0].type == 'space' && third[1].type == 'space' && third[2].type == 'space' && third[3].type == 'space'
-
-  // is the second line a scalar (singular) value?
-  let singular = second && second.filter(notempty).length === 1 && vectorindent === false
-
-  let scalar = first.filter(notempty).length === 1
 
   // do we have a scalar string|number|boolean value?
+  let scalar = isScalar(working)
+
   // do we have a possible array or vector value?
+  let indent = isIndent(working)
+  let vector = isVector(working)
+
   // do we have a possible map value?
+  // let map = isMap(working)
+
   let is = {
     scalar: scalar && indent === false, // string, number or boolean
     array: scalar === false, // array of scalar values
-    vector: scalar && indent === true && singular === true, // vector of scalar values
-    map: scalar && indent === true && singular === false // map of keys and values (scalar or vector)
+    vector, // vector of scalar values
+    // map: scalar && indent === true && singular === false // map of keys and values (scalar or vector)
   }
 
   if (is.scalar)
     return { end: 1, value: { ...tokens[index] } }
 
   if (is.array)
-    return array(lines)
+    return array(working)
 
   if (is.vector)
-    return vector(lines, index)
+    return vector(working, index)
 
-  if (is.map)
-    return map(lines)
+  // if (is.map)
+  //  return map(lines)
 
   throw new TypeUnknown(tokens[index])
 }

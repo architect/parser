@@ -176,7 +176,8 @@ one true 3 # comment2`
                 value: '# comment2',
                 line: 5,
                 column: 12
-              }
+              },
+              { type: 'newline', value: '\n', line: 5, column: 22 }
             ]
           }
         ]

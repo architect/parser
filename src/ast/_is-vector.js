@@ -1,3 +1,4 @@
+let getLines = require('./_get-lines')
 
 /**
  * @param {array} tokens
@@ -19,32 +20,8 @@ module.exports = function isVector (tokens) {
 
 /** two spaces followed by a scalar value */
 function isValidValue (tokens) {
+  if (tokens.length < 3) return false
   let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
   let isScalar = tokens[2].type === 'string' || tokens[2].type === 'number' || tokens[2].type === 'boolean'
   return isTwoSpaces && isScalar
-}
-
-/** turn [{}, {}, {}] into [[{}, {}], [{}]] */
-function getLines (tokens) {
-
-  let lines = []
-  let tokenIndex = 0
-  let lineIndex = 0
-
-  while (tokenIndex < tokens.length) {
-    let token = tokens[tokenIndex]
-
-    if (Array.isArray(lines[lineIndex]) === false)
-      lines[lineIndex] = []
-
-    if (token.type != 'comment')
-      lines[lineIndex].push(token)
-
-    if (token.type === 'newline') {
-      lineIndex += 1
-    }
-
-    tokenIndex += 1
-  }
-  return lines
 }

@@ -30,7 +30,6 @@
     "@architect/eslint-config": "~1.0.0",
     "@rollup/plugin-commonjs": "~20.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "assert-diff": "~3.0.2",
     "browserify": "~17.0.0",
     "cross-env": "~7.0.3",
     "eslint": "~7.32.0",

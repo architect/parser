@@ -1,5 +1,6 @@
 let test = require('tape')
 let parse = require('../')
+let isVector = require('../src/ast/_is-vector')
 
 /**
  * ast nodes have the following required properties: type, line, column
@@ -188,8 +189,23 @@ one true 3 # comment2`
   t.same(parsed, expected, 'successfully parsed ast for arrays')
 })
 
+test('isVector', t => {
+  t.plan(1)
+  let mock = `
+@vector-test
+vec   # hi
+  one  # uh oh
+  2
+  # what about now
+  true`
+  let tokens = parse.lexer(mock)
+  let start = tokens.slice(3, tokens.length) // start at 'vec'
+  t.ok(isVector(start), 'found a valid vector')
+})
+
+
 /*
-test('ast should parse vectors', t => {
+test.only('ast vectors', t => {
   t.plan(1)
 
   let mock = `
@@ -219,16 +235,17 @@ named # comment3
           { type: 'comment', value: '# comment3' },
           { type: 'newline' },
           { type: 'string', value: 'values' }
-        ]}
-      ]}
+        ] }
+      ] }
     ]
   }
-  //let parsed = parse.ast(mock)
-  //assert.deepEqual(parsed, expected)
-  //t.pass('successfully parsed ast for scalar types')
-  //console.dir(parsed, { depth: null })
+
+  let parsed = parse.ast(parse.lexer(mock))
+  console.dir(parsed, { depth: null })
+  t.same(parsed, expected, 'successfully parsed ast for arrays')
 })
 
+ * final boss!
 test('ast should parse maps', t => {
   t.plan(1)
 

@@ -14,7 +14,6 @@ function parse (code) {
   return parser(lexer(code))
 }
 
-// Parser methods
 parse.lexer = lexer
 parse.parser = parser
 parse.ast = ast

@@ -1,7 +1,8 @@
 const notempty = require('./_not-empty')
 const array = require('./array')
-// const vector = require('./vector')
-// const map = require('./map')
+const vector = require('./vector')
+// const compact = require('./_compact')
+const map = require('./map')
 const TypeUnknown = require('../errors/parse-type-unknown')
 
 /**
@@ -36,6 +37,7 @@ module.exports = function type ({ tokens, index }) {
 
   // working copy of the relevant tokens
   let working = tokens.slice(index, tokens.length)
+  console.log(working)
 
   // get the indices of all newlines
   let newlines = working.map((t, i) => t.type === 'newline' ? i : false).filter(Boolean)
@@ -77,12 +79,11 @@ module.exports = function type ({ tokens, index }) {
   if (is.array)
     return array(lines)
 
-  /*
   if (is.vector)
     return vector(lines, index)
 
   if (is.map)
     return map(lines)
-  */
+
   throw new TypeUnknown(tokens[index])
 }

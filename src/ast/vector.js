@@ -1,5 +1,5 @@
-const notempty = require('./_not-empty')
-const NameError = require('../errors/parse-vector-name-not-string')
+// const notempty = require('./_not-empty')
+// TODO const NameError = require('../errors/parse-vector-name-not-string')
 
 /**
  * extract a vector value
@@ -10,8 +10,9 @@ const NameError = require('../errors/parse-vector-name-not-string')
  */
 module.exports = function vector (lines) {
 
-  let copy = lines.slice(0)
-  let end = copy[0].length + 1 // len of the tokes in the line plus one for the line itself
+  let value = lines.slice(0)
+  let end = value[0].length + 1 // len of the tokes in the line plus one for the line itself
+  /*
   let raw = copy.shift().filter(notempty)[0]
   let name = raw.value
 
@@ -33,7 +34,7 @@ module.exports = function vector (lines) {
     else {
       done = true
     }
-  }
+  }*/
 
   return { end, value }
 }

@@ -1,4 +1,5 @@
-// const notempty = require('./_not-empty')
+// cOonst notempty = require('./_not-empty')
+const getLines = require('./_get-lines')
 // TODO const NameError = require('../errors/parse-vector-name-not-string')
 
 /**
@@ -8,10 +9,21 @@
  * @param {number} index
  * @returns {object} {end, value}
  */
-module.exports = function vector (lines) {
+module.exports = function vector (tokens) {
 
-  let value = lines.slice(0)
-  let end = value[0].length + 1 // len of the tokes in the line plus one for the line itself
+  let copy = tokens.slice(0)
+  let lines = getLines(copy)
+  let end = copy[0].length + 1 // len of the tokes in the line plus one for the line itself
+  let first = lines.slice(0, 1)[0]
+  let values = lines.slice(1, lines.length).reduce((a, b) => a.concat(b), [])
+  let name = first.filter( t => t.type === 'string')[0].value
+  let raw = first.reduce((a, v) => {
+    if (v.type != 'newline')
+      a += v.value
+    return a
+  }, '')
+  let vector = { type: 'vector', name, raw, values }
+  console.log(vector)
   /*
   let raw = copy.shift().filter(notempty)[0]
   let name = raw.value
@@ -36,5 +48,5 @@ module.exports = function vector (lines) {
     }
   }*/
 
-  return { end, value }
+  return { end, value: vector }
 }

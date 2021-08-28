@@ -4,7 +4,7 @@ const isScalar = require('./_is-scalar')
 const isVector = require('./_is-vector')
 const isIndent = require('./_is-indent')
 const array = require('./array')
-// const vector = require('./vector')
+const vector = require('./vector')
 // const map = require('./map')
 
 const TypeUnknown = require('../errors/parse-type-unknown')
@@ -47,7 +47,7 @@ module.exports = function type ({ tokens, index }) {
 
   // do we have a possible array or vector value?
   let indent = isIndent(working)
-  let vector = isVector(working)
+  let validVector = isVector(working)
 
   // do we have a possible map value?
   // let map = isMap(working)
@@ -55,7 +55,7 @@ module.exports = function type ({ tokens, index }) {
   let is = {
     scalar: scalar && indent === false, // string, number or boolean
     array: scalar === false, // array of scalar values
-    vector, // vector of scalar values
+    vector: validVector, // vector of scalar values
     // map: scalar && indent === true && singular === false // map of keys and values (scalar or vector)
   }
 

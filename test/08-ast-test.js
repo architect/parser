@@ -1,6 +1,7 @@
 let test = require('tape')
 let parse = require('../')
 let isVector = require('../src/ast/_is-vector')
+let isMap = require('../src/ast/_is-map')
 
 /**
  * ast nodes have the following required properties: type, line, column
@@ -82,8 +83,7 @@ test('ast empty', t => {
           { type: 'newline', value: '\n', line: 3, column: 18 },
           { type: 'space', value: ' ', line: 4, column: 1 },
           { type: 'space', value: ' ', line: 4, column: 2 },
-          { type: 'comment', value: '# comment3', line: 4, column: 3 },
-          { type: 'newline', value: '\n', line: 4, column: 13 }
+          { type: 'comment', value: '# comment3', line: 4, column: 3 }
         ]
       }
     ]
@@ -125,8 +125,7 @@ true`
           { type: 'newline', value: '\n', line: 5, column: 4 },
           { type: 'number', value: 2, line: 6, column: 1 },
           { type: 'newline', value: '\n', line: 6, column: 2 },
-          { type: 'boolean', value: true, line: 7, column: 1 },
-          { type: 'newline', value: '\n', line: 7, column: 5 }
+          { type: 'boolean', value: true, line: 7, column: 1 }
         ]
       }
     ]
@@ -176,8 +175,7 @@ one true 3 # comment2`
                 value: '# comment2',
                 line: 5,
                 column: 12
-              },
-              { type: 'newline', value: '\n', line: 5, column: 22 }
+              }
             ]
           }
         ]
@@ -185,7 +183,8 @@ one true 3 # comment2`
     ]
   }
 
-  let parsed = parse.ast(parse.lexer(mock))
+  let tokens = parse.lexer(mock)
+  let parsed = parse.ast(tokens)
   console.dir(parsed, { depth: null })
   t.same(parsed, expected, 'successfully parsed array')
 })
@@ -205,6 +204,17 @@ vec   # hi
   t.ok(isVector(start), 'found a valid vector')
 })
 
+test('is not a vector', t => {
+  t.plan(1)
+  let mock = `
+@is-vec-test
+map
+  one two`
+  let tokens = parse.lexer(mock)
+  let start = tokens.slice(3, tokens.length) // start at 'map' token
+  t.ok(isVector(start) === false, 'did not find a valid vector')
+})
+
 test('ast vectors', t => {
   t.plan(1)
 
@@ -216,7 +226,8 @@ named # comment3
   vector
   of
   # comment4
-  values`
+  values
+this should be ignored`
 
   let expected = {
     type: 'arcfile',
@@ -261,19 +272,43 @@ named # comment3
               { type: 'string', value: 'values', line: 9, column: 3 },
               { type: 'newline', value: '\n', line: 9, column: 9 }
             ]
+          },
+          {
+            type: 'array',
+            line: 10,
+            column: 1,
+            values: [
+              { type: 'string', value: 'this', line: 10, column: 1 },
+              { type: 'space', value: ' ', line: 10, column: 5 },
+              { type: 'string', value: 'should', line: 10, column: 6 },
+              { type: 'space', value: ' ', line: 10, column: 12 },
+              { type: 'string', value: 'be', line: 10, column: 13 },
+              { type: 'space', value: ' ', line: 10, column: 15 },
+              { type: 'string', value: 'ignored', line: 10, column: 16 }
+            ]
           }
         ]
       }
     ]
   }
-
   let parsed = parse.ast(parse.lexer(mock))
   console.dir(parsed, { depth: null })
   t.same(parsed, expected, 'successfully parsed vector')
 })
 
-/* final boss!
-test('ast should parse maps', t => {
+test('isMap', t => {
+  t.plan(1)
+  let mock = `
+@hi
+map #cool cool
+# what about now!
+  one two # fun`
+  let tokens = parse.lexer(mock)
+  t.ok(isMap(tokens.slice(3, tokens.length)))
+})
+
+/*
+test.only('ast should parse maps', t => {
   t.plan(1)
 
   let mock = `
@@ -290,53 +325,8 @@ mappy #comment3
     # comment8
     2
     false`
-
-  let expected = {
-    type: 'arcfile',
-    nodes: [
-      { type: 'newline' },
-      { type: 'comment', value: '# comment1' },
-      { type: 'newline' },
-      { type: 'pragma', raw: '@pragma', values: [
-        { type: 'comment', value: '# comment2' },
-        { type: 'newline' },
-        { type: 'map', name: 'mappy', raw: 'mappy #comment3', values: [
-          { type: 'key', name: 'k1', values: [
-            { type: 'string', value: 'val' }
-          ]},
-          { type: 'newline' },
-          { type: 'comment', value: '# comment4' },
-          { type: 'newline' },
-          { type: 'key', name: 'one', values: [
-            { type: 'boolean', value: true },
-            { type: 'space' },
-            { type: 'comment', value: '#comment5'}
-          ]},
-          { type: 'key', name: 'vec1', values: [
-            { type: 'number', value: 1 },
-            { type: 'space' },
-            { type: 'number', value: 2 },
-            { type: 'space' },
-            { type: 'number', value: 3 },
-          ]},
-          { type: 'key', name: 'vec2', raw: 'vec2 # comment6', values: [
-            { type: 'string', value: 'one' },
-            { type: 'space' },
-            { type: 'comment' value: '# comment7' },
-            { type: 'newline' },
-            { type: 'comment' value: '# comment8' },
-            { type: 'newline' },
-            { type: 'number', value: 2 },
-            { type: 'newline' },
-            { type: 'boolean', value: false }
-          ]}
-        ]}
-      ]}
-    ]
-  }
-  //let parsed = parse.ast(mock)
-  //assert.deepEqual(parsed, expected)
-  //t.pass('successfully parsed ast for scalar types')
-  //console.dir(parsed, { depth: null })
+  let parsed = parse.ast(parse.lexer(mock))
+  console.dir(parsed, { depth: null })
+  t.ok(true)
 })
 */

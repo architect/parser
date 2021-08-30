@@ -1,11 +1,11 @@
-let isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
 let getLines = require('./_get-lines')
+let isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
 
 /**
  * @param {array} tokens
  * @returns {boolean}
  */
-module.exports = function isVector (tokens) {
+module.exports = function isMap (tokens) {
 
   let empty = v => v.filter(t => t.type != 'comment' && t.type != 'newline' && t.type != 'space') != 0
   let lines = getLines(tokens).filter(empty) // remove empty lines
@@ -26,10 +26,11 @@ module.exports = function isVector (tokens) {
   return good.length >= 1
 }
 
-/** two spaces followed by a scalar value */
+/** two spaces followed by a scalar value followed by one or more scalar values */
 function isValidValue (tokens) {
   if (tokens.length < 3) return false
   let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
-  let isOne = tokens.filter(isScalar).length === 1
-  return isTwoSpaces && isOne
+  let isValidKey = tokens[2].type === 'string'
+  let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length > 0
+  return isTwoSpaces && isValidKey && isValidValue
 }

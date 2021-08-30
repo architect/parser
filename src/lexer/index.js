@@ -155,5 +155,5 @@ module.exports = function lex (code) {
     throw new UnknownError({ character: code[cursor], line, column })
   }
 
-  return tokens
+  return tokens.slice(0, tokens.length - 1)
 }

@@ -302,9 +302,28 @@ test('isMap', t => {
 @hi
 map #cool cool
 # what about now!
-  one two # fun`
+  one two # fun
+  three
+    four
+    five
+    six
+  # this is ok
+  seven
+    8`
   let tokens = parse.lexer(mock)
   t.ok(isMap(tokens.slice(3, tokens.length)))
+})
+
+test('map', t => {
+  t.plan(1)
+  let mock = `
+@map-test
+m1
+  one 1`
+  let tokens = parse.lexer(mock)
+  let ast = parse.ast(tokens)
+  t.ok(true)
+  console.dir(ast, { depth: null })
 })
 
 /*

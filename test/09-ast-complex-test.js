@@ -2,7 +2,6 @@ let test = require('tape')
 let parse = require('../')
 let isVector = require('../src/ast/_is-vector')
 let isMap = require('../src/ast/_is-map')
-// let map = require('../src/ast/map')
 
 test('isVector', t => {
   t.plan(1)

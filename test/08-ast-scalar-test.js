@@ -1,66 +1,6 @@
 let test = require('tape')
 let parse = require('../')
 
-/**
- * ast nodes have the following required properties: type, line, column
- *
- * ast nodes have the following optional properties: name, value, values, raw
- *
- * types are loosely grouped 'empty', 'scalar' and 'complex' or 'compound' types
- *
- * empty types (always have a value property)
- *
- * - newline
- * - comment
- * - space
- * - ex. { type: 'comment', value: '# hello' }
- *
- * scalar types (always have a value property)
- *
- * - string
- * - number
- * - boolean
- * - ex. { type: 'string', value: 'hi' }
- *
- * complex or compound types (always have a raw and values property; often have a name property)
- *
- * - arcfile
- *   - can only be the root node
- *   - can only contain pragma and empty nodes
- *   - pragma must be unique
- *   - must contain at least one pragma
- *   - ex. { type: 'arcfile', values: [{ type: 'pragma', name: 'example', values: [] }] }
- * - pragma
- *   - eats init newline
- *   - has name property
- *   - raw will contain full text including any inline comment
- *   - values can be empty and scalar types
- *   - values can also array, vector, and map
- *   - ex. { type: 'pragma', name: 'example', raw: 'example # w comment', values: []}
- * - array
- *   - can only contain empty and scalar values
- *   - ex. { type: 'array', values: [{type: 'newline', value: '\n'}, {type:'number', value: 2}, {type:'string', value: 'hi'}]}
- * - vector
- *   - eats initial newline
- *   - can only contain empty and scalar values
- *   - has name property
- *   - raw property will contain full text including comments
- *   - { type: 'vector', name: 'stuff', values: []}
- * - map
- *   - eats initial newline
- *   - can only contain empty, key and vector values
- *   - has name property
- *   - raw property will contain full text including comments
- *   - { type: 'map', name: 'cats', values: [{type: 'key', name: 'catID', values: []}]}
- * - key
- *   - eat two spaces
- *   - can only belong to a map!
- *   - can contain empty and scalar values
- *   - can also contain array, and vector values (this is the deepest nesting allowed by arcfiles)
- *   - if raw present it forces newline
- *   - has name property
- */
-
 test('ast empty', t => {
   t.plan(1)
 

@@ -24,35 +24,49 @@ module.exports = function map (tokens) {
   let values = []
   let count = first.length
   let isMultiline = false
+  let currentKey
+  let next = lines.slice(1, lines.length)
 
-  for (let line of lines.slice(1, lines.length)) {
+  for (let line of next) {
 
     let isEmpty = line.filter(notEmpty).length === 0
-    if (isEmpty) {
+    if (isMultiline === false && isEmpty === true) {
       for (let token of line) {
         count += 1
         values.push(token)
       }
+      continue
     }
+
 
     let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'
     if (isKey) {
       let name = line[2].value
       let raw = line.slice(0).reduce(toString, '')
-      let key = { type: 'key', name, raw, values: [] }
-      count += 3 // two spaces and a string
+      let key = { type: 'vector', name, raw, values: [] }
+      count += line.length // two spaces + string + empty
       isMultiline = line.slice(0).filter(isScalar).length === 1
       if (isMultiline) {
-        isMultiline = key
+        currentKey = key
       }
       else {
         key.values = line.slice(3, line.length)
         count += key.values.length
       }
       values.push(key)
+      continue
     }
 
-    if (isMultiline && isEmpty === false) {
+    // if we got here we just adding up the emptiness
+    if (isMultiline === true && isEmpty === true) {
+      for (let token of line) {
+        count += 1
+        currentKey.values.push(token)
+      }
+      continue
+    }
+
+    if (isMultiline === true && isEmpty === false) {
       let isFourSpacesAndScalar =
         line[0].type === 'space' &&
         line[1].type === 'space' &&
@@ -62,13 +76,16 @@ module.exports = function map (tokens) {
       if (isFourSpacesAndScalar) {
         for (let token of line) {
           count += 1
-          isMultiline.values.push(token)
+          currentKey.values.push(token)
         }
       }
       else {
         isMultiline = false
       }
+      continue
     }
+    // end for
+    break
   }
 
   return {

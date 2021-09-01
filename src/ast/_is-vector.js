@@ -16,20 +16,38 @@ module.exports = function isVector (tokens) {
     return false
 
   // subsequent lines start w two spaces are also scalar values
-  let good = []
-  for (let line of lines.slice(1, lines.length)) {
-    if (isValidValue(line) === true)
-      good.push(line)
-    else
-      break
-  }
-  return good.length >= 1
-}
+  let rest = lines.slice(1, lines.length)
+  let line = rest[0]
+  let next = rest[1]
+  let values = Array.isArray(line) ? line.filter(isScalar) : []
 
-/** two spaces followed by a scalar value */
-function isValidValue (tokens) {
-  if (tokens.length < 3) return false
-  let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
-  let isOne = tokens.filter(isScalar).length === 1
-  return isTwoSpaces && isOne
+  let isTwoSpaces = Array.isArray(line) && line[0].type === 'space' && line[1].type === 'space'
+  let isOneValue = values.length === 1
+  let isTwoValues = values.length >= 2
+
+  // this signals map not vector
+  if (isTwoSpaces && isTwoValues) {
+    return false
+  }
+
+  // signals vec but could be a map with a vec
+  if (isTwoSpaces && isOneValue) {
+
+    // check next line isn't four spaces and one value
+    let isFourSpaces = Array.isArray(next) &&
+      next[0].type === 'space' &&
+      next[1].type === 'space' &&
+      next[2].type === 'space' &&
+      next[3].type === 'space'
+
+    let isOneAlso = Array.isArray(next) && next.filter(isScalar).length === 1
+    if (isFourSpaces && isOneAlso) {
+      return false
+    }
+
+    return true
+  }
+
+  // when in doubt
+  return false
 }

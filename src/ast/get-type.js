@@ -68,5 +68,7 @@ module.exports = function type ({ tokens, index }) {
   if (is.map)
     return map(working)
 
-  throw new TypeUnknown(tokens[index])
+  let err = new TypeUnknown(`unknown type`)
+  err.tokens = tokens.slice(index, tokens.length)
+  throw err
 }

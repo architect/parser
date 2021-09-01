@@ -10,10 +10,11 @@ module.exports = function isMap (tokens) {
   let empty = v => v.filter(t => t.type != 'comment' && t.type != 'newline' && t.type != 'space') != 0
   let lines = getLines(tokens).filter(empty) // remove empty lines
 
-  // first line is a scalar value
+  // name is a single string value
   let name = lines[0].filter(isScalar)
-  if (name.length != 1)
+  if (name.length != 1 || name[0].type != 'string') {
     return false
+  }
 
   // subsequent lines start w two spaces are also scalar values
   let good = []
@@ -28,9 +29,20 @@ module.exports = function isMap (tokens) {
 
 /** two spaces followed by a scalar value followed by one or more scalar values */
 function isValidValue (tokens) {
-  if (tokens.length < 3) return false
+  // console.log(tokens)
   let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
-  let isValidKey = tokens[2].type === 'string'
-  let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length > 0
-  return isTwoSpaces && isValidKey && isValidValue
+  let isValidKey = tokens[2] && tokens[2].type === 'string'
+  let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length >= 0
+  let isSingleValue = tokens.slice(2, tokens.length).filter(isScalar).length === 1
+  let isFourSpaces = isTwoSpaces && tokens[2].type === 'space' && tokens[3].type === 'space'
+  if (isTwoSpaces && isValidKey && isValidValue) {
+    // console.log({ isTwoSpaces, isValidKey, isValidValue })
+    return true
+  }
+  if (isFourSpaces && isSingleValue) {
+    // console.log({ isFourSpaces, isSingleValue })
+    return true
+  }
+  // console.log('returning false')
+  return false
 }

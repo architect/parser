@@ -86,6 +86,7 @@ Always have a `raw` and `values` property; often have a `name` property.
 - ex. { type: 'array', values: [{type: 'newline', value: '\n'}, {type:'number', value: 2}, {type:'string', value: 'hi'}]}
 
 ### `vector`
+
   - eats initial newline
   - can only contain empty and scalar values
   - has name property
@@ -95,7 +96,7 @@ Always have a `raw` and `values` property; often have a `name` property.
 ### `map`
 
 - eats initial newline
-- can only contain empty, key and vector values
+- can only contain empty, and vector values
 - has name property
 - raw property will contain full text including comments
 - { type: 'map', name: 'cats', values: [{type: 'key', name: 'catID', values: []}]}

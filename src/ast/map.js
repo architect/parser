@@ -32,7 +32,6 @@ module.exports = function map (tokens) {
     let isEmpty = line.filter(notEmpty).length === 0
     if (isMultiline === false && isEmpty === true) {
       for (let token of line) {
-        count += 1
         values.push(token)
       }
       continue
@@ -44,14 +43,12 @@ module.exports = function map (tokens) {
       let name = line[2].value
       let raw = line.slice(0).reduce(toString, '')
       let key = { type: 'vector', name, raw, values: [] }
-      count += line.length // two spaces + string + empty
       isMultiline = line.slice(0).filter(isScalar).length === 1
       if (isMultiline) {
         currentKey = key
       }
       else {
         key.values = line.slice(3, line.length)
-        count += key.values.length
       }
       values.push(key)
       continue
@@ -60,7 +57,6 @@ module.exports = function map (tokens) {
     // if we got here we just adding up the emptiness
     if (isMultiline === true && isEmpty === true) {
       for (let token of line) {
-        count += 1
         currentKey.values.push(token)
       }
       continue
@@ -75,7 +71,6 @@ module.exports = function map (tokens) {
         isScalar(line[4])
       if (isFourSpacesAndScalar) {
         for (let token of line) {
-          count += 1
           currentKey.values.push(token)
         }
       }
@@ -88,8 +83,24 @@ module.exports = function map (tokens) {
     break
   }
 
+  // calc the token offset
+  let end = count + values.reduce(function flat (a, token) {
+    if (token.type === 'vector') {
+      a.push({}) // space
+      a.push({}) // space
+      a.push({}) // string
+      for (let t of token.values) {
+        a.push(t)
+      }
+    }
+    else {
+      a.push(token)
+    }
+    return a
+  }, []).length
+
   return {
-    end: count,
+    end,
     value: { type: 'map', name, raw, values }
   }
 }

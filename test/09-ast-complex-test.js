@@ -162,6 +162,34 @@ m1 #comment2
   console.dir(parsed, { depth: null })
 })
 
+test('map with scalars and vectors', t => {
+  t.plan(2)
+  let mock = `
+# comment1
+@map-test
+m1 #comment2
+  hey hi
+  bools
+    true
+    false
+  nums 1 2 3
+  vec # comment3
+    one # comment4
+    # comment5
+    2
+    false`
+  let tokens = parse.lexer(mock)
+  let parsed = parse.ast(tokens)
+  let pragma = parsed.values.find(t => t.type === 'pragma')
+  let map = pragma.values.find(t => t.type === 'map')
+  let keys = map.values.filter( t => t.type === 'vector')
+  let bools = keys.find(t => t.name === 'bools')
+  t.ok(keys.length === 4, 'has four keys')
+  t.ok(bools.values.filter(t => t.type === 'boolean').length === 2, 'bools has two booleans')
+  console.dir(parsed, { depth: null })
+})
+
 // TODO map with invalid name
+// TODO vector with invalid key
 // TODO map with invalid key
 // TODO errors

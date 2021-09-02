@@ -1,5 +1,7 @@
-let getLines = require('./_get-lines')
-let isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
+const getLines = require('./_get-lines')
+const isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
+const MapNameNotString = require('../errors/parse-map-name-not-string')
+const MapKeyNotString = require('../errors/parse-map-key-not-string')
 
 /**
  * @param {array} tokens
@@ -12,7 +14,7 @@ module.exports = function isMap (tokens) {
 
   // name is a single string value
   let name = lines[0].filter(isScalar)
-  if (name.length != 1 || name[0].type != 'string') {
+  if (name.length != 1) {
     return false
   }
 
@@ -24,25 +26,44 @@ module.exports = function isMap (tokens) {
     else
       break
   }
-  return good.length >= 1
+
+  // if they have a k/v line
+  let isSignalingMap = good.length >= 1
+  if (isSignalingMap && name[0].type != 'string') {
+    throw new MapNameNotString({ ...name[0] })
+  }
+  else if (isSignalingMap && name[0].type === 'string') {
+    // check that all keys are strings
+    for (let v of good) {
+      let line = v.filter(isScalar)
+      let left = line[0]
+      if (left && left.type && left.type === 'string') {
+        continue
+      }
+      else {
+        throw new MapKeyNotString({ ...left })
+      }
+    }
+    return true
+  }
+  else {
+    return false
+  }
 }
 
 /** two spaces followed by a scalar value followed by one or more scalar values */
 function isValidValue (tokens) {
-  // console.log(tokens)
   let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
-  let isValidKey = tokens[2] && tokens[2].type === 'string'
+  // let isValidKey = tokens[2] && tokens[2].type === 'string'
   let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length >= 0
   let isSingleValue = tokens.slice(2, tokens.length).filter(isScalar).length === 1
   let isFourSpaces = isTwoSpaces && tokens[2].type === 'space' && tokens[3].type === 'space'
-  if (isTwoSpaces && isValidKey && isValidValue) {
-    // console.log({ isTwoSpaces, isValidKey, isValidValue })
+  if (isTwoSpaces && isValidValue) {
     return true
   }
   if (isFourSpaces && isSingleValue) {
-    // console.log({ isFourSpaces, isSingleValue })
+    // TODO peek here to ensure next line is single value
     return true
   }
-  // console.log('returning false')
   return false
 }

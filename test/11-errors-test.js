@@ -92,9 +92,8 @@ map
   console.dir(ast, { depth: null })
 })
 
-/*
-test.only('map name not string error', t => {
-  t.plan(1)
+test('map name not string error', t => {
+  t.plan(2)
   try {
     let arcfile = `@pragma
 1
@@ -104,13 +103,11 @@ test.only('map name not string error', t => {
     console.log(arcfile, JSON.stringify(result, null, 2))
   }
   catch (e) {
-    // t.same(e.name)
-    t.ok(e.line === 4, 'on line 4')
+    t.same(e.name, 'MapNameNotString')
+    t.ok(e.line === 2, 'on line 2')
     console.log(e)
   }
 })
-
-
 
 test('map key not string error', t => {
   t.plan(2)
@@ -120,16 +117,20 @@ map
   two space
   true oh
  `
-    let result = parse(arcfile)
-    console.log(arcfile, JSON.stringify(result, null, 2))
+    let result =  parse.ast(parse.lexer(arcfile))
+    console.dir(result, { depth: null })
+    console.log(arcfile)
+    t.fail()
   }
   catch (e) {
-    t.ok(true, e.name)
+    t.same('MapKeyNotString', e.name)
     t.ok(e.line === 4, 'on line 4')
     console.log(e)
   }
 })
-test.only('map vec name not string error', t => {
+
+/*
+test.o nly('map vec name not string error', t => {
   t.plan(2)
   try {
     let arcfile = `@pragma

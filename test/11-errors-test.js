@@ -42,8 +42,19 @@ test('unknown! (you can quote this to get it working)', t => {
 
 /* parse errors */
 
-/*
-test('array space error', t => {
+test('InvalidTokens', t => {
+  t.plan(1)
+  try {
+    parse.ast('blep')
+  }
+  catch (e) {
+    t.ok(e.name === 'InvalidTokensError', 'got an InvalidTokensError')
+    console.log(e)
+  }
+})
+
+// context; this was an error in parser 4.x and lower
+test('array space; not an error!', t => {
   t.plan(1)
   let value = parse.ast(parse.lexer(`
 @pragma
@@ -53,7 +64,8 @@ arr val here
   console.dir(value, { depth: null })
 })
 
-test('map space error', t => {
+// context; this was an error in parser 4.x and lower
+test('map space; not an error!', t => {
   t.plan(1)
   let arcfile = `@pragma
 map
@@ -64,44 +76,41 @@ map
   let ast = parse.ast(tokens)
   t.ok(ast)
   console.dir(ast, { depth: null })
-})*/
+})
 
-test('map space error', t => {
-  t.plan(2)
-  try {
-    let arcfile = `@pragma
+// context; this was an error in parser 4.x and lower
+test('map space; not an error!', t => {
+  t.plan(1)
+  let arcfile = `@pragma
 map
   two space
-   uh oh
+    uh oh
  `
-    let result = parse(arcfile)
-    console.log(arcfile, result)
-  }
-  catch (e) {
-    t.ok(e.name === 'SpaceError', e.name)
-    t.ok(e.line === 4, e.message)
-    console.log(e)
-  }
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.ast(tokens)
+  t.ok(ast)
+  console.dir(ast, { depth: null })
 })
 
 /*
-test('map space error', t => {
-  t.plan(2)
+test.only('map name not string error', t => {
+  t.plan(1)
   try {
     let arcfile = `@pragma
-map
-  two space
-     uh oh
+1
+  one oh
  `
     let result = parse(arcfile)
-    console.log(arcfile, result)
+    console.log(arcfile, JSON.stringify(result, null, 2))
   }
   catch (e) {
-    t.ok(e.name === 'SpaceError', e.name)
-    t.ok(e.line === 4, e.message)
+    // t.same(e.name)
+    t.ok(e.line === 4, 'on line 4')
     console.log(e)
   }
 })
+
+
 
 test('map key not string error', t => {
   t.plan(2)
@@ -120,25 +129,7 @@ map
     console.log(e)
   }
 })
-
-test('map name not string error', t => {
-  t.plan(1)
-  try {
-    let arcfile = `@pragma
-1
-  one oh
- `
-    let result = parse(arcfile)
-    console.log(arcfile, JSON.stringify(result, null, 2))
-  }
-  catch (e) {
-    t.ok(true, e.name)
-    // t.ok(e.line === 4, 'on line 4')
-    console.log(e)
-  }
-})
-
-test('map vec name not string error', t => {
+test.only('map vec name not string error', t => {
   t.plan(2)
   try {
     let arcfile = `@pragma
@@ -148,7 +139,7 @@ map
     uh
     oh
  `
-    let result = parse.ast(arcfile)
+    let result = parse.ast(parse.lexer(arcfile))
     console.log(arcfile, JSON.stringify(result, null, 2))
     t.fail()
   }
@@ -157,5 +148,4 @@ map
     t.ok(e.line === 4, 'on line 4')
     console.log(e)
   }
-})
-*/
+})*/

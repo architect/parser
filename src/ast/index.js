@@ -1,6 +1,7 @@
 const type = require('./get-type')
 // TODO const NotFound = require('../errors/parse-pragma-not-found')
 // TODO const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
+const InvalidTokens = require('../errors/parse-invalid-tokens')
 
 /**
  * parses tokens into JSON friendly structure if possible
@@ -9,6 +10,12 @@ const type = require('./get-type')
  * @returns {object}
  */
 module.exports = function parse (tokens) {
+
+  // ensure we received valid lexer tokens
+  let validTokens = (tokens) => Array.isArray(tokens) && tokens.every(t => typeof t.type != 'undefined')
+  if (validTokens(tokens) === false) {
+    throw new InvalidTokens(tokens)
+  }
 
   let arcfile = { type: 'arcfile', values: [] }
   let index = 0

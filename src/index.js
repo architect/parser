@@ -1,5 +1,6 @@
 let lexer = require('./lexer')
 let parser = require('./parser')
+let compiler = require('./compiler')
 let ast = require('./ast')
 let json = require('./compat/json')
 let yaml = require('./compat/yaml')
@@ -16,6 +17,7 @@ function parse (code) {
 
 parse.lexer = lexer
 parse.parser = parser
+parse.compiler = compiler
 parse.ast = ast
 parse.json = json
 parse.yaml = yaml

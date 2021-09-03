@@ -35,7 +35,7 @@ module.exports = function map (tokens) {
       continue
     }
 
-
+    // capture the map keys as vector types
     let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'
     if (isKey) {
       let name = line[2].value
@@ -48,6 +48,7 @@ module.exports = function map (tokens) {
       else {
         key.values = line.slice(3, line.length)
       }
+      count += 3 // space|space|string
       values.push(key)
       continue
     }
@@ -68,6 +69,7 @@ module.exports = function map (tokens) {
         line[3].type === 'space' &&
         isScalar(line[4])
       if (isFourSpacesAndScalar) {
+        count += 5 // space|space|space|space|string
         for (let token of line) {
           currentKey.values.push(token)
         }
@@ -84,9 +86,6 @@ module.exports = function map (tokens) {
   // calc the token offset
   let end = count + values.reduce(function flat (a, token) {
     if (token.type === 'vector') {
-      a.push({}) // space
-      a.push({}) // space
-      a.push({}) // string
       for (let t of token.values) {
         a.push(t)
       }

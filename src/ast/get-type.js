@@ -1,5 +1,3 @@
-// const compact = require('./_compact')
-// const notempty = require('./_not-empty')
 const isSingle = require('./_is-single-value')
 const isVector = require('./_is-vector')
 const isIndent = require('./_is-indent')
@@ -61,7 +59,7 @@ module.exports = function type ({ tokens, index }) {
   if (validMap)
     return map(working)
 
-  let err = new TypeUnknown(`unknown type`)
+  let err = new TypeUnknown(tokens[index])
   err.tokens = tokens.slice(index, tokens.length)
   throw err
 }

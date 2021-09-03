@@ -1,5 +1,6 @@
 const js = require('./js')
 const arc = require('./arc')
+const yaml = require('./yaml')
 
 const InvalidArcfile = require('../errors/compile-invalid-arcfile')
 const FormatUnknown = require('../errors/compile-format-unknown')
@@ -18,8 +19,8 @@ module.exports = function compiler (ast, format = 'js') {
   if (format === 'arc')
     return arc(ast)
 
-  // if (format === 'yaml')
-  //   return yaml(ast)
+  if (format === 'yaml')
+    return yaml(ast)
 
   // if (mode === 'toml')
   //   return toml(ast)

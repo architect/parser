@@ -28,11 +28,11 @@ module.exports = function parse (tokens) {
   // pragmas must be unique
   let tmp = {}
   for (let pragma of pragmas) {
-    if (tmp[pragma.name]) {
+    if (tmp[pragma.value]) {
       throw new AlreadyDefined(pragma)
     }
     else {
-      tmp[pragma.name] = true
+      tmp[pragma.value] = true
     }
   }
 

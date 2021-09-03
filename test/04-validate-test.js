@@ -29,6 +29,7 @@ test('@section must be non whitespace', t => {
   }
 })
 
+/*
 test('objects name must be a string without spaces', t => {
   t.plan(1)
   var mock = fs.readFileSync('./test/mock/invalid3.arc').toString()
@@ -55,4 +56,4 @@ test('indents must follow a single (or double)', t => {
     t.ok(e, 'failed on bad input')
     console.log(e)
   }
-})
+})*/

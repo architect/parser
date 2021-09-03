@@ -98,6 +98,21 @@ hello 1 true`
   let tokens = parse.lexer(origin)
   let ast = parse.ast(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.same(arc, origin)
+  t.ok(arc === origin)
 })
 
+
+// TODO test compiler for vector, map, and map with vector
+
+test('can compile yaml string', t => {
+  t.plan(1)
+  let origin = `
+@hi
+hello 1 true
+#wut`
+  let tokens = parse.lexer(origin)
+  let ast = parse.ast(tokens)
+  let arc = parse.compiler(ast, 'yaml')
+  t.ok(true)
+  console.log(arc)
+})

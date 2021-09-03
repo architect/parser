@@ -88,3 +88,16 @@ cat
   })
   console.dir(arc, { depth: null })
 })
+
+test('can compile arc plaintext string', t => {
+  t.plan(1)
+  let origin = `
+# hello world
+@hi
+hello 1 true`
+  let tokens = parse.lexer(origin)
+  let ast = parse.ast(tokens)
+  let arc = parse.compiler(ast, 'arc')
+  t.same(arc, origin)
+})
+

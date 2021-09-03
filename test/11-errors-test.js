@@ -129,8 +129,7 @@ map
   }
 })
 
-/*
-test.o nly('map vec name not string error', t => {
+test('map vec name not string error', t => {
   t.plan(2)
   try {
     let arcfile = `@pragma
@@ -145,8 +144,8 @@ map
     t.fail()
   }
   catch (e) {
-    t.ok(true, e.name)
+    t.same('MapKeyNotString', e.name)
     t.ok(e.line === 4, 'on line 4')
     console.log(e)
   }
-})*/
+})

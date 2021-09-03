@@ -1,9 +1,6 @@
 const notEmpty = require('./_not-empty')
 const getLines = require('./_get-lines')
 const isScalar = v => v.type === 'string' || v.type === 'number' || v.type === 'boolean'
-// const SpaceError = require('../errors/parse-map-illegal-space')
-// const NameError = require('../errors/parse-map-name-not-string')
-// const KeyError = require('../errors/parse-map-key-not-string')
 
 /**
  * extracts a map value

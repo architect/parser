@@ -1,3 +1,4 @@
+// TODO remove
 module.exports = class SpaceError extends SyntaxError {
   constructor ({ line, column }) {
     super(`illegal indent (line: ${line} column: ${column})`)

@@ -35,13 +35,17 @@ module.exports = function isMap (tokens) {
   else if (isSignalingMap && name[0].type === 'string') {
     // check that all keys are strings
     for (let v of good) {
+      let four = v[0].type === 'space' &&
+        v[1].type === 'space' &&
+        v[2].type === 'space' &&
+        v[3].type === 'space'
       let line = v.filter(isScalar)
       let left = line[0]
-      if (left && left.type && left.type === 'string') {
+      if ((left && left.type && left.type === 'string') || four) {
         continue
       }
       else {
-        throw new MapKeyNotString({ ...left })
+        throw new MapKeyNotString(left || v[0][0] || {})
       }
     }
     return true

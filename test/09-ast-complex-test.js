@@ -114,7 +114,7 @@ test('isMap', t => {
   t.plan(1)
   let mock = `
 @hi
-map 
+map
   one two # fun
   three
     5
@@ -122,7 +122,9 @@ map
     6
   `
   let tokens = parse.lexer(mock)
-  t.ok(isMap(tokens.slice(3, tokens.length)))
+  let start = tokens.slice(3, tokens.length)
+  console.log(start)
+  t.ok(isMap(start))
 })
 
 test('map has three keys (vectors)', t => {
@@ -187,8 +189,3 @@ m1 #comment2
   t.ok(bools.values.filter(t => t.type === 'boolean').length === 2, 'bools has two booleans')
   console.dir(parsed, { depth: null })
 })
-
-// TODO map with invalid name
-// TODO vector with invalid key
-// TODO map with invalid key
-// TODO errors

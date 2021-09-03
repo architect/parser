@@ -1,6 +1,6 @@
 // const compact = require('./_compact')
 // const notempty = require('./_not-empty')
-const isScalar = require('./_is-scalar')
+const isSingle = require('./_is-single-value')
 const isVector = require('./_is-vector')
 const isIndent = require('./_is-indent')
 const isMap = require('./_is-map')
@@ -44,28 +44,21 @@ module.exports = function type ({ tokens, index }) {
   let working = tokens.slice(index, tokens.length)
 
   // figure out what type the next value is
-  let scalar = isScalar(working)
+  let scalar = isSingle(working)
   let indent = isIndent(working)
   let validVector = isVector(working)
   let validMap = isMap(working)
 
-  let is = {
-    scalar: scalar && indent === false, // string, number or boolean
-    array: scalar === false, // array of scalar values
-    vector: validVector, // vector of scalar values
-    map: validMap  // map of keys and values
-  }
-
-  if (is.scalar)
+  if (scalar && indent === false)
     return { end: 1, value: { ...tokens[index] } }
 
-  if (is.array)
+  if (scalar === false)
     return array(working)
 
-  if (is.vector)
+  if (validVector)
     return vector(working)
 
-  if (is.map)
+  if (validMap)
     return map(working)
 
   let err = new TypeUnknown(`unknown type`)

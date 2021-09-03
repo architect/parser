@@ -1,6 +1,7 @@
 const notEmpty = require('./_not-empty')
 const getLines = require('./_get-lines')
 const isScalar = require('./_is-scalar')
+const toString = require('./_to-string')
 
 /**
  * extracts a map value
@@ -100,11 +101,4 @@ module.exports = function map (tokens) {
     end,
     value: { type: 'map', name, raw, values }
   }
-}
-
-/** reduce array of tokens toString */
-function toString (str, value) {
-  if (value.type != 'newline')
-    str += value.value
-  return str
 }

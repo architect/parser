@@ -1,5 +1,7 @@
-let isScalar = require('./_is-scalar')
-let getLines = require('./_get-lines')
+const isScalar = require('./_is-scalar')
+const getLines = require('./_get-lines')
+
+const VectorNameNotString = require('../errors/parse-vector-name-not-string')
 
 /**
  * @param {array} tokens
@@ -43,6 +45,11 @@ module.exports = function isVector (tokens) {
     let isOneAlso = Array.isArray(next) && next.filter(isScalar).length === 1
     if (isFourSpaces && isOneAlso) {
       return false
+    }
+
+    // valid so far ... but lastly check name (important this is here)
+    if (name[0].type != 'string') {
+      throw new VectorNameNotString({ ...name[0] })
     }
 
     return true

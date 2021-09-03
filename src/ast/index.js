@@ -1,7 +1,8 @@
 const type = require('./get-type')
-// TODO const NotFound = require('../errors/parse-pragma-not-found')
-// TODO const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
+
 const InvalidTokens = require('../errors/parse-invalid-tokens')
+const NotFound = require('../errors/parse-pragma-not-found')
+const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
 
 /**
  * parses tokens into JSON friendly structure if possible
@@ -12,11 +13,30 @@ const InvalidTokens = require('../errors/parse-invalid-tokens')
 module.exports = function parse (tokens) {
 
   // ensure we received valid lexer tokens
-  let validTokens = (tokens) => Array.isArray(tokens) && tokens.every(t => typeof t.type != 'undefined')
-  if (validTokens(tokens) === false) {
+  let validTokens = Array.isArray(tokens) && tokens.every(t => typeof t.type != 'undefined')
+  if (validTokens === false) {
     throw new InvalidTokens(tokens)
   }
 
+  // arcfile must have one pragma
+  let pragmas = tokens.filter(t => t.type === 'pragma')
+  let hasPragma = pragmas.length > 0
+  if (hasPragma === false) {
+    throw new NotFound(tokens)
+  }
+
+  // pragmas must be unique
+  let tmp = {}
+  for (let pragma of pragmas) {
+    if (tmp[pragma.name]) {
+      throw new AlreadyDefined(pragma)
+    }
+    else {
+      tmp[pragma.name] = true
+    }
+  }
+
+  // construct the ast
   let arcfile = { type: 'arcfile', values: [] }
   let index = 0
   let pragma = false
@@ -42,7 +62,8 @@ module.exports = function parse (tokens) {
     // stream empty types into the arcfile or current pragma
     let empty = token.type === 'newline' || token.type === 'space' || token.type === 'comment'
     if (empty) {
-      (pragma || arcfile).values.push({ ...token })
+      let current = pragma || arcfile
+      current.values.push({ ...token })
       index += 1
     }
 

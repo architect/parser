@@ -1,6 +1,6 @@
 const notEmpty = require('./_not-empty')
 const getLines = require('./_get-lines')
-// TODO const NameError = require('../errors/parse-vector-name-not-string')
+const toString = require('./_to-string')
 
 /**
  * extract a vector value
@@ -17,11 +17,7 @@ module.exports = function vector (tokens) {
   // grab the vector metadata
   let first = lines.slice(0, 1)[0]
   let name = first.filter( t => t.type === 'string')[0].value
-  let raw = first.reduce((a, v) => {
-    if (v.type != 'newline')
-      a += v.value
-    return a
-  }, '')
+  let raw = first.reduce(toString, '')
 
   // create an array of tokens up to the end of the vector
   let values = []

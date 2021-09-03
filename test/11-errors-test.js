@@ -53,6 +53,32 @@ test('InvalidTokens', t => {
   }
 })
 
+test('PragmaNotFound', t => {
+  t.plan(1)
+  try {
+    parse.ast(parse.lexer('# nothin to see'))
+  }
+  catch (e) {
+    t.ok(e.name === 'PragmaNotFound', 'got an PragmaNotFound')
+    console.log(e)
+  }
+})
+
+test('PragmaAlreadyDefined', t => {
+  t.plan(1)
+  try {
+    let arcfile = `
+@hi
+@hi
+    `
+    parse.ast(parse.lexer(arcfile))
+  }
+  catch (e) {
+    t.ok(e.name === 'PragmaAlreadyDefined', 'got an PragmaAlreadyDefined')
+    console.log(e)
+  }
+})
+
 // context; this was an error in parser 4.x and lower
 test('array space; not an error!', t => {
   t.plan(1)
@@ -96,14 +122,30 @@ test('map name not string error', t => {
   t.plan(2)
   try {
     let arcfile = `@pragma
-1
+false
   one oh
  `
-    let result = parse(arcfile)
-    console.log(arcfile, JSON.stringify(result, null, 2))
+    parse.ast(parse.lexer(arcfile))
   }
   catch (e) {
     t.same(e.name, 'MapNameNotString')
+    t.ok(e.line === 2, 'on line 2')
+    console.log(e)
+  }
+})
+
+test('vector name not string error', t => {
+  t.plan(2)
+  try {
+    let arcfile = `@pragma
+1
+  one
+  done
+ `
+    parse.ast(parse.lexer(arcfile))
+  }
+  catch (e) {
+    t.same(e.name, 'VectorNameNotString')
     t.ok(e.line === 2, 'on line 2')
     console.log(e)
   }

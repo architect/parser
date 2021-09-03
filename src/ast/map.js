@@ -1,6 +1,6 @@
 const notEmpty = require('./_not-empty')
 const getLines = require('./_get-lines')
-const isScalar = v => v.type === 'string' || v.type === 'number' || v.type === 'boolean'
+const isScalar = require('./_is-scalar')
 
 /**
  * extracts a map value

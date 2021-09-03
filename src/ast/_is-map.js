@@ -1,5 +1,5 @@
 const getLines = require('./_get-lines')
-const isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
+const isScalar = require('./_is-scalar')
 const MapNameNotString = require('../errors/parse-map-name-not-string')
 const MapKeyNotString = require('../errors/parse-map-key-not-string')
 

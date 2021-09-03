@@ -1,4 +1,4 @@
-let isScalar = t => t.type === 'string' || t.type === 'number' || t.type === 'boolean'
+let isScalar = require('./_is-scalar')
 let getLines = require('./_get-lines')
 
 /**

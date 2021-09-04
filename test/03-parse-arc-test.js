@@ -29,3 +29,11 @@ test('test aws arc by parsing mock-arc', t => {
   t.ok(parsed, 'parsed mock')
   console.log(JSON.stringify(parsed, null, 2))
 })
+
+test('@scheduled', t => {
+  t.plan(1)
+  var mock = fs.readFileSync('./test/mock/scheduled.arc').toString()
+  var parsed = parse(mock)
+  t.ok(parsed, 'read out scheduled')
+  console.log(parsed)
+})

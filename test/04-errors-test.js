@@ -191,3 +191,20 @@ map
     console.log(e)
   }
 })
+
+
+test('@section must be non whitespace', t => {
+  t.plan(1)
+  var mock = `
+@sok sun
+asdfasdfa`
+  try {
+    var parsed = parse.ast(parse.lexer(mock))
+    t.fail('ruh roh')
+    console.log(parsed)
+  }
+  catch (e) {
+    t.ok(e, 'failed on bad input')
+    console.log(e)
+  }
+})

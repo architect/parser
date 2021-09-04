@@ -1,8 +1,13 @@
 let test = require('tape')
 let lex = require('../src/lexer')
 let parse = require('../src/ast')
+let compile = require('../src/compiler')
 
-let arcfile = `
+test('lex, parse and compile', t => {
+  t.plan(3)
+  t.ok(lex, 'lex')
+  t.ok(parse, 'parse')
+  let arcfile = `
 # comment with spaces
 @pragma1  
 str
@@ -10,70 +15,66 @@ true
 1
 
 @gram
-one 2 false
-`
-
-test('lex and parse', t => {
-  t.plan(3)
-  t.ok(lex, 'lex')
-  t.ok(parse, 'parse')
+one 2 false`
   let tokens = lex(arcfile)
-  let arc = parse(tokens)
+  let ast = parse(tokens)
+  let arc = compile(ast)
   t.ok(Array.isArray(arc.pragma1), 'parsed')
-  console.log(arcfile, arc)
 })
 
 test('vertical vector', t => {
   t.plan(1)
-  t.ok(true, 'ok')
-  let arc = `
+  let arcfile = `
 @simple
 vert
   one
   two
   three
 `
-  let lexed = lex(arc)
-  let parsed = parse(lexed)
-  console.log(arc, lexed, JSON.stringify(parsed, null, 2))
+  let tokens = lex(arcfile)
+  let ast = parse(tokens)
+  let arc = compile(ast)
+  t.ok(arc.simple[0].vert.length === 3)
 })
 
 test('anon vertical', t => {
-  t.plan(1)
-  let arc = `
+  t.plan(3)
+  let arcfile = `
 @anon
 one two three
 right 1 2 3
 true false
 `
-  let lexed = lex(arc)
-  let parsed = parse(lexed)
-  t.ok(true, 'ok')
-  console.log(arc, lexed, JSON.stringify(parsed, null, 2))
+  let tokens = lex(arcfile)
+  let ast = parse(tokens)
+  let arc = compile(ast)
+  t.ok(arc.anon[0].length === 3)
+  t.ok(arc.anon[1].length === 4)
+  t.ok(arc.anon[2].length === 2)
 })
 
 test('map', t => {
   t.plan(5)
-  let arc = `
+  let arcfile = `
 @whales
 orca
   name fin
   awesome true
-  foods seals otters fishes
-`
-  let lexed = lex(arc)
-  let parsed = parse(lexed)
-  t.ok(Array.isArray(parsed.whales) && parsed.whales.length === 1, 'arc.whales')
-  t.ok(parsed.whales[0].orca, 'arc.whales[0].orca')
-  t.ok(parsed.whales[0].orca.name, 'fin')
-  t.ok(parsed.whales[0].orca.awesome, 'awesome')
-  t.ok(Array.isArray(parsed.whales[0].orca.foods), 'yum')
-  console.log(JSON.stringify(parsed, null, 2))
+  foods seals otters fishes`
+  let tokens = lex(arcfile)
+  let ast = parse(tokens)
+  let arc = compile(ast)
+  t.ok(Array.isArray(arc.whales) && arc.whales.length === 1, 'arc.whales')
+  t.ok(arc.whales[0].orca, 'arc.whales[0].orca')
+  t.ok(arc.whales[0].orca.name, 'fin')
+  t.ok(arc.whales[0].orca.awesome, 'awesome')
+  t.ok(Array.isArray(arc.whales[0].orca.foods), 'yum')
+  console.dir({ arc }, { depth: null })
 })
 
 test('map with vector', t => {
-  t.plan(1)
-  let arc = `
+  t.plan(5)
+  let arcfile = `
 @animals
 cats
   house
@@ -83,11 +84,14 @@ cats
     tiger
     lion
   ocean
-    sealion
-`
-  let lexed = lex(arc)
-  let parsed = parse(lexed)
-
-  t.ok(true, 'ok')
-  console.log(JSON.stringify(parsed, null, 2))
+    sealion`
+  let tokens = lex(arcfile)
+  let ast = parse(tokens)
+  let arc = compile(ast)
+  t.ok(Array.isArray(arc.animals))
+  t.ok(arc.animals[0].cats)
+  t.ok(arc.animals[0].cats.house.length === 2)
+  t.ok(arc.animals[0].cats.jungle.length === 2)
+  t.ok(arc.animals[0].cats.ocean === 'sealion')
+  console.dir({ arc }, { depth: null })
 })

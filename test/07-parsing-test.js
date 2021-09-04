@@ -1,7 +1,7 @@
 let test = require('tape')
 let fs = require('fs')
 let parse = require('../')
-let expected = require('./_mock-arc-object')
+let expected = require('./mock/arc.json')
 
 test('Should parse JSON with core Arc pragmas represented as arrays', t => {
   t.plan(1)

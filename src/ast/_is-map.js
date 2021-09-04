@@ -45,6 +45,7 @@ module.exports = function isMap (tokens) {
         continue
       }
       else {
+        // console.log({ left })
         throw new MapKeyNotString(left || v[0][0] || {})
       }
     }

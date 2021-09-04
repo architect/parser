@@ -44,8 +44,6 @@ module.exports = function type ({ tokens, index }) {
   // figure out what type the next value is
   let scalar = isSingle(working)
   let indent = isIndent(working)
-  let validVector = isVector(working)
-  let validMap = isMap(working)
 
   if (scalar && indent === false)
     return { end: 1, value: { ...tokens[index] } }
@@ -53,10 +51,10 @@ module.exports = function type ({ tokens, index }) {
   if (scalar === false)
     return array(working)
 
-  if (validVector)
+  if (isVector(working))
     return vector(working)
 
-  if (validMap)
+  if (isMap(working))
     return map(working)
 
   let err = new TypeUnknown(tokens[index])

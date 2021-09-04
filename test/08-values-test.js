@@ -1,5 +1,6 @@
 let test = require('tape')
 let parse = require('../')
+let isVector = require('../src/ast/_is-vector')
 
 test('parse quoted string', t => {
   t.plan(3)
@@ -79,6 +80,28 @@ asdf-787
   console.log(JSON.stringify(output, null, 2))
 })
 
+test('isVec', t => {
+  t.plan(1)
+  let arcfile = `
+@values
+nested
+  39239392.32232332
+  -2323.323232
+  +1-234-567-8900
+  asdf-787
+  true
+  "b@brian.io"
+
+obj
+  "invoice-#333" value here
+  wut wut`
+  t.ok(true)
+  let tokens = parse.lexer(arcfile)
+  let slice = tokens.slice(2, tokens.length)
+  let isV = isVector(slice)
+  console.dir({ slice, isV }, { depth: null })
+})
+
 test('nested floats and hashes; plus signals string; quoted values', t => {
   t.plan(2)
   let arcfile = `
@@ -96,7 +119,9 @@ obj
 `
   t.ok(arcfile, '.arc')
   console.log(arcfile)
-  let output = parse(arcfile)
-  t.ok(output, 'parsed result')
-  console.log(JSON.stringify(output, null, 2))
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.ast(tokens)
+  let arc = parse.compiler(ast)
+  t.ok(arc)
+  console.dir({ arc }, { depth: null })
 })

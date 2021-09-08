@@ -181,12 +181,10 @@ map
     uh
     oh
  `
-    let result = parse.parser(parse.lexer(arcfile))
-    console.log(arcfile, JSON.stringify(result, null, 2))
-    t.fail()
+    parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
-    t.same('MapKeyNotString', e.name)
+    t.same(e.name, 'MapKeyNotString')
     t.ok(e.line === 4, 'on line 4')
     console.log(e)
   }
@@ -205,6 +203,24 @@ asdfasdfa`
   }
   catch (e) {
     t.ok(e, 'failed on bad input')
+    console.log(e)
+  }
+})
+
+test('map value cannot be null or undefined', t => {
+  t.plan(1)
+  try {
+    let mock = `
+@test
+obj
+  $k 666 
+  another-key another_value/baz.txt
+  undef # boom
+  asdf 1 2 3 four`
+    parse.parser(parse.lexer(mock))
+  }
+  catch (e) {
+    t.ok(e.name === 'MapKeyUndefinedValue', 'MayKeyUndefinedValue')
     console.log(e)
   }
 })

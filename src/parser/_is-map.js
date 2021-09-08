@@ -2,6 +2,7 @@ const getLines = require('./_get-lines')
 const isScalar = require('./_is-scalar')
 const MapNameNotString = require('../errors/parse-map-name-not-string')
 const MapKeyNotString = require('../errors/parse-map-key-not-string')
+const MapKeyUndefinedValue = require('../errors/parse-map-key-undefined-value')
 
 /**
  * @param {array} tokens
@@ -20,11 +21,14 @@ module.exports = function isMap (tokens) {
 
   // subsequent lines start w two spaces are also scalar values
   let good = []
-  for (let line of lines.slice(1, lines.length)) {
-    if (isValidValue(line) === true)
+  let rest = lines.slice(1, lines.length)
+  for (let line of rest) {
+    if (isValidValue(line) === true) {
       good.push(line)
-    else
+    }
+    else {
       break
+    }
   }
 
   // if they have a k/v line
@@ -49,6 +53,17 @@ module.exports = function isMap (tokens) {
         throw new MapKeyNotString(left || v[0][0] || {})
       }
     }
+    // check that all keys have values
+    for (let i = 0; i < good.length; i++) {
+      let value = good[i]
+      let isSingleValue = value.filter(isScalar).length === 1
+      if (isSingleValue) {
+        let isAlsoSingleValue = good[i + 1].filter(isScalar).length === 1
+        if (isAlsoSingleValue === false)
+          throw new MapKeyUndefinedValue(good[i][0])
+      }
+    }
+
     return true
   }
   else {
@@ -56,19 +71,12 @@ module.exports = function isMap (tokens) {
   }
 }
 
-/** two spaces followed by a scalar value followed by one or more scalar values */
+/** two or four spaces followed by a scalar value followed by zero or more scalar values */
 function isValidValue (tokens) {
   let isTwoSpaces = tokens[0].type === 'space' && tokens[1].type === 'space'
-  // let isValidKey = tokens[2] && tokens[2].type === 'string'
-  let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length >= 0
-  let isSingleValue = tokens.slice(2, tokens.length).filter(isScalar).length === 1
+  let isValidValue = tokens.slice(2, tokens.length).filter(isScalar).length >= 1
   let isFourSpaces = isTwoSpaces && tokens[2].type === 'space' && tokens[3].type === 'space'
-  if (isTwoSpaces && isValidValue) {
+  if ((isTwoSpaces || isFourSpaces) && isValidValue)
     return true
-  }
-  if (isFourSpaces && isSingleValue) {
-    // TODO peek here to ensure next line is single value
-    return true
-  }
   return false
 }

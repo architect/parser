@@ -6,9 +6,9 @@ let parse = require('../')
 test.only('test base mock file', t => {
   t.plan(12)
   let pathToMock = path.join(__dirname, 'mock', 'simple.arc')
-  console.log(pathToMock)
   let mock = fs.readFileSync(pathToMock).toString()
   let parsed = parse(mock)
+  console.log(parsed)
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line
   t.ok(parsed.hasOwnProperty('attr'), 'has attr')

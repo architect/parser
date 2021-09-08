@@ -57,8 +57,9 @@ module.exports = function isMap (tokens) {
     for (let i = 0; i < good.length; i++) {
       let value = good[i]
       let isSingleValue = value.filter(isScalar).length === 1
-      if (isSingleValue) {
-        let isAlsoSingleValue = good[i + 1].filter(isScalar).length === 1
+      let isValue = value[0].type === 'space' && value[1].type === 'space' && value[2].type === 'space' && value[3].type === 'space'
+      if (isSingleValue === true && isValue === false) {
+        let isAlsoSingleValue = Array.isArray(good) && good[i + 1].filter(isScalar).length === 1
         if (isAlsoSingleValue === false)
           throw new MapKeyUndefinedValue(good[i][0])
       }

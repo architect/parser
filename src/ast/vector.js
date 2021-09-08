@@ -18,16 +18,20 @@ module.exports = function vector (tokens) {
   let first = lines.slice(0, 1)[0]
   let name = first.filter( t => t.type === 'string')[0].value
   let raw = first.reduce(toString, '')
+  let rest = lines.slice(1, lines.length)
 
   // create an array of tokens up to the end of the vector
   let values = []
-  for (let line of lines.slice(1, lines.length)) {
+  for (let line of rest) {
     let isEmpty = line.filter(notEmpty).length === 0
     let isTwoSpaces = line[0].type === 'space' && line[1].type === 'space'
     if (isEmpty || isTwoSpaces) {
       for (let token of line) {
         values.push(token)
       }
+    }
+    else {
+      break
     }
   }
 

@@ -103,8 +103,8 @@ hello 1 true`
 
 
 // TODO test compiler for vector, map, and map with vector
-
-test('can compile yaml string', t => {
+/*
+test.only('can compile yaml string', t => {
   t.plan(1)
   let origin = `
 @hi
@@ -115,4 +115,4 @@ hello 1 true
   let arc = parse.compiler(ast, 'yaml')
   t.ok(true)
   console.log(arc)
-})
+})*/

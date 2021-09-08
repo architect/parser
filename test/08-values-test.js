@@ -103,7 +103,7 @@ obj
 })
 
 test('nested floats and hashes; plus signals string; quoted values', t => {
-  t.plan(2)
+  t.plan(8)
   let arcfile = `
 @values
 nested
@@ -123,5 +123,10 @@ obj
   let ast = parse.ast(tokens)
   let arc = parse.compiler(ast)
   t.ok(arc)
-  console.dir({ arc }, { depth: null })
+  t.ok(Array.isArray(arc.values), 'values pragma exists')
+  t.ok(Array.isArray(arc.values[0].nested), 'nested array exists')
+  t.ok(Number.isInteger(arc.values[0].nested[0]) === false, 'is a float')
+  t.ok(Math.sign(arc.values[0].nested[1]) === -1, 'is a negative value')
+  t.ok(Object.keys(arc.values[1].obj)[0] === 'invoice-#333', 'obj key exists')
+  t.ok(Array.isArray(arc.values[1].obj['invoice-#333']), 'obj key has expected value')
 })

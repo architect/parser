@@ -3,15 +3,19 @@ let parse = require('../')
 let isVector = require('../src/parser/_is-vector')
 
 test('parse quoted string', t => {
-  t.plan(3)
-  let output = parse(`
+  t.plan(5)
+  let arcfile = `
 @mystr
 "string with spaces"
-`)
+\`string also with spaces\`
+'yet another string w spaces'
+`
+  let output = parse(arcfile)
   t.ok(output, 'parsed')
   t.ok(Array.isArray(output.mystr), 'output.mystr')
-  t.ok(output.mystr[0] === 'string with spaces', 'has string with spaces')
-  console.log(output)
+  t.ok(output.mystr[0] === 'string with spaces', 'greedy double quote')
+  t.ok(output.mystr[1] === 'string also with spaces', 'greedy backtick')
+  t.ok(output.mystr[2] === 'yet another string w spaces', 'greedy single quote')
 })
 
 test('parse quoted string with illegal chars', t => {

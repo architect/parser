@@ -15,7 +15,7 @@ module.exports = function arc (ast) {
       arc += `@${t.raw}`
       for (let token of t.values) {
         if (isEmpty(token) || isScalar(token)) {
-          arc += token.value
+          arc += token.raw ? token.raw : token.value
         }
         if (isComplex(token)) {
           if (token.raw)

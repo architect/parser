@@ -59,14 +59,14 @@ module.exports = {
     let pointer = cursor
     let character = code[cursor]
     let token = ''
-    if (character === '"') {
+    if (character === '"' || character === '`' || character === "'") {
       // seek ahead to next instance of " skipping any \" references
       let copy = code.slice(cursor + 1, code.length)
       let count = 0
       let last = (function getNextQuote () {
         // create a copy of the code string
         let inner = copy.substring(count, copy.length)
-        let index = inner.indexOf('"')
+        let index = inner.indexOf(character)
         // if we didn't find it blow up hard
         let notfound = index === -1
         if (notfound)

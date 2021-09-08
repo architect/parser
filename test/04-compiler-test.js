@@ -89,7 +89,7 @@ cat
   console.dir(arc, { depth: null })
 })
 
-test('can compile arc plaintext string', t => {
+test('can compile a simple arc plaintext string', t => {
   t.plan(1)
   let origin = `
 # hello world
@@ -101,8 +101,54 @@ hello 1 true`
   t.ok(arc === origin)
 })
 
+test('can compile arc plaintext string with vector', t => {
+  t.plan(1)
+  let origin = `
+# hello world
+@hi
+hello
+  is
+  it # you are looking for
+  me`
+  let tokens = parse.lexer(origin)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'arc')
+  t.ok(arc === origin)
+})
 
-// TODO test compiler for vector, map, and map with vector
+test('can compile arc plaintext string with map', t => {
+  t.plan(1)
+  let origin = `
+# hello world
+@hi
+hello 
+  one 1 # some comment here
+  two false`
+  let tokens = parse.lexer(origin)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'arc')
+  t.ok(arc === origin)
+})
+
+test('can compile arc plaintext string with map with vector', t => {
+  t.plan(1)
+  let origin = `
+# hello world
+@hi
+hello 
+  one 1 # some comment here
+  two false
+  three
+    4
+    5
+    6`
+  let tokens = parse.lexer(origin)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'arc')
+  console.log(origin, arc)
+  t.ok(arc === origin)
+})
+
 /*
 test.only('can compile yaml string', t => {
   t.plan(1)

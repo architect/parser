@@ -39,11 +39,12 @@ module.exports = function map (tokens) {
     let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'
     if (isKey) {
       let name = line[2].value
-      let raw = line.slice(0).reduce(toString, '')
+      let raw = line.slice(0).reduce(toString, '').split(name)[0] + name
       let key = { type: 'vector', name, raw, values: [] }
       isMultiline = line.slice(0).filter(isScalar).length === 1
       if (isMultiline) {
         currentKey = key
+        currentKey.raw += '\n' // capture implicit newline in raw
       }
       else {
         key.values = line.slice(3, line.length)

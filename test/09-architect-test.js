@@ -3,9 +3,11 @@ let fs = require('fs')
 let path = require('path')
 let parse = require('../')
 
-test('test base mock file', t => {
+test.only('test base mock file', t => {
   t.plan(12)
-  let mock = fs.readFileSync(path.join(process.cwd(), 'test', 'mock', 'simple.arc')).toString()
+  let pathToMock = path.join(__dirname, 'mock', 'simple.arc')
+  console.log(pathToMock)
+  let mock = fs.readFileSync(pathToMock).toString()
   let parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line

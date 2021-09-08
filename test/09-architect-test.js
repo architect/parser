@@ -1,11 +1,12 @@
-var test = require('tape')
-var fs = require('fs')
-var parse = require('../')
+let test = require('tape')
+let fs = require('fs')
+let path = require('path')
+let parse = require('../')
 
 test('test base mock file', t => {
   t.plan(12)
-  var mock = fs.readFileSync('./test/mock/simple.arc').toString()
-  var parsed = parse(mock)
+  let mock = fs.readFileSync(path.join('./', 'test', 'mock', 'simple.arc')).toString()
+  let parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line
   t.ok(parsed.hasOwnProperty('attr'), 'has attr')
@@ -24,7 +25,7 @@ test('test base mock file', t => {
 
 test('test aws arc by parsing mock-arc', t => {
   t.plan(1)
-  var mock = fs.readFileSync('./test/mock/aws.arc').toString()
+  var mock = fs.readFileSync(path.join('./', 'test', 'mock', 'aws.arc')).toString()
   var parsed = parse(mock)
   t.ok(parsed, 'parsed mock')
   console.log(JSON.stringify(parsed, null, 2))
@@ -32,14 +33,14 @@ test('test aws arc by parsing mock-arc', t => {
 
 test('@scheduled', t => {
   t.plan(1)
-  var mock = fs.readFileSync('./test/mock/scheduled.arc').toString()
+  var mock = fs.readFileSync(path.join('./', 'test', 'mock', 'scheduled.arc')).toString()
   var parsed = parse(mock)
   t.ok(parsed, 'read out scheduled')
   console.log(parsed)
 })
 
 test('Test full Architect project manifest mock', t => {
-  let mock = fs.readFileSync('./test/mock/arc.arc').toString()
+  let mock = fs.readFileSync(path.join('./', 'test', 'mock', 'arc.arc')).toString()
   let arc = parse(mock)
   t.ok(arc, 'parsed mock')
   let pragmas = [

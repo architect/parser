@@ -1,7 +1,7 @@
 let test = require('tape')
 let parse = require('../')
-let isVector = require('../src/ast/_is-vector')
-let isMap = require('../src/ast/_is-map')
+let isVector = require('../src/parser/_is-vector')
+let isMap = require('../src/parser/_is-map')
 
 test('isVector', t => {
   t.plan(1)
@@ -105,7 +105,7 @@ this should be ignored`
       }
     ]
   }
-  let parsed = parse.ast(parse.lexer(mock))
+  let parsed = parse.parser(parse.lexer(mock))
   console.dir(parsed, { depth: null })
   t.same(parsed, expected, 'successfully parsed vector')
 })
@@ -136,7 +136,7 @@ m1 # also cool
   two true
   three 3`
   let tokens = parse.lexer(mock)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   console.dir(ast, { depth: null })
   let pragma = ast.values.find(t => t.type === 'pragma' && t.name === 'map-test')
   let map = pragma.values.find(t => t.type === 'map' && t.name === 'm1')
@@ -159,7 +159,7 @@ m1 #comment2
   let mapTokens = tokens.slice(5, tokens.length)
   t.ok(isVector(mapTokens) === false, 'isVector is false')
   t.ok(isMap(mapTokens) === true, 'isMap is true')
-  let parsed = parse.ast(tokens)
+  let parsed = parse.parser(tokens)
   console.dir(parsed, { depth: null })
 })
 
@@ -180,7 +180,7 @@ m1 #comment2
     2
     false`
   let tokens = parse.lexer(mock)
-  let parsed = parse.ast(tokens)
+  let parsed = parse.parser(tokens)
   let pragma = parsed.values.find(t => t.type === 'pragma')
   let map = pragma.values.find(t => t.type === 'map')
   let keys = map.values.filter( t => t.type === 'vector')

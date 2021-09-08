@@ -1,4 +1,4 @@
-const isScalar = require('../ast/_is-scalar')
+const isScalar = require('../parser/_is-scalar')
 
 /**
  * Compile AST into a plain Architect JavaScript Object

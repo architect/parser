@@ -11,7 +11,7 @@ world
 2
 true`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, { hello: [ 'world', 2, true ] })
   console.log(arc)
@@ -23,7 +23,7 @@ test('can compile array values', t => {
 @hello
 one 2 true`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, { hello: [ [ 'one', 2, true ] ] })
   console.log(arc)
@@ -38,7 +38,7 @@ two
 false
 one 2 true`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, { hello: [ 'world', 'two', false, [ 'one', 2, true ] ] })
   console.log(arc)
@@ -51,7 +51,7 @@ test('can compile vector', t => {
 hi
   world`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, { hello: [ { hi: [ 'world' ] } ] })
   console.dir(arc, { depth: null })
@@ -64,7 +64,7 @@ test('can compile map', t => {
 cat
   name sutro`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, { pets: [ { cat: { name: 'sutro' } } ] })
   console.dir(arc, { depth: null })
@@ -79,7 +79,7 @@ cat
     sutr0
     tux3d0`
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.same(arc, {
     pets: [
@@ -96,7 +96,7 @@ test('can compile arc plaintext string', t => {
 @hi
 hello 1 true`
   let tokens = parse.lexer(origin)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
   t.ok(arc === origin)
 })

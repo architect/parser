@@ -1,6 +1,6 @@
 let test = require('tape')
 let lex = require('../src/lexer')
-let parse = require('../src/ast')
+let parse = require('../src/parser')
 let compile = require('../src/compiler')
 
 test('lex, parse and compile', t => {

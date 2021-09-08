@@ -1,4 +1,4 @@
-const isScalar = require('../ast/_is-scalar')
+const isScalar = require('../parser/_is-scalar')
 const isComplex = t => t.type === 'array' || t.type === 'vector' || t.type === 'map'
 const isEmpty = t => t.type === 'space' || t.type === 'newline' || t.type === 'comment'
 

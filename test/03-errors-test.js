@@ -45,7 +45,7 @@ test('unknown! (you can quote this to get it working)', t => {
 test('InvalidTokens', t => {
   t.plan(1)
   try {
-    parse.ast('blep')
+    parse.parser('blep')
   }
   catch (e) {
     t.ok(e.name === 'InvalidTokensError', 'got an InvalidTokensError')
@@ -56,7 +56,7 @@ test('InvalidTokens', t => {
 test('PragmaNotFound', t => {
   t.plan(1)
   try {
-    parse.ast(parse.lexer('# nothin to see'))
+    parse.parser(parse.lexer('# nothin to see'))
   }
   catch (e) {
     t.ok(e.name === 'PragmaNotFound', 'got an PragmaNotFound')
@@ -71,7 +71,7 @@ test('PragmaAlreadyDefined', t => {
 @hi
 @hi
     `
-    parse.ast(parse.lexer(arcfile))
+    parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
     t.ok(e.name === 'PragmaAlreadyDefined', 'got an PragmaAlreadyDefined')
@@ -82,7 +82,7 @@ test('PragmaAlreadyDefined', t => {
 // context; this was an error in parser 4.x and lower
 test('array space; not an error!', t => {
   t.plan(1)
-  let value = parse.ast(parse.lexer(`
+  let value = parse.parser(parse.lexer(`
 @pragma
 arr val here
  uh oh`))
@@ -99,7 +99,7 @@ map
  uh oh
  `
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   t.ok(ast)
   console.dir(ast, { depth: null })
 })
@@ -113,7 +113,7 @@ map
     uh oh
  `
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   t.ok(ast)
   console.dir(ast, { depth: null })
 })
@@ -125,7 +125,7 @@ test('map name not string error', t => {
 false
   one oh
  `
-    parse.ast(parse.lexer(arcfile))
+    parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
     t.same(e.name, 'MapNameNotString')
@@ -142,7 +142,7 @@ test('vector name not string error', t => {
   one
   done
  `
-    parse.ast(parse.lexer(arcfile))
+    parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
     t.same(e.name, 'VectorNameNotString')
@@ -159,7 +159,7 @@ map
   two space
   true oh
  `
-    let result =  parse.ast(parse.lexer(arcfile))
+    let result =  parse.parser(parse.lexer(arcfile))
     console.dir(result, { depth: null })
     console.log(arcfile)
     t.fail()
@@ -181,7 +181,7 @@ map
     uh
     oh
  `
-    let result = parse.ast(parse.lexer(arcfile))
+    let result = parse.parser(parse.lexer(arcfile))
     console.log(arcfile, JSON.stringify(result, null, 2))
     t.fail()
   }
@@ -199,7 +199,7 @@ test('@section must be non whitespace', t => {
 @sok sun
 asdfasdfa`
   try {
-    var parsed = parse.ast(parse.lexer(mock))
+    var parsed = parse.parser(parse.lexer(mock))
     t.fail('ruh roh')
     console.log(parsed)
   }

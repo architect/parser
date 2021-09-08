@@ -1,4 +1,4 @@
-const isScalar = require('../ast/_is-scalar')
+const isScalar = require('../parser/_is-scalar')
 const isEmpty = t => t.type === 'space' || t.type === 'newline' || t.type === 'comment'
 
 /**

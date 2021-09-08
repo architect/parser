@@ -1,6 +1,6 @@
 let test = require('tape')
 let parse = require('../')
-let isVector = require('../src/ast/_is-vector')
+let isVector = require('../src/parser/_is-vector')
 
 test('parse quoted string', t => {
   t.plan(3)
@@ -120,7 +120,7 @@ obj
   t.ok(arcfile, '.arc')
   console.log(arcfile)
   let tokens = parse.lexer(arcfile)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
   t.ok(arc)
   t.ok(Array.isArray(arc.values), 'values pragma exists')

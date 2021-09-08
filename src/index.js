@@ -1,5 +1,5 @@
 let lexer = require('./lexer')
-let ast = require('./ast')
+let parser = require('./parser')
 let compiler = require('./compiler')
 let json = require('./compat/json')
 let yaml = require('./compat/yaml')
@@ -12,13 +12,12 @@ let stringify = require('./compat/stringify')
  * @returns {object} parsed arc object
  */
 function parse (code, format = 'js') {
-  return compiler(ast(lexer(code)), format)
+  return compiler(parser(lexer(code)), format)
 }
 
 parse.lexer = lexer
-parse.parser = tokens => compiler(ast(tokens))
+parse.parser = parser
 parse.compiler = compiler
-parse.ast = ast
 parse.json = json
 parse.yaml = yaml
 parse.toml = toml

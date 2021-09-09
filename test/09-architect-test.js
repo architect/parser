@@ -3,7 +3,7 @@ let fs = require('fs')
 let path = require('path')
 let parse = require('../')
 
-test('test base mock file', t => {
+test.only('test base mock file', t => {
   t.plan(12)
   let pathToMock = path.join(__dirname, 'mock', 'simple.arc')
   let mock = fs.readFileSync(pathToMock).toString()

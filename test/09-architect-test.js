@@ -4,11 +4,15 @@ let path = require('path')
 let parse = require('../')
 
 test.only('test base mock file', t => {
-  t.plan(12)
+  // t.plan(12)
+  t.plan(1)
   let pathToMock = path.join(__dirname, 'mock', 'simple.arc')
   let mock = fs.readFileSync(pathToMock).toString()
-  let parsed = parse(mock)
-  console.log(parsed)
+  // let parsed = parse(mock)
+  let ast = parse.parser(parse.lexer(mock))
+  t.ok(ast)
+  console.dir(ast, { depth: null })
+  /*
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line
   t.ok(parsed.hasOwnProperty('attr'), 'has attr')
@@ -23,6 +27,7 @@ test.only('test base mock file', t => {
   t.ok(typeof parsed.attr[6] == 'object' && parsed.attr[6] !== null, '8th member is a plain object')
   t.ok(parsed.attr[4].length === 2, '9th member is also a tuple')
   console.log(JSON.stringify(parsed.attr, null, 2))
+  */
 })
 
 test('test aws arc by parsing mock-arc', t => {

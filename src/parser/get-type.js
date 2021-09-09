@@ -45,6 +45,8 @@ module.exports = function type ({ tokens, index }) {
   let scalar = isSingle(working)
   let indent = isIndent(working)
 
+  console.log({ scalar, indent })
+
   if (scalar && indent === false)
     return { end: 1, value: { ...tokens[index] } }
 

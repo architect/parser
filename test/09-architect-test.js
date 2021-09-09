@@ -6,7 +6,7 @@ let parse = require('../')
 test.only('test base mock file', t => {
   // t.plan(12)
   t.plan(1)
-  let pathToMock = path.join(__dirname, 'mock', 'simple.arc')
+  let pathToMock = path.join(__dirname, 'mock', 'simple1.arc')
   let mock = fs.readFileSync(pathToMock).toString()
   // let parsed = parse(mock)
   let ast = parse.parser(parse.lexer(mock))

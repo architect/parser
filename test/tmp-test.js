@@ -5,7 +5,7 @@ test.only('test base mock file', t => {
   t.plan(1)
   let mock = `
 @attr
-single # future version should support `` style strings which allows multiline
+single
 false
 1
 -1

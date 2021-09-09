@@ -40,7 +40,7 @@ another-obj
 
 spacey    tuple # tuple with lots of spaces
 `
-  let ast = parse.parser(parse.lexer(mock))
+  let ast = parse.compiler(parse.parser(parse.lexer(mock)))
   console.dir(ast, { depth: null })
   t.ok(true, 'good job')
 })

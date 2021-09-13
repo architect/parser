@@ -15,6 +15,7 @@
 ### Fixed
 
 - Windows style newline `\r\n` was not being accounted for and could result in buggy reads
+- `.arc` map objects will throw if a key is undefined
 
 ## [4.0.0 - 4.0.1] 2021-07-22
 

@@ -8,10 +8,11 @@ test.only('test base mock file', t => {
   t.plan(1)
   let pathToMock = path.join(__dirname, 'mock', 'simple1.arc')
   let mock = fs.readFileSync(pathToMock).toString()
-  // let parsed = parse(mock)
-  let ast = parse.parser(parse.lexer(mock))
-  t.ok(ast)
-  console.dir(ast, { depth: null })
+  let tokens = parse.lexer(mock)
+  // let ast = parse.parser(tokens)
+  t.ok(tokens)
+  console.dir(tokens, { depth: null })
+  console.log(tokens.length)
   /*
   t.ok(parsed, 'parsed mock')
   // eslint-disable-next-line

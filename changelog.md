@@ -1,6 +1,20 @@
 # Architect Parser changelog
 
 ---
+## [4.0.2] 2021-09-13
+
+### Changed
+
+- Breaking change: `parse.parser` now returns an AST object
+
+### Added
+
+- `parse.parser` accepts lexeme tokesn and returns an AST object (with comments preserved)
+- `parse.compiler` accepts an AST and returns one of `arc`, `json`, or `yaml` (`toml` support planned)
+
+### Fixed
+
+- Windows style newline `\r\n` was not being accounted for and could result in buggy reads
 
 ## [4.0.0 - 4.0.1] 2021-07-22
 

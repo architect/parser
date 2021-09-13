@@ -149,16 +149,18 @@ hello
   t.ok(arc === origin)
 })
 
-/*
-test.only('can compile yaml string', t => {
+test('can compile simple yaml string', t => {
   t.plan(1)
   let origin = `
 @hi
 hello 1 true
 #wut`
+  let expected = `
+hi:
+- [ hello, 1, true ]
+#wut`
   let tokens = parse.lexer(origin)
-  let ast = parse.ast(tokens)
+  let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'yaml')
-  t.ok(true)
-  console.log(arc)
-})*/
+  t.same(arc, expected)
+})

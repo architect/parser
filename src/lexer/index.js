@@ -1,6 +1,7 @@
 let {
   SPACE,
   TAB,
+  WINDOWS_NEWLINE,
   NEWLINE,
   PRAGMA,
   COMMENT,
@@ -99,7 +100,9 @@ module.exports = function lex (code) {
         line,
         column
       })
-      cursor += 1
+      // special lookahead to see if we got \r\n
+      let twochars = code[cursor] + code[cursor + 1]
+      cursor += WINDOWS_NEWLINE.test(twochars) ? 2 : 1
       line += 1
       column = 1
       continue

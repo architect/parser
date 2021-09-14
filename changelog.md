@@ -9,7 +9,7 @@
 
 ### Added
 
-- `parse.parser` accepts lexeme tokesn and returns an AST object (with comments preserved)
+- `parse.parser` accepts lexeme tokens and returns an AST object (with comments preserved)
 - `parse.compiler` accepts an AST and returns one of `arc`, `json`, or `yaml` (`toml` support planned)
 
 ### Fixed

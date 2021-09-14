@@ -3,8 +3,11 @@ const DASHERIZED = /^([a-zA-Z0-9_-]+)$/
 
 // Emptyness is not nothingness
 const SPACE = / /
+const WINDOWS_NEWLINE = /\r\n/
+const POSIX_NEWLINE = /(\n|\r)/
 const NEWLINE = /(\r\n|\r|\n)/
 const TAB = /\t/
+
 
 /**
  * reserved syntax:
@@ -66,4 +69,4 @@ const NUMBER = /(\-)|(\d)/
  */
 const BOOLEAN = /(t)|(f)/
 
-module.exports = { DASHERIZED, SPACE, NEWLINE, TAB, PRAGMA, COMMENT, RESERVED, STRING, NUMBER, BOOLEAN }
+module.exports = { DASHERIZED, SPACE, NEWLINE, WINDOWS_NEWLINE, POSIX_NEWLINE, TAB, PRAGMA, COMMENT, RESERVED, STRING, NUMBER, BOOLEAN }

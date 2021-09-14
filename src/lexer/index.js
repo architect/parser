@@ -1,6 +1,7 @@
 let {
   SPACE,
   TAB,
+  WINDOWS_NEWLINE,
   NEWLINE,
   PRAGMA,
   COMMENT,
@@ -99,7 +100,9 @@ module.exports = function lex (code) {
         line,
         column
       })
-      cursor += 1
+      // special lookahead to see if we got \r\n
+      let twochars = code[cursor] + code[cursor + 1]
+      cursor += WINDOWS_NEWLINE.test(twochars) ? 2 : 1
       line += 1
       column = 1
       continue
@@ -140,13 +143,16 @@ module.exports = function lex (code) {
 
     if (STRING.test(code[cursor])) {
       let token = peek.string(cursor, code, line, column)
-      let quote = code[cursor] === '"'
-      tokens.push({
+      let quote = code[cursor] === '"' || code[cursor] === '`' || code[cursor] === "'"
+      let value = {
         type: 'string',
         value: token,
         line,
         column
-      })
+      }
+      if (quote)
+        value.raw = `${code[cursor]}${token}${code[cursor]}`
+      tokens.push(value)
       cursor += token.length + (quote ? 2 : 0)
       column += token.length + (quote ? 2 : 0)
       continue
@@ -155,5 +161,5 @@ module.exports = function lex (code) {
     throw new UnknownError({ character: code[cursor], line, column })
   }
 
-  return tokens
+  return tokens.slice(0, tokens.length - 1) // remove trailing token we added at beginning
 }

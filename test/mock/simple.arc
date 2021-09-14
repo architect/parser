@@ -1,5 +1,5 @@
 @attr
-single # future version should support `` style strings which allows multiline
+single
 false
 1
 -1
@@ -29,7 +29,7 @@ another-single_value
 another-obj
   $k 666 
   another-key another_value/baz.txt
-  undef # empty key will have a default false value
+  undef no # empty key will no longer have a default false value
   asdf 1 2 3 four
 
 spacey    tuple # tuple with lots of spaces

@@ -22,7 +22,8 @@ module.exports = {
     let matches = copy.match(NEWLINE)
     let end = matches && matches.index ? matches.index : code.length
     let token = copy.slice(0, end).trim()
-    if (!DASHERIZED.test(token.substring(1))) // ignore the leading @
+    let tidy = token.replace(/\#.*/gm, '').substring(1).trim() // remove comments/whitespace/leading @
+    if (!DASHERIZED.test(tidy))
       throw new PragmaSyntaxError({ token, line, column })
     return token
   },
@@ -58,14 +59,14 @@ module.exports = {
     let pointer = cursor
     let character = code[cursor]
     let token = ''
-    if (character === '"') {
+    if (character === '"' || character === '`' || character === "'") {
       // seek ahead to next instance of " skipping any \" references
       let copy = code.slice(cursor + 1, code.length)
       let count = 0
       let last = (function getNextQuote () {
         // create a copy of the code string
         let inner = copy.substring(count, copy.length)
-        let index = inner.indexOf('"')
+        let index = inner.indexOf(character)
         // if we didn't find it blow up hard
         let notfound = index === -1
         if (notfound)

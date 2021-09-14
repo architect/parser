@@ -1,81 +1,104 @@
-const notempty = require('./_not-empty')
-const SpaceError = require('../errors/parse-map-illegal-space')
-const NameError = require('../errors/parse-map-name-not-string')
-const KeyError = require('../errors/parse-map-key-not-string')
+const notEmpty = require('./_not-empty')
+const getLines = require('./_get-lines')
+const isScalar = require('./_is-scalar')
+const toString = require('./_to-string')
 
 /**
  * extracts a map value
  *
- * @param {lines}
- * @param {number} index
+ * @param {string[]} tokens
  * @returns {object} {end, value}
  */
-module.exports = function map (lines) {
+module.exports = function map (tokens) {
 
-  // extract the `name` and create the `end` index
-  let copy = lines.slice(0)
-  let end = copy[0].length + 1 // length of the current line plus one for the line
-  let raw = copy.shift().filter(notempty)[0]
-  let name = raw.value
+  let lines = getLines(tokens.slice(0))
 
-  if (!name || raw.type != 'string')
-    throw new NameError(lines[0][0])
+  // grab the map metadata
+  let first = lines.slice(0, 1)[0]
+  let name = first.filter(t => t.type === 'string')[0].value
+  let raw = first.reduce(toString, '')
 
-  // final state to return for the map token
-  let value = {}
-  value[name] = {}
+  // create an array of tokens up to the end of the vector
+  let values = []
+  let count = first.length
+  let isMultiline = false
+  let currentKey
+  let next = lines.slice(1, lines.length)
 
-  // keep score
-  let last = false
-  let done = false
+  for (let line of next) {
 
-  while (!done) {
-    // figure out the indentation of the next line
-    let line = copy.shift()
-    let { onespace, twospace, threespace, fourspace, fivespace } = spaces(line)
-
-    if (onespace || threespace || fivespace)
-      throw new SpaceError(line[0])
-
-    if (fourspace && done === false) {
-
-      // four spaces signals a vector value
-      if (line.filter(notempty).length > 1)
-        throw new KeyError(line[0])
-      end += 1 // one for the line
-      end += line.length // for all the tokens in the given line
-      let right = line.filter(notempty)[0].value
-      value[name][last].push(right)
+    let isEmpty = line.filter(notEmpty).length === 0
+    if (isMultiline === false && isEmpty === true) {
+      for (let token of line) {
+        values.push(token)
+      }
+      continue
     }
-    else if (twospace && done === false) {
 
-      // two spaces signals a key/value
-      end += 1 // one for the line
-      end += line.length // for all the tokens in the given line
-      let right = line.filter(notempty).slice(0)
-      let left = right.shift()
-      if (left.type != 'string')
-        throw new KeyError(left)
-      last = left.value // reuse this for vert vector trapping
-      value[name][left.value] = right.length === 1 ? right[0].value : right.map(t => t.value)
+    // capture the map keys as vector types
+    let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'
+    if (isKey) {
+      let name = line[2].value
+      let raw = line.slice(0).reduce(toString, '').split(name)[0] + name
+      let key = { type: 'vector', name, raw, values: [] }
+      isMultiline = line.slice(0).filter(isScalar).length === 1
+      if (isMultiline) {
+        currentKey = key
+        currentKey.raw += '\n' // capture implicit newline in raw
+      }
+      else {
+        key.values = line.slice(3, line.length)
+      }
+      count += 3 // space|space|string
+      values.push(key)
+      continue
+    }
+
+    // if we got here we just adding up the emptiness
+    if (isMultiline === true && isEmpty === true) {
+      for (let token of line) {
+        currentKey.values.push(token)
+      }
+      continue
+    }
+
+    if (isMultiline === true && isEmpty === false) {
+      let isFourSpacesAndScalar =
+        line[0].type === 'space' &&
+        line[1].type === 'space' &&
+        line[2].type === 'space' &&
+        line[3].type === 'space' &&
+        isScalar(line[4])
+      if (isFourSpacesAndScalar) {
+        count += 5 // space|space|space|space|string
+        for (let token of line) {
+          currentKey.values.push(token)
+        }
+      }
+      else {
+        isMultiline = false
+      }
+      continue
+    }
+    // end for
+    break
+  }
+
+  // calc the token offset
+  let end = count + values.reduce(function flat (a, token) {
+    if (token.type === 'vector') {
+      for (let t of token.values) {
+        a.push(t)
+      }
     }
     else {
-
-      // indentation is over: we out
-      done = true
+      a.push(token)
     }
-  }
-  return { end, value }
-}
+    return a
+  }, []).length
 
-/** hide this here */
-function spaces (line) {
-  if (!Array.isArray(line))
-    return { onespace: false, twospace: false, threespace: false, fourspace: false, fivespace: false }
-  let onespace = line.length > 2 && line[0].type == 'space' && line[1].type != 'space'
-  let twospace = line.length > 2 && line[0].type == 'space' && line[1].type == 'space'
-  let threespace = line.length >= 4 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type != 'space'
-  let fourspace = line.length >= 5 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type == 'space'
-  let fivespace = line.length >= 5 && line[0].type == 'space' && line[1].type == 'space' && line[2].type == 'space' && line[3].type == 'space' && line[4].type == 'space'
-  return { onespace, twospace, threespace, fourspace, fivespace }
+  return {
+    end,
+    value: { type: 'map', name, raw, values }
+  }
 }

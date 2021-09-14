@@ -1,2 +1,0 @@
-@sok sun
-asdfasdfa

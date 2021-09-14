@@ -1,16 +1,21 @@
 let test = require('tape')
 let parse = require('../')
+let isVector = require('../src/parser/_is-vector')
 
 test('parse quoted string', t => {
-  t.plan(3)
-  let output = parse(`
+  t.plan(5)
+  let arcfile = `
 @mystr
 "string with spaces"
-`)
+\`string also with spaces\`
+'yet another string w spaces'
+`
+  let output = parse(arcfile)
   t.ok(output, 'parsed')
   t.ok(Array.isArray(output.mystr), 'output.mystr')
-  t.ok(output.mystr[0] === 'string with spaces', 'has string with spaces')
-  console.log(output)
+  t.ok(output.mystr[0] === 'string with spaces', 'greedy double quote')
+  t.ok(output.mystr[1] === 'string also with spaces', 'greedy backtick')
+  t.ok(output.mystr[2] === 'yet another string w spaces', 'greedy single quote')
 })
 
 test('parse quoted string with illegal chars', t => {
@@ -79,8 +84,30 @@ asdf-787
   console.log(JSON.stringify(output, null, 2))
 })
 
+test('isVec', t => {
+  t.plan(1)
+  let arcfile = `
+@values
+nested
+  39239392.32232332
+  -2323.323232
+  +1-234-567-8900
+  asdf-787
+  true
+  "b@brian.io"
+
+obj
+  "invoice-#333" value here
+  wut wut`
+  t.ok(true)
+  let tokens = parse.lexer(arcfile)
+  let slice = tokens.slice(2, tokens.length)
+  let isV = isVector(slice)
+  console.dir({ slice, isV }, { depth: null })
+})
+
 test('nested floats and hashes; plus signals string; quoted values', t => {
-  t.plan(2)
+  t.plan(8)
   let arcfile = `
 @values
 nested
@@ -96,7 +123,14 @@ obj
 `
   t.ok(arcfile, '.arc')
   console.log(arcfile)
-  let output = parse(arcfile)
-  t.ok(output, 'parsed result')
-  console.log(JSON.stringify(output, null, 2))
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast)
+  t.ok(arc)
+  t.ok(Array.isArray(arc.values), 'values pragma exists')
+  t.ok(Array.isArray(arc.values[0].nested), 'nested array exists')
+  t.ok(Number.isInteger(arc.values[0].nested[0]) === false, 'is a float')
+  t.ok(Math.sign(arc.values[0].nested[1]) === -1, 'is a negative value')
+  t.ok(Object.keys(arc.values[1].obj)[0] === 'invoice-#333', 'obj key exists')
+  t.ok(Array.isArray(arc.values[1].obj['invoice-#333']), 'obj key has expected value')
 })

@@ -1,5 +1,6 @@
-const compact = require('./_compact')
 const type = require('./get-type')
+
+const InvalidTokens = require('../errors/parse-invalid-tokens')
 const NotFound = require('../errors/parse-pragma-not-found')
 const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
 
@@ -9,53 +10,71 @@ const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
  * @param {array} raw tokens
  * @returns {object}
  */
-module.exports = function parse (raw, sourcemap = false) {
+module.exports = function parse (tokens) {
 
-  let tokens = compact(raw)
-  // console.log({tokens})
+  // ensure we received valid lexer tokens
+  let validTokens = Array.isArray(tokens) && tokens.every(t => typeof t.type != 'undefined')
+  if (validTokens === false) {
+    throw new InvalidTokens(tokens)
+  }
 
-  // arcfiles must begin with an @pragma
-  if (tokens[0].type != 'pragma')
-    throw new NotFound
+  // arcfile must have one pragma
+  let pragmas = tokens.filter(t => t.type === 'pragma')
+  let hasPragma = pragmas.length > 0
+  if (hasPragma === false) {
+    throw new NotFound(tokens)
+  }
 
-  let arc = {}
-  let src = {}
-  let pragma = false
+  // pragmas must be unique
+  let tmp = {}
+  for (let pragma of pragmas) {
+    if (tmp[pragma.value]) {
+      throw new AlreadyDefined(pragma)
+    }
+    else {
+      tmp[pragma.value] = true
+    }
+  }
+
+  // construct the ast
+  let arcfile = { type: 'arcfile', values: [] }
   let index = 0
+  let pragma = false
 
   while (index < tokens.length) {
 
     let token = tokens[index]
 
+    // setup the current pragma
     if (token.type === 'pragma') {
-
-      // pragmas must be unique
-      if ({}.hasOwnProperty.call(arc, token.value))
-        throw new AlreadyDefined(token)
-
-      // create the pragma
-      arc[token.value] = []
-
-      // create a source map
-      src[token.value] = []
-
-      // keep a ref to the current pragma
-      pragma = token.value
+      pragma = {
+        type: 'pragma',
+        name: token.value.replace(/\#.*/gm, '').trim(),
+        raw: token.value,
+        line: token.line,
+        column: token.column,
+        values: []
+      }
+      arcfile.values.push(pragma)
       index += 1
     }
 
-    // ignore newlines and spaces
-    let empty = token.type === 'newline' || token.type === 'space'
-    if (empty)
+    // stream empty types into the arcfile or current pragma
+    let empty = token.type === 'newline' || token.type === 'space' || token.type === 'comment'
+    if (empty) {
+      let current = pragma || arcfile
+      current.values.push({ ...token })
       index += 1
+    }
 
-    if (token.type === 'number' || token.type === 'boolean' || token.type === 'string') {
+    // lookahead for complex types (which passes through if just scalar)
+    let scalar = token.type === 'number' || token.type === 'boolean' || token.type === 'string'
+    if (scalar) {
       let { end, value } = type({ tokens, index })
-      arc[pragma].push(value)
-      src[pragma].push({ start: token, end: tokens[index + end] })
+      pragma.values.push(value)
       index += end
     }
   }
 
-  return sourcemap ? { arc, src } : arc
+  return arcfile
 }

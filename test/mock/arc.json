@@ -1,0 +1,155 @@
+{
+  "app": [
+    "testapp"
+  ],
+  "aws": [
+    [
+      "region",
+      "us-west-2"
+    ],
+    [
+      "profile",
+      "personal"
+    ],
+    [
+      "runtime",
+      "nodejs10.x"
+    ],
+    [
+      "apigateway",
+      "http"
+    ],
+    [
+      "bucket",
+      "someapp-preview"
+    ]
+  ],
+  "cdn": [
+    [
+      "enable",
+      false
+    ]
+  ],
+  "events": [
+    "send-welcome-sms",
+    {
+      "send-verification-sms": {
+        "some-property": "some-value",
+        "src": "some/events/path"
+      }
+    }
+  ],
+  "http": [
+    [
+      "get",
+      "/http/route"
+    ],
+    [
+      "post",
+      "/http/routetwo"
+    ],
+    {
+      "/http/routethree": {
+        "method": "any",
+        "src": "some/http/path"
+      }
+    }
+  ],
+  "indexes": [
+    {
+      "authors": {
+        "phone": "*String"
+      }
+    }
+  ],
+  "macros": [
+    "@architect/node-prune",
+    "custom-macro"
+  ],
+  "queues": [
+    "some-queue",
+    {
+      "send-other-queue": {
+        "src": "some/queues/path"
+      }
+    }
+  ],
+  "scheduled": [
+    [
+      "daily-report",
+      "rate(1 day)"
+    ],
+    {
+      "weekly-report": {
+        "rate": "1 day",
+        "src": "some/scheduled/path"
+      }
+    }
+  ],
+  "static": [
+    [
+      "staging",
+      "testapp-bucket"
+    ],
+    [
+      "production",
+      "testapp-bucket-prod"
+    ]
+  ],
+  "streams": [
+    "notes",
+    {
+      "some-stream-name": {
+        "table": "authors",
+        "src": "some/streams/path"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "notes": {
+        "authorID": "*String",
+        "noteID": "**String",
+        "stream": true
+      }
+    },
+    {
+      "authors": {
+        "authorID": "*String"
+      }
+    }
+  ],
+  "ws": [
+    "a-websocket-event",
+    {
+      "another-websocket-event": {
+        "src": "some/ws/path"
+      }
+    }
+  ],
+  "unknown-obj-pragma": [
+    [
+      "some-value",
+      true
+    ],
+    [
+      "some-other-value",
+      {
+        "is-an-obj": "yep"
+      }
+    ],
+    [
+      "some-array-value",
+      [ 1, 2, 3 ]
+    ]
+  ],
+  "unknown-array-pragma": [
+    { "some-value": true },
+    {
+      "some-other-value": {
+        "is-an-obj": "yep"
+      }
+    },
+    { "some-array-value": [ 1, 2, 3 ] }
+  ]
+}

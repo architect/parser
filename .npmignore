@@ -4,7 +4,6 @@
 .git/
 .github/
 .nyc_output/
-arc-*schema.json
 coverage/
 doc/
 examples/

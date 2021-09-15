@@ -1,21 +1,27 @@
 # Architect Parser changelog
 
 ---
-## [4.0.2] 2021-09-13
+
+## [5.0.0] 2021-09-13
 
 ### Changed
 
 - Breaking change: `parse.parser` now returns an AST object
+- Moved JSON schemas to the [Arc syntaxes repo](https://github.com/architect/syntaxes)
+
 
 ### Added
 
 - `parse.parser` accepts lexeme tokens and returns an AST object (with comments preserved)
 - `parse.compiler` accepts an AST and returns one of `arc`, `json`, or `yaml` (`toml` support planned)
 
+
 ### Fixed
 
 - Windows style newline `\r\n` was not being accounted for and could result in buggy reads
 - `.arc` map objects will throw if a key is undefined
+
+---
 
 ## [4.0.0 - 4.0.1] 2021-07-22
 

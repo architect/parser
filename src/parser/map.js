@@ -28,12 +28,6 @@ module.exports = function map (tokens) {
   for (let line of next) {
 
     let isEmpty = line.filter(notEmpty).length === 0
-    if (isMultiline === false && isEmpty === true) {
-      for (let token of line) {
-        values.push(token)
-      }
-      continue
-    }
 
     // capture the map keys as vector types
     let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'

@@ -1,4 +1,3 @@
-const notEmpty = require('./_not-empty')
 const getLines = require('./_get-lines')
 const toString = require('./_to-string')
 
@@ -23,9 +22,8 @@ module.exports = function vector (tokens) {
   // create an array of tokens up to the end of the vector
   let values = []
   for (let line of rest) {
-    let isEmpty = line.filter(notEmpty).length === 0
     let isTwoSpaces = line[0].type === 'space' && line[1].type === 'space'
-    if (isEmpty || isTwoSpaces) {
+    if (isTwoSpaces) {
       for (let token of line) {
         values.push(token)
       }

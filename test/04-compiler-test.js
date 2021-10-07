@@ -204,6 +204,9 @@ vector
 
 
 array a b
+
+
+
 `
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)

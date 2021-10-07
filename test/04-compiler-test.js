@@ -181,30 +181,38 @@ array a b
 
 @b
 scalar
+# comment
 
+# comment
 
 
 true
-
+# comment
 
 
 123
-
+# comment
 
 
 map
   a b
+  # comment
+  c d
+# comment
 
-
+# comment
 
 vector
   a
+  # comment
   b
+# comment
 
 
+# comment
 
 array a b
-
+# comment
 
 
 `

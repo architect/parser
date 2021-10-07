@@ -75,7 +75,7 @@ test('can compile map with vector', t => {
   let arcfile = `
 @pets
 cat
-  names 
+  names
     sutr0
     tux3d0`
   let tokens = parse.lexer(arcfile)
@@ -121,7 +121,7 @@ test('can compile arc plaintext string with map', t => {
   let origin = `
 # hello world
 @hi
-hello 
+hello
   one 1 # some comment here
   two false`
   let tokens = parse.lexer(origin)
@@ -135,7 +135,7 @@ test('can compile arc plaintext string with map with vector', t => {
   let origin = `
 # hello world
 @hi
-hello 
+hello
   one 1 # some comment here
   two false
   three
@@ -146,6 +146,68 @@ hello
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
   console.log(origin, arc)
+  t.ok(arc === origin)
+})
+
+test('line breaks are preserved across all primitive types', t => {
+  t.plan(1)
+  let origin = `@a
+scalar
+
+
+
+true
+
+
+
+123
+
+
+
+map
+  a b
+
+
+
+vector
+  a
+  b
+
+
+
+array a b
+
+
+
+@b
+scalar
+
+
+
+true
+
+
+
+123
+
+
+
+map
+  a b
+
+
+
+vector
+  a
+  b
+
+
+
+array a b
+`
+  let tokens = parse.lexer(origin)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'arc')
   t.ok(arc === origin)
 })
 

@@ -9,7 +9,7 @@ test('lex, parse and compile', t => {
   t.ok(parse, 'parse')
   let arcfile = `
 # comment with spaces
-@pragma1  
+@pragma1
 str
 true
 1
@@ -94,4 +94,44 @@ cats
   t.ok(arc.animals[0].cats.jungle.length === 2)
   t.ok(arc.animals[0].cats.ocean === 'sealion')
   console.dir({ arc }, { depth: null })
+})
+
+test('funky trailing whitespace in complex formats', t => {
+  t.plan(3)
+  let arcfile
+  function run () {
+    let tokens = lex(arcfile)
+    let ast = parse(tokens)
+    compile(ast)
+  }
+
+  arcfile = `
+@simple
+vert
+  one
+  two
+  three
+    `
+  t.doesNotThrow(run, 'Did not throw')
+
+  arcfile = `
+@whales
+orca
+  name fin
+    `
+  t.doesNotThrow(run, 'Did not throw')
+
+  arcfile = `
+@animals
+cats
+  house
+    tabby
+    tortoise
+  jungle
+    tiger
+    lion
+  ocean
+    sealion
+      `
+  t.doesNotThrow(run, 'Did not throw')
 })

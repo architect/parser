@@ -30,7 +30,9 @@ module.exports = function map (tokens) {
     let isEmpty = line.filter(notEmpty).length === 0
 
     // capture the map keys as vector types
-    let isKey = line[0].type === 'space' && line[1].type === 'space' && line[2].type === 'string'
+    let isKey = line[0]?.type === 'space' &&
+                line[1]?.type === 'space' &&
+                line[2]?.type === 'string'
     if (isKey) {
       let name = line[2].value
       let raw = line.slice(0).reduce(toString, '').split(name)[0] + name

@@ -2,6 +2,14 @@
 
 ---
 
+## [5.0.2] 2021-10-11
+
+### Changed
+
+- Fix esoteric issue where a newline with nothing but trailing spaces following a map may blow up
+
+---
+
 ## [5.0.1] 2021-10-07
 
 ### Fixed

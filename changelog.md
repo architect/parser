@@ -7,6 +7,7 @@
 ### Changed
 
 - Fix esoteric issue where a newline with nothing but trailing spaces following a map may blow up
+- Updated dependencies
 
 ---
 

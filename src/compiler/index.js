@@ -7,23 +7,29 @@ const FormatUnknown = require('../errors/compile-format-unknown')
 
 module.exports = function compiler (ast, format = 'js') {
 
-  if (ast.type != 'arcfile')
+  if (ast.type !== 'arcfile') {
     throw new InvalidArcfile
+  }
 
-  if (format === 'js')
+  if (format === 'js') {
     return js(ast)
+  }
 
-  if (format === 'json')
+  if (format === 'json') {
     return JSON.stringify(js(ast))
+  }
 
-  if (format === 'arc')
+  if (format === 'arc') {
     return arc(ast)
+  }
 
-  if (format === 'yaml')
+  if (format === 'yaml') {
     return yaml(ast)
+  }
 
-  // if (mode === 'toml')
+  // if (mode === 'toml') {
   //   return toml(ast)
+  // }
 
   throw new FormatUnknown(format)
 }

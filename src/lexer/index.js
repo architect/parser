@@ -150,8 +150,9 @@ module.exports = function lex (code) {
         line,
         column
       }
-      if (quote)
+      if (quote) {
         value.raw = `${code[cursor]}${token}${code[cursor]}`
+      }
       tokens.push(value)
       cursor += token.length + (quote ? 2 : 0)
       column += token.length + (quote ? 2 : 0)

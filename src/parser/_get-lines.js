@@ -9,8 +9,9 @@ module.exports = function getLines (tokens) {
 
     let token = tokens[tokenIndex]
 
-    if (Array.isArray(lines[lineIndex]) === false)
+    if (Array.isArray(lines[lineIndex]) === false) {
       lines[lineIndex] = []
+    }
 
     lines[lineIndex].push({ ...token })
 

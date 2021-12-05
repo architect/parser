@@ -21,7 +21,7 @@ test('test base mock file', t => {
   t.ok(Array.isArray(parsed.attr[4]), '5th member is an array with two members')
   t.ok(parsed.attr[4].length === 2, '6th member is a tuple')
   t.ok(parsed.attr[5].length === 7, '7th member is a vector of seven members')
-  t.ok(typeof parsed.attr[6] == 'object' && parsed.attr[6] !== null, '8th member is a plain object')
+  t.ok(typeof parsed.attr[6] === 'object' && parsed.attr[6] !== null, '8th member is a plain object')
   t.ok(parsed.attr[4].length === 2, '9th member is also a tuple')
 })
 

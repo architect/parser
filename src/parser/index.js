@@ -1,5 +1,6 @@
 const type = require('./get-type')
-
+const isScalar = require('./_is-scalar')
+const { isEmpty } = require('./_check-empty')
 const InvalidTokens = require('../errors/parse-invalid-tokens')
 const NotFound = require('../errors/parse-pragma-not-found')
 const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
@@ -13,7 +14,7 @@ const AlreadyDefined  = require('../errors/parse-pragma-already-defined')
 module.exports = function parse (tokens) {
 
   // ensure we received valid lexer tokens
-  let validTokens = Array.isArray(tokens) && tokens.every(t => typeof t.type != 'undefined')
+  let validTokens = Array.isArray(tokens) && tokens.every(t => typeof t.type !== 'undefined')
   if (validTokens === false) {
     throw new InvalidTokens(tokens)
   }
@@ -60,7 +61,7 @@ module.exports = function parse (tokens) {
     }
 
     // stream empty types into the arcfile or current pragma
-    let empty = token.type === 'newline' || token.type === 'space' || token.type === 'comment'
+    let empty = isEmpty(token)
     if (empty) {
       let current = pragma || arcfile
       current.values.push({ ...token })
@@ -68,7 +69,7 @@ module.exports = function parse (tokens) {
     }
 
     // lookahead for complex types (which passes through if just scalar)
-    let scalar = token.type === 'number' || token.type === 'boolean' || token.type === 'string'
+    let scalar = isScalar(token)
     if (scalar) {
       let { end, value } = type({ tokens, index })
       pragma.values.push(value)

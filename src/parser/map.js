@@ -1,4 +1,5 @@
-const notEmpty = require('./_not-empty')
+const { isNotEmpty } = require('./_check-empty')
+const { isTwoSpaces, isFourSpaces } = require('./_check-spaces')
 const getLines = require('./_get-lines')
 const isScalar = require('./_is-scalar')
 const toString = require('./_to-string')
@@ -27,11 +28,10 @@ module.exports = function map (tokens) {
 
   for (let line of next) {
 
-    let isEmpty = line.filter(notEmpty).length === 0
+    let isEmpty = line.filter(isNotEmpty).length === 0
 
     // capture the map keys as vector types
-    let isKey = line[0]?.type === 'space' &&
-                line[1]?.type === 'space' &&
+    let isKey = isTwoSpaces(line) &&
                 line[2]?.type === 'string'
     if (isKey) {
       let name = line[2].value
@@ -59,13 +59,7 @@ module.exports = function map (tokens) {
     }
 
     if (isMultiline === true && isEmpty === false) {
-      let isFourSpacesAndScalar =
-        line[0].type === 'space' &&
-        line[1].type === 'space' &&
-        line[2].type === 'space' &&
-        line[3].type === 'space' &&
-        isScalar(line[4])
-      if (isFourSpacesAndScalar) {
+      if (isFourSpaces(line) && isScalar(line[4])) {
         count += 5 // space|space|space|space|string
         for (let token of line) {
           currentKey.values.push(token)

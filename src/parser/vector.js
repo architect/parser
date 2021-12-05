@@ -1,4 +1,5 @@
 const getLines = require('./_get-lines')
+const { isTwoSpaces } = require('./_check-spaces')
 const toString = require('./_to-string')
 
 /**
@@ -22,8 +23,7 @@ module.exports = function vector (tokens) {
   // create an array of tokens up to the end of the vector
   let values = []
   for (let line of rest) {
-    let isTwoSpaces = line[0].type === 'space' && line[1].type === 'space'
-    if (isTwoSpaces) {
+    if (isTwoSpaces(line)) {
       for (let token of line) {
         values.push(token)
       }

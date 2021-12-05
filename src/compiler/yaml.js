@@ -1,5 +1,5 @@
 const isScalar = require('../parser/_is-scalar')
-const isEmpty = t => t.type === 'space' || t.type === 'newline' || t.type === 'comment'
+const { isEmpty } = require('../parser/_check-empty')
 
 /**
  * Compile AST into a Architect plaintext string
@@ -25,10 +25,12 @@ module.exports = function yaml (ast) {
         if (token.type === 'vector') {
           arc += '- ' + token.raw
           for (let node of token.values) {
-            if (isScalar(node.type))
+            if (isScalar(node.type)) {
               arc += '  - ' + node.value
-            if (isEmpty(node.type))
+            }
+            if (isEmpty(node.type)) {
               arc += node.value
+            }
           }
         }
         if (token.type === 'map') {
@@ -41,12 +43,14 @@ module.exports = function yaml (ast) {
                 if (isScalar(key)) {
                   throw Error
                 }
-                if (isEmpty(key))
+                if (isEmpty(key)) {
                   arc += node.value
+                }
               }
             }
-            if (isEmpty(node.type))
+            if (isEmpty(node.type)) {
               arc += node.value
+            }
           }
 
         }

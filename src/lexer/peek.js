@@ -23,8 +23,9 @@ module.exports = {
     let end = matches && matches.index ? matches.index : code.length
     let token = copy.slice(0, end).trim()
     let tidy = token.replace(/\#.*/gm, '').substring(1).trim() // remove comments/whitespace/leading @
-    if (!DASHERIZED.test(tidy))
+    if (!DASHERIZED.test(tidy)) {
       throw new PragmaSyntaxError({ token, line, column })
+    }
     return token
   },
 
@@ -69,12 +70,14 @@ module.exports = {
         let index = inner.indexOf(character)
         // if we didn't find it blow up hard
         let notfound = index === -1
-        if (notfound)
+        if (notfound) {
           throw new CloseQuoteNotFoundError({ line, column })
+        }
         // if is not an excaped value return
         let escapee = inner[index - 1] === '\\'
-        if (!escapee)
+        if (!escapee) {
           return index
+        }
         // by default continue searching
         count = index
         getNextQuote()

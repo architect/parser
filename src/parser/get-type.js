@@ -45,17 +45,18 @@ module.exports = function type ({ tokens, index }) {
   let scalar = isSingle(working)
   let indent = isIndent(working)
 
-  if (scalar && indent === false)
+  if (scalar && indent === false) {
     return { end: 1, value: { ...tokens[index] } }
-
-  if (scalar === false)
+  }
+  if (scalar === false) {
     return array(working)
-
-  if (isVector(working))
+  }
+  if (isVector(working)) {
     return vector(working)
-
-  if (isMap(working))
+  }
+  if (isMap(working)) {
     return map(working)
+  }
 
   let err = new TypeUnknown(tokens[index])
   err.tokens = tokens.slice(index, tokens.length)

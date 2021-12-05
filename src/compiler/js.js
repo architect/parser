@@ -19,12 +19,14 @@ module.exports = function js (ast) {
     for (let token of pragma.values) {
 
       // scalars
-      if (isScalar(token))
+      if (isScalar(token)) {
         arc[pragma.name].push(token.value)
+      }
 
       // array
-      if (token.type === 'array')
+      if (token.type === 'array') {
         arc[pragma.name].push(token.values.filter(isScalar).map(t => t.value))
+      }
 
       // vector
       if (token.type === 'vector') {
@@ -43,14 +45,16 @@ module.exports = function js (ast) {
 
           // reduce to scalar values
           map[token.name][key.name] = key.values.reduce((a, token) => {
-            if (isScalar(token))
+            if (isScalar(token)) {
               a.push(token.value)
+            }
             return a
           }, [])
 
           // flatten arrays of one value
-          if (map[token.name][key.name].length === 1)
+          if (map[token.name][key.name].length === 1) {
             map[token.name][key.name] = map[token.name][key.name].pop()
+          }
         }
 
         arc[pragma.name].push(map)

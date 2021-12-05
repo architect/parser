@@ -1,6 +1,6 @@
 const isScalar = require('../parser/_is-scalar')
+const { isEmpty } = require('../parser/_check-empty')
 const isComplex = t => t.type === 'array' || t.type === 'vector' || t.type === 'map'
-const isEmpty = t => t.type === 'space' || t.type === 'newline' || t.type === 'comment'
 
 /**
  * Compile AST into a Architect plaintext string
@@ -18,15 +18,18 @@ module.exports = function arc (ast) {
           arc += token.raw ? token.raw : token.value
         }
         if (isComplex(token)) {
-          if (token.raw)
+          if (token.raw) {
             arc += token.raw + '\n'
+          }
           for (let node of token.values) {
-            if (node.value)
+            if (node.value) {
               arc += node.value
+            }
             if (node.values) {
               arc += node.raw
-              for (let key of node.values)
+              for (let key of node.values) {
                 arc += key.value
+              }
             }
           }
         }

@@ -2,6 +2,14 @@
 
 ---
 
+## [next] 2022-01-23
+
+### Changed
+
+- Stop publishing to the GitHub Package registry
+
+---
+
 ## [5.0.2] 2021-10-11
 
 ### Changed

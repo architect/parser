@@ -27,9 +27,5 @@ module.exports = function compiler (ast, format = 'js') {
     return yaml(ast)
   }
 
-  // if (mode === 'toml') {
-  //   return toml(ast)
-  // }
-
   throw new FormatUnknown(format)
 }

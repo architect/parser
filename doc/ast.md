@@ -1,6 +1,6 @@
-# AST nodes 
+# AST nodes
 
-`@architect/parser` defines a liberal structured text format that allows for simple sclar types (string, number and boolean) as well as comments, and complex types (array, vector, and map) using significant whitespace. Significant whitespace is deliberately constrained to discouage deep nesting. The abstract syntax tree (AST) should allow parsing arcfile text and compiling into JSON, YAML, TOML or back into arcfile text.
+`@architect/parser` defines a liberal structured text format that allows for simple sclar types (string, number and boolean) as well as comments, and complex types (array, vector, and map) using significant whitespace. Significant whitespace is deliberately constrained to discouage deep nesting. The abstract syntax tree (AST) should allow parsing arcfile text and compiling into JSON or YAML or back into arcfile text.
 
 ## Required properties
 
@@ -8,7 +8,7 @@
 - `line` the source line number
 - `column` the source column number
 
-## Optional properties 
+## Optional properties
 
 - `name` the AST node name value
 - `value` the AST node value
@@ -19,7 +19,7 @@
 
 AST node property `type` can be grouped 'empty', 'scalar' and 'complex' values.
 
-### Empty types 
+### Empty types
 
 Empty types always have a value property.
 
@@ -39,7 +39,7 @@ Empty types always have a value property.
 { type: 'space', value: ' ' }
 ````
 
-### Scalar types 
+### Scalar types
 
 Scalar types always have a `value` property.
 

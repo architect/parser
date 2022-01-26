@@ -1,7 +1,7 @@
 # [`@architect/parser`](https://www.npmjs.com/package/@architect/parser) [![GitHub CI status](https://github.com/architect/parser/workflows/Node%20CI/badge.svg)](https://github.com/architect/parser/actions?query=workflow%3A%22Node+CI%22)
 <!-- [![codecov](https://codecov.io/gh/architect/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/architect/parser) -->
 
-OpenJS Architect is an Infrastructure as Code (IaC) solution. The critical insight of *Infastructure as Code* is determinism. Infrastructure resources are defined in a declarative manifest file with the code that depends on them. This ensures deployment artifacts alway have the exact runtime resources expected for every version of the code. 
+OpenJS Architect is an Infrastructure as Code (IaC) solution. The critical insight of *Infastructure as Code* is determinism. Infrastructure resources are defined in a declarative manifest file with the code that depends on them. This ensures deployment artifacts alway have the exact runtime resources expected for every version of the code.
 
 Architect looks in the following places for the primary definition/configuration manifest file:
 
@@ -9,7 +9,6 @@ Architect looks in the following places for the primary definition/configuration
 - `app.arc` - [example](/examples/arc.arc)
 - `arc.json` - [example](/examples/arc.json) - [schema](https://arc.codes/schema.json)
 - `arc.yaml` - [example](/examples/arc.yml)
-- `arc.toml` - [example](/examples/arc.toml)
 
 > The `.arc` format is unique to Architect with many readability advantages; but is *not required*
 

@@ -1,5 +1,5 @@
 /**
- * Adjusts cardinality of some Architect specific keys to make them nicer to author in JSON, YAML and TOML
+ * Adjusts cardinality of some Architect specific keys to make them nicer to author in JSON, and YAML
  */
 module.exports = function parseJSON (text) {
   let json = JSON.parse(text)

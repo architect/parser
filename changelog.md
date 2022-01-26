@@ -2,11 +2,13 @@
 
 ---
 
-## [next] 2022-01-23
+## [6.0.0] 2022-01-23
 
 ### Changed
 
+- Breaking change: removed `toml` support
 - Stop publishing to the GitHub Package registry
+- Updated dependencies
 
 ---
 

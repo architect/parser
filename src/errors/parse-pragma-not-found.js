@@ -1,6 +1,6 @@
 module.exports = class PragmaNotFound extends ReferenceError {
   constructor () {
-    super(`@pragma not found`)
+    super(`Architect files must contain at least one pragma`)
     this.name = this.constructor.name
   }
 }

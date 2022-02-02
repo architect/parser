@@ -8,6 +8,7 @@
 
 - Breaking change: removed `toml` support
 - Stop publishing to the GitHub Package registry
+- Updated PragmaNotFound error description
 - Updated dependencies
 
 ---

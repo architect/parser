@@ -29,6 +29,56 @@ one 2 true`
   console.log(arc)
 })
 
+test('can compile array values with quotes (js)', t => {
+  t.plan(1)
+  let arcfile = `
+@bundles
+my-package node_modules/my-package
+store 'node_modules/@enhance/store'
+ssr "node_modules/@enhance/ssr"`
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast)
+  t.same(arc, { bundles: [
+    [ 'my-package', 'node_modules/my-package' ],
+    [ 'store', `'node_modules/@enhance/store'` ],
+    [ 'ssr', `"node_modules/@enhance/ssr"` ]
+  ] })
+  console.log(arc)
+})
+
+test('can compile array values with quotes (arc)', t => {
+  t.plan(3)
+  let arcfile = `
+@bundles
+my-package node_modules/my-package
+store 'node_modules/@enhance/store'
+ssr "node_modules/@enhance/ssr"`
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'arc')
+  t.ok(arc.includes(`my-package node_modules/my-package`))
+  t.ok(arc.includes(`store 'node_modules/@enhance/store'`))
+  t.ok(arc.includes(`ssr "node_modules/@enhance/ssr"`))
+  console.log(arc)
+})
+
+test('can compile array values with quotes (yaml)', t => {
+  t.plan(3)
+  let arcfile = `
+@bundles
+my-package node_modules/my-package
+store 'node_modules/@enhance/store'
+ssr "node_modules/@enhance/ssr"`
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let arc = parse.compiler(ast, 'yaml')
+  t.ok(arc.includes(`my-package, node_modules/my-package`))
+  t.ok(arc.includes(`store, 'node_modules/@enhance/store'`))
+  t.ok(arc.includes(`ssr, "node_modules/@enhance/ssr"`))
+  console.log(arc)
+})
+
 test('can compile scalar and array values', t => {
   t.plan(1)
   let arcfile = `

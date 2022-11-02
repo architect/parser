@@ -20,7 +20,7 @@ module.exports = function yaml (ast) {
           arc += '- ' + token.value
         }
         if (token.type === 'array') {
-          arc += '- [ ' + token.values.filter(isScalar).map(t => t.value).join(', ') + ' ]\n'
+          arc += '- [ ' + token.values.filter(isScalar).map(t => t.raw ? t.raw : t.value).join(', ') + ' ]\n'
         }
         if (token.type === 'vector') {
           arc += '- ' + token.raw

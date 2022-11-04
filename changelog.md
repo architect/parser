@@ -2,6 +2,14 @@
 
 ---
 
+## [6.0.1 - 6.0.2] 2022-11-04
+
+### Fixed
+
+- Fixed missing quotes in compiler output of string literals to `.arc` + `yaml` formats
+
+---
+
 ## [6.0.0] 2022-01-23
 
 ### Changed

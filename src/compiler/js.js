@@ -25,13 +25,13 @@ module.exports = function js (ast) {
 
       // array
       if (token.type === 'array') {
-        arc[pragma.name].push(token.values.filter(isScalar).map(t => t.raw ? t.raw : t.value))
+        arc[pragma.name].push(token.values.filter(isScalar).map(t => t.value))
       }
 
       // vector
       if (token.type === 'vector') {
         let vector = {}
-        vector[token.name] = token.values.filter(isScalar).map(t => t.raw ? t.raw : t.value)
+        vector[token.name] = token.values.filter(isScalar).map(t => t.value)
         arc[pragma.name].push(vector)
       }
 

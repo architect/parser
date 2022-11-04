@@ -135,3 +135,13 @@ cats
       `
   t.doesNotThrow(run, 'Did not throw')
 })
+
+test('AST quote information is retained', t => {
+  t.plan(1)
+  let arcfile = `@hi\n"there"`
+  let tokens = lex(arcfile)
+  let ast = parse(tokens)
+  let str = ast.values[0].values.find(v => v.type === 'string' && v.quote && v.quote === '"')
+  t.ok(str, 'found the quote on a string value')
+  console.dir(str, { depth: null })
+})

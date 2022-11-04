@@ -41,8 +41,8 @@ ssr "node_modules/@enhance/ssr"`
   let arc = parse.compiler(ast)
   t.same(arc, { bundles: [
     [ 'my-package', 'node_modules/my-package' ],
-    [ 'store', `'node_modules/@enhance/store'` ],
-    [ 'ssr', `"node_modules/@enhance/ssr"` ]
+    [ 'store', `node_modules/@enhance/store` ],
+    [ 'ssr', `node_modules/@enhance/ssr` ]
   ] })
   console.log(arc)
 })
@@ -286,4 +286,22 @@ hi:
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'yaml')
   t.same(arc, expected)
+})
+
+test('js compilation strips escape quotes', t => {
+  t.plan(3)
+  let arcfile = `@bundles
+mux-player 'node_modules/@mux/mux-player'
+docsearch-js "node_modules/@docsearch/js"
+docsearch-css \`node_modules/@docsearch/css/dist/style.css\``
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let js = parse.compiler(ast, 'js')
+  let first = js.bundles[0][1]
+  let second = js.bundles[1][1]
+  let third = js.bundles[2][1]
+  t.ok(first.startsWith("'") === false)
+  t.ok(second.startsWith('"') === false)
+  t.ok(third.startsWith('`') === false)
+  console.dir([ first, second, third ], { depth: null })
 })

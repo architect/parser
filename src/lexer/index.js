@@ -143,9 +143,10 @@ module.exports = function lex (code) {
 
     if (STRING.test(code[cursor])) {
       let token = peek.string(cursor, code, line, column)
-      let singleQuote = code[cursor] === "'"
-      let doubleQuote = code[cursor] === '"'
-      let backtick = code[cursor] === '`'
+      let quoteValue = code[cursor]
+      let singleQuote = quoteValue === "'"
+      let doubleQuote =  quoteValue === '"'
+      let backtick = quoteValue === '`'
       let value = {
         type: 'string',
         value: token,
@@ -154,10 +155,8 @@ module.exports = function lex (code) {
       }
       let quote = singleQuote || doubleQuote || backtick
       if (quote) {
-        value.raw = `${code[cursor]}${token}${code[cursor]}`
-        value.singleQuote = singleQuote
-        value.doubleQuote = doubleQuote
-        value.backtick = backtick
+        value.raw = `${quoteValue}${token}${quoteValue}`
+        value.quote = quoteValue
       }
       tokens.push(value)
       cursor += token.length + (quote ? 2 : 0)

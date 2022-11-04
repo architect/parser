@@ -23,12 +23,12 @@ module.exports = function arc (ast) {
           }
           for (let node of token.values) {
             if (node.value) {
-              arc += node.raw ? node.raw : node.value
+              arc += node.quote ? node.raw : node.value
             }
             if (node.values) {
               arc += node.raw
               for (let key of node.values) {
-                arc += key.raw ? key.raw : key.value
+                arc += key.quote ? key.raw : key.value
               }
             }
           }

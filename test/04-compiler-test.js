@@ -41,8 +41,8 @@ ssr "node_modules/@enhance/ssr"`
   let arc = parse.compiler(ast)
   t.same(arc, { bundles: [
     [ 'my-package', 'node_modules/my-package' ],
-    [ 'store', `node_modules/@enhance/store` ],
-    [ 'ssr', `node_modules/@enhance/ssr` ]
+    [ 'store', 'node_modules/@enhance/store' ],
+    [ 'ssr', 'node_modules/@enhance/ssr' ]
   ] })
   console.log(arc)
 })
@@ -300,8 +300,8 @@ docsearch-css \`node_modules/@docsearch/css/dist/style.css\``
   let first = js.bundles[0][1]
   let second = js.bundles[1][1]
   let third = js.bundles[2][1]
-  t.ok(first.startsWith("'") === false)
-  t.ok(second.startsWith('"') === false)
-  t.ok(third.startsWith('`') === false)
+  t.ok(first.includes("'") === false)
+  t.ok(second.includes('"') === false)
+  t.ok(third.includes('`') === false)
   console.dir([ first, second, third ], { depth: null })
 })

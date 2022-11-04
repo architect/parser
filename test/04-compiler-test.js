@@ -305,3 +305,24 @@ docsearch-css \`node_modules/@docsearch/css/dist/style.css\``
   t.ok(third.includes('`') === false)
   console.dir([ first, second, third ], { depth: null })
 })
+
+test('js compilation does not strip heterogenous quotes in a string literal', t => {
+  t.plan(6)
+  let arcfile = `@bundles
+hello '\`howdy\`'
+hello '"howdy"'
+hello "\`howdy\`"
+hello "'howdy'"
+hello \`'howdy'\`
+hello \`"howdy"\`
+`
+  let tokens = parse.lexer(arcfile)
+  let ast = parse.parser(tokens)
+  let js = parse.compiler(ast, 'js')
+  t.equal(js.bundles[0][1], '\`howdy\`', 'Single quoted string literal returned string with escaped backticks')
+  t.equal(js.bundles[1][1], '"howdy"', 'Single quoted string literal returned string with escaped double quotes')
+  t.equal(js.bundles[2][1], '\`howdy\`', 'Double quoted string literal returned string with escaped backticks')
+  t.equal(js.bundles[3][1], "'howdy'", 'Double quoted string literal returned string with escaped single quotes')
+  t.equal(js.bundles[4][1], `'howdy'`, 'Backtick quoted string literal returned string with escaped single quotes')
+  t.equal(js.bundles[5][1], `"howdy"`, 'Backtick quoted string literal returned string with escaped double quotes')
+})

@@ -28,7 +28,7 @@
     "src/*"
   ],
   "devDependencies": {
-    "@architect/eslint-config": "~2.0.1",
+    "@architect/eslint-config": "~2.1.1",
     "@rollup/plugin-commonjs": "~21.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "browserify": "~17.0.0",

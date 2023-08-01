@@ -12,7 +12,7 @@
     "test": "npm run lint && npm run coverage",
     "rc": "npm version prerelease --preid RC",
     "build": "rollup -c",
-    "vendor:js-yaml": "mkdir -p tmp && browserify --node --standalone js-yaml --im --no-builtins node_modules/js-yaml/index.js > tmp/js-yaml.js && terser tmp/js-yaml.js -o src/compat/vendor/js-yaml.min.js",
+    "vendor:js-yaml": "mkdir -p tmp && browserify --node --standalone js-yaml --im --no-builtins node_modules/js-yaml/index.js > tmp/js-yaml.js && mkdir -p src/compat/vendor && terser tmp/js-yaml.js -o src/compat/vendor/js-yaml.min.js",
     "vendor": "npm run vendor:js-yaml"
   },
   "engines": {
@@ -28,19 +28,19 @@
     "src/*"
   ],
   "devDependencies": {
-    "@architect/eslint-config": "~2.0.1",
-    "@rollup/plugin-commonjs": "~21.0.1",
-    "@rollup/plugin-json": "^4.1.0",
+    "@architect/eslint-config": "~2.1.1",
+    "@rollup/plugin-commonjs": "~25.0.3",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-terser": "~0.4.3",
     "browserify": "~17.0.0",
     "cross-env": "~7.0.3",
-    "eslint": "~8.27.0",
+    "eslint": "~8.46.0",
     "js-yaml": "~4.1.0",
     "nyc": "^15.1.0",
-    "rollup": "^2.67.2",
-    "rollup-plugin-terser": "^7.0.2",
+    "rollup": "^3.27.0",
     "tap-spec": "^5.0.0",
-    "tape": "~5.6.1",
-    "terser": "~5.15.1"
+    "tape": "~5.6.6",
+    "terser": "~5.19.2"
   },
   "eslintConfig": {
     "extends": "@architect/eslint-config"

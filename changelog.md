@@ -2,6 +2,16 @@
 
 ---
 
+## [6.0.3] 2023-07-31
+
+### Fixed
+
+- Fixed issue where certain JSON / YAML arrays could be unnecessarily nested; fixes #1436, thanks @sbernardello!
+- Fixed Arc output from JSON / YAML
+- Improved JSON / YAML parsing tests
+
+---
+
 ## [6.0.1 - 6.0.2] 2022-11-04
 
 ### Fixed

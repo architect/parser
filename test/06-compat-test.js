@@ -1,41 +1,49 @@
 let test = require('tape')
-let fs = require('fs')
+let { readFileSync } = require('fs')
 let parse = require('../')
 let expected = require('./mock/arc.json')
 
 test('Should parse JSON with core Arc pragmas represented as arrays', t => {
   t.plan(1)
-  let mock = fs.readFileSync('./test/mock/arc-item-arrays.json').toString()
+  let mock = readFileSync('./test/mock/arc-item-arrays.json').toString()
   let parsed = parse.json(mock)
-  t.same(parsed, expected, 'parsed json')
   console.dir(parsed, { depth: null })
+  t.same(parsed, expected, 'parsed json')
 })
 
 test('Should parse JSON with core Arc pragmas represented as objects', t => {
   t.plan(1)
-  let mock = fs.readFileSync('./test/mock/arc-item-objects.json').toString()
+  let mock = readFileSync('./test/mock/arc-item-objects.json').toString()
   let parsed = parse.json(mock)
+  console.dir(parsed, { depth: null })
   t.same(parsed, expected, 'parsed json')
-  console.dir(parsed, { depth: null })
 })
 
-test('Should parse YAML', t => {
+test('Should parse YAML (by way of JSON)', t => {
   t.plan(1)
-  let mock = fs.readFileSync('./test/mock/arc.yaml').toString()
+  let mock = readFileSync('./test/mock/arc.yaml').toString()
   let parsed = parse.yaml(mock)
-  t.pass(parsed, expected, 'parsed json')
   console.dir(parsed, { depth: null })
+  t.same(parsed, expected, 'parsed json')
 })
 
-test('should serialize json to app.arc', t => {
+test('Should serialize JSON to app.arc', t => {
   t.plan(2)
-  let mock = fs.readFileSync('./test/mock/arc-item-arrays.json', 'utf-8')
-  let parsed = parse.json(mock)
-  let result = parse.stringify(parsed)
-  t.ok(result, 'parsed json')
+  let mock, parsed, result
+  let expectedArc = readFileSync('./test/mock/parsed.arc').toString()
+  if (process.platform.startsWith('win')) {
+    expectedArc = expectedArc.replace(/\r/g, '')
+  }
 
-  mock = fs.readFileSync('./test/mock/arc-item-objects.json', 'utf-8')
+  mock = readFileSync('./test/mock/arc-item-arrays.json').toString()
   parsed = parse.json(mock)
   result = parse.stringify(parsed)
-  t.ok(result, 'parsed json')
+  console.dir(result, { depth: null })
+  t.same(result, expectedArc, 'parsed json')
+
+  mock = readFileSync('./test/mock/arc-item-objects.json').toString()
+  parsed = parse.json(mock)
+  result = parse.stringify(parsed)
+  console.dir(result, { depth: null })
+  t.same(result, expectedArc, 'parsed json')
 })

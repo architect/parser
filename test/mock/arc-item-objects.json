@@ -5,7 +5,8 @@
     "profile": "personal",
     "runtime": "nodejs10.x",
     "apigateway": "http",
-    "bucket": "someapp-preview"
+    "bucket": "someapp-preview",
+    "layers": [ "some-layer" ]
   },
   "cdn": {
     "enable": false

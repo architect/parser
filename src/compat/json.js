@@ -67,15 +67,15 @@ module.exports = function parseJSON (text) {
     // Convert plain objects to tuples (aws, static, etc.)
     // This will add unknown pragmas that are top level objects, too
     if (CONVERT.includes(pragma)) {
-      if (isObject(values))     result[pragma] = Object.entries(values).map(i => i)
-      else if (isArray(values)) result[pragma] = values
+      /**/ if (isObject(values))  result[pragma] = remap(values)
+      else if (isArray(values))   result[pragma] = values
       else invalidPragma(pragma)
     }
 
     // Accept foreign pragmas
     // Pass through arrays, or convert plain objects to tuples (aws, static, scheduled)
     if (isObject(values) || isArray(values)) {
-      result[pragma] = isObject(values) ? Object.entries(values).map(i => i) : values
+      result[pragma] = isObject(values) ? remap(values) : values
       return
     }
   })
@@ -91,4 +91,10 @@ function invalidPragma (pragma) {
 }
 function invalid (lambda) {
   throw Error(`Invalid Lambda: ${JSON.stringify(lambda, null, 2)}`)
+}
+function remap (values) {
+  return Object.entries(values).map(([ key, value ]) => {
+    if (isArray(value)) return { [key]: value }
+    return [ key, value ]
+  })
 }

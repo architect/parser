@@ -22,7 +22,10 @@
     [
       "bucket",
       "someapp-preview"
-    ]
+    ],
+    {
+      "layers": [ "some-layer" ]
+    }
   ],
   "cdn": [
     [
@@ -138,10 +141,7 @@
         "is-an-obj": "yep"
       }
     ],
-    [
-      "some-array-value",
-      [ 1, 2, 3 ]
-    ]
+    { "some-array-value": [ 1, 2, 3 ] }
   ],
   "unknown-array-pragma": [
     { "some-value": true },

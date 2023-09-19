@@ -7,7 +7,7 @@
     "deno:test": "deno test -A --unstable mod.test.ts",
     "deno:fmt": "deno fmt mod.ts && deno fmt mod.test.ts",
     "lint": "eslint . --fix",
-    "test:unit": "cross-env tape 'test/*-test.js' | tap-spec",
+    "test:unit": "cross-env tape 'test/*-test.js' | tap-arc",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
     "test": "npm run lint && npm run coverage",
     "rc": "npm version prerelease --preid RC",
@@ -38,7 +38,7 @@
     "js-yaml": "~4.1.0",
     "nyc": "^15.1.0",
     "rollup": "^3.27.0",
-    "tap-spec": "^5.0.0",
+    "tap-arc": "^1.0.0",
     "tape": "~5.6.6",
     "terser": "~5.19.2"
   },

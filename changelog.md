@@ -2,6 +2,15 @@
 
 ---
 
+## [next] 2024-01-08
+
+### Changed
+
+- Added Node.js 20.x to test matrix
+- Update dependencies
+
+---
+
 ## [6.0.3] 2023-07-31
 
 ### Fixed

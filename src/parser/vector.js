@@ -35,6 +35,6 @@ module.exports = function vector (tokens) {
 
   return {
     end: first.length + values.length,
-    value: { type: 'vector', name, raw, values }
+    value: { type: 'vector', name, raw, values },
   }
 }

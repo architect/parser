@@ -42,7 +42,7 @@ ssr "node_modules/@enhance/ssr"`
   t.same(arc, { bundles: [
     [ 'my-package', 'node_modules/my-package' ],
     [ 'store', 'node_modules/@enhance/store' ],
-    [ 'ssr', 'node_modules/@enhance/ssr' ]
+    [ 'ssr', 'node_modules/@enhance/ssr' ],
   ] })
   console.log(arc)
 })
@@ -133,8 +133,8 @@ cat
   let arc = parse.compiler(ast)
   t.same(arc, {
     pets: [
-      { cat: { names: [ 'sutr0', 'tux3d0' ] } }
-    ]
+      { cat: { names: [ 'sutr0', 'tux3d0' ] } },
+    ],
   })
   console.dir(arc, { depth: null })
 })

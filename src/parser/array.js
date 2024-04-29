@@ -16,7 +16,7 @@ module.exports = function array (lines) {
     type: 'array',
     line: copy[0][0].line,
     column: copy[0][0].column,
-    values: copy[0].slice(0)
+    values: copy[0].slice(0),
   }
 
   return { end, value }

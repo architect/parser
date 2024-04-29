@@ -56,7 +56,7 @@ test('Test full Architect project manifest mock', t => {
     'scheduled',
     'queues',
     'tables',
-    'indexes'
+    'indexes',
   ]
   let pragmaConfig = {
     app: 1,
@@ -69,7 +69,7 @@ test('Test full Architect project manifest mock', t => {
     scheduled: 1,
     queues: 3,
     tables: 2,
-    indexes: 2
+    indexes: 2,
   }
   t.plan(1 + (pragmas.length * 2))
   let isArray = i => Array.isArray(i)

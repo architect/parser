@@ -54,7 +54,7 @@ module.exports = function parse (tokens) {
         raw: token.value,
         line: token.line,
         column: token.column,
-        values: []
+        values: [],
       }
       arcfile.values.push(pragma)
       index += 1

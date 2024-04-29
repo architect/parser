@@ -25,10 +25,10 @@ test('ast empty', t => {
           { type: 'newline', value: '\n', line: 3, column: 18 },
           { type: 'space', value: ' ', line: 4, column: 1 },
           { type: 'space', value: ' ', line: 4, column: 2 },
-          { type: 'comment', value: '# comment3', line: 4, column: 3 }
-        ]
-      }
-    ]
+          { type: 'comment', value: '# comment3', line: 4, column: 3 },
+        ],
+      },
+    ],
   }
 
   let parsed = parse.parser(parse.lexer(mock))
@@ -67,10 +67,10 @@ true`
           { type: 'newline', value: '\n', line: 5, column: 4 },
           { type: 'number', value: 2, line: 6, column: 1 },
           { type: 'newline', value: '\n', line: 6, column: 2 },
-          { type: 'boolean', value: true, line: 7, column: 1 }
-        ]
-      }
-    ]
+          { type: 'boolean', value: true, line: 7, column: 1 },
+        ],
+      },
+    ],
   }
 
   let parsed = parse.parser(parse.lexer(mock))
@@ -116,13 +116,13 @@ one true 3 # comment2`
                 type: 'comment',
                 value: '# comment2',
                 line: 5,
-                column: 12
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                column: 12,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   }
 
   let tokens = parse.lexer(mock)

@@ -2,7 +2,7 @@ const {
   DASHERIZED,
   SPACE,
   NEWLINE,
-  STRING
+  STRING,
 } = require('./regexp')
 
 const PragmaSyntaxError = require('../errors/lex-pragma-syntax')
@@ -91,5 +91,5 @@ module.exports = {
       }
       return token
     }
-  }
+  },
 }

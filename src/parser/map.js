@@ -89,6 +89,6 @@ module.exports = function map (tokens) {
 
   return {
     end,
-    value: { type: 'map', name, raw, values }
+    value: { type: 'map', name, raw, values },
   }
 }

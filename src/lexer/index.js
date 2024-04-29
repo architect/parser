@@ -7,7 +7,7 @@ let {
   COMMENT,
   STRING,
   NUMBER,
-  BOOLEAN
+  BOOLEAN,
 } = require('./regexp')
 
 let peek = require('./peek')
@@ -42,7 +42,7 @@ module.exports = function lex (code) {
         type: 'pragma',
         value: token.substring(1),
         line,
-        column
+        column,
       })
       cursor += token.length
       column += token.length
@@ -55,7 +55,7 @@ module.exports = function lex (code) {
         type: 'comment',
         value: token,
         line,
-        column
+        column,
       })
       cursor += token.length
       column += token.length
@@ -67,7 +67,7 @@ module.exports = function lex (code) {
         type: 'space',
         value: ' ',
         line,
-        column
+        column,
       })
       cursor += 1
       column += 1
@@ -80,13 +80,13 @@ module.exports = function lex (code) {
         type: 'space',
         value: ' ',
         line,
-        column
+        column,
       })
       tokens.push({
         type: 'space',
         value: ' ',
         line,
-        column
+        column,
       })
       cursor += 1
       column += 1
@@ -98,7 +98,7 @@ module.exports = function lex (code) {
         type: 'newline',
         value: '\n',
         line,
-        column
+        column,
       })
       // special lookahead to see if we got \r\n
       let twochars = code[cursor] + code[cursor + 1]
@@ -117,7 +117,7 @@ module.exports = function lex (code) {
           type: 'boolean',
           value: tmp === 'false' ? false : true, // questionable
           line,
-          column
+          column,
         })
         cursor += tmp.length
         column += tmp.length
@@ -133,7 +133,7 @@ module.exports = function lex (code) {
           type: 'number',
           value: Number(token),
           line,
-          column
+          column,
         })
         cursor += token.length
         column += token.length
@@ -151,7 +151,7 @@ module.exports = function lex (code) {
         type: 'string',
         value: token,
         line,
-        column
+        column,
       }
       let quote = singleQuote || doubleQuote || backtick
       if (quote) {

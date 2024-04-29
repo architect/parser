@@ -78,14 +78,14 @@ this should be ignored`
                 type: 'comment',
                 value: '# comment4',
                 line: 8,
-                column: 3
+                column: 3,
               },
               { type: 'newline', value: '\n', line: 8, column: 13 },
               { type: 'space', value: ' ', line: 9, column: 1 },
               { type: 'space', value: ' ', line: 9, column: 2 },
               { type: 'string', value: 'values', line: 9, column: 3 },
-              { type: 'newline', value: '\n', line: 9, column: 9 }
-            ]
+              { type: 'newline', value: '\n', line: 9, column: 9 },
+            ],
           },
           {
             type: 'array',
@@ -98,12 +98,12 @@ this should be ignored`
               { type: 'space', value: ' ', line: 10, column: 12 },
               { type: 'string', value: 'be', line: 10, column: 13 },
               { type: 'space', value: ' ', line: 10, column: 15 },
-              { type: 'string', value: 'ignored', line: 10, column: 16 }
-            ]
-          }
-        ]
-      }
-    ]
+              { type: 'string', value: 'ignored', line: 10, column: 16 },
+            ],
+          },
+        ],
+      },
+    ],
   }
   let parsed = parse.parser(parse.lexer(mock))
   console.dir(parsed, { depth: null })

@@ -2,12 +2,13 @@
 
 ---
 
-## [next] 2024-01-08
+## [7.0.0] 2024-01-08
 
 ### Changed
 
 - Added Node.js 20.x to test matrix
-- Update dependencies
+- Breaking change: removed Node.js 14.x support
+- Updated dependencies
 
 ---
 

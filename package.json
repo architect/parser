@@ -42,8 +42,5 @@
     "tap-arc": "~1.2.2",
     "tape": "~5.7.5",
     "terser": "~5.31.0"
-  },
-  "eslintConfig": {
-    "extends": "@architect/eslint-config"
   }
 }

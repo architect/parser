@@ -9,6 +9,7 @@
     "lint": "eslint . --fix",
     "test:unit": "cross-env tape 'test/*-test.js' | tap-arc",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
+    "test:nolint": "npm run coverage",
     "test": "npm run lint && npm run coverage",
     "rc": "npm version prerelease --preid RC",
     "build": "rollup -c",

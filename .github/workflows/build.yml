@@ -21,7 +21,7 @@ jobs:
     # Go
     steps:
     - name: Check out repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Windows
       if: matrix.os == 'windows-latest'
@@ -29,7 +29,7 @@ jobs:
         npm config set script-shell "C:\\Program Files\\Git\\bin\\bash.exe"
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -46,7 +46,14 @@ jobs:
     - name: Install
       run: npm install
 
+    - name: Test (Node.js <= 16.x only)
+      if: matrix.node-version <= '16.x'
+      run: npm run test:nolint
+      env:
+        CI: true
+
     - name: Test
+      if: matrix.node-version > '16.x'
       run: npm test
       env:
         CI: true
@@ -73,10 +80,10 @@ jobs:
     # Go
     steps:
       - name: Check out repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/

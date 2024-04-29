@@ -17,7 +17,7 @@
     "vendor": "npm run vendor:js-yaml"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "repository": {
     "type": "git",

@@ -14,6 +14,10 @@ false false false
 
 # comment with spaces
 foo bar
+
+thing
+  nested thing
+  semi;colons
 `
 
 test('lex', t => {

@@ -1,12 +1,12 @@
-let test = require('tape')
+let { test } = require('node:test')
 let lex = require('../src/lexer')
 let parse = require('../src/parser')
 let compile = require('../src/compiler')
 
 test('lex, parse and compile', t => {
   t.plan(3)
-  t.ok(lex, 'lex')
-  t.ok(parse, 'parse')
+  t.assert.ok(lex, 'lex')
+  t.assert.ok(parse, 'parse')
   let arcfile = `
 # comment with spaces
 @pragma1
@@ -19,7 +19,7 @@ one 2 false`
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let arc = compile(ast)
-  t.ok(Array.isArray(arc.pragma1), 'parsed')
+  t.assert.ok(Array.isArray(arc.pragma1), 'parsed')
 })
 
 test('vertical vector', t => {
@@ -34,7 +34,7 @@ vert
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let arc = compile(ast)
-  t.ok(arc.simple[0].vert.length === 3)
+  t.assert.ok(arc.simple[0].vert.length === 3)
 })
 
 test('anon vertical', t => {
@@ -48,9 +48,9 @@ true false
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let arc = compile(ast)
-  t.ok(arc.anon[0].length === 3)
-  t.ok(arc.anon[1].length === 4)
-  t.ok(arc.anon[2].length === 2)
+  t.assert.ok(arc.anon[0].length === 3)
+  t.assert.ok(arc.anon[1].length === 4)
+  t.assert.ok(arc.anon[2].length === 2)
 })
 
 test('map', t => {
@@ -64,12 +64,12 @@ orca
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let arc = compile(ast)
-  t.ok(Array.isArray(arc.whales) && arc.whales.length === 1, 'arc.whales')
-  t.ok(arc.whales[0].orca, 'arc.whales[0].orca')
-  t.ok(arc.whales[0].orca.name, 'fin')
-  t.ok(arc.whales[0].orca.awesome, 'awesome')
-  t.ok(Array.isArray(arc.whales[0].orca.foods), 'yum')
-  console.dir({ arc }, { depth: null })
+  t.assert.ok(Array.isArray(arc.whales) && arc.whales.length === 1, 'arc.whales')
+  t.assert.ok(arc.whales[0].orca, 'arc.whales[0].orca')
+  t.assert.ok(arc.whales[0].orca.name, 'fin')
+  t.assert.ok(arc.whales[0].orca.awesome, 'awesome')
+  t.assert.ok(Array.isArray(arc.whales[0].orca.foods), 'yum')
+  // console.dir({ arc }, { depth: null })
 })
 
 test('map with vector', t => {
@@ -88,12 +88,12 @@ cats
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let arc = compile(ast)
-  t.ok(Array.isArray(arc.animals))
-  t.ok(arc.animals[0].cats)
-  t.ok(arc.animals[0].cats.house.length === 2)
-  t.ok(arc.animals[0].cats.jungle.length === 2)
-  t.ok(arc.animals[0].cats.ocean === 'sealion')
-  console.dir({ arc }, { depth: null })
+  t.assert.ok(Array.isArray(arc.animals))
+  t.assert.ok(arc.animals[0].cats)
+  t.assert.ok(arc.animals[0].cats.house.length === 2)
+  t.assert.ok(arc.animals[0].cats.jungle.length === 2)
+  t.assert.ok(arc.animals[0].cats.ocean === 'sealion')
+  // console.dir({ arc }, { depth: null })
 })
 
 test('funky trailing whitespace in complex formats', t => {
@@ -112,14 +112,14 @@ vert
   two
   three
     `
-  t.doesNotThrow(run, 'Did not throw')
+  t.assert.doesNotThrow(run, 'Did not throw')
 
   arcfile = `
 @whales
 orca
   name fin
     `
-  t.doesNotThrow(run, 'Did not throw')
+  t.assert.doesNotThrow(run, 'Did not throw')
 
   arcfile = `
 @animals
@@ -133,7 +133,7 @@ cats
   ocean
     sealion
       `
-  t.doesNotThrow(run, 'Did not throw')
+  t.assert.doesNotThrow(run, 'Did not throw')
 })
 
 test('AST quote information is retained', t => {
@@ -142,6 +142,6 @@ test('AST quote information is retained', t => {
   let tokens = lex(arcfile)
   let ast = parse(tokens)
   let str = ast.values[0].values.find(v => v.type === 'string' && v.quote && v.quote === '"')
-  t.ok(str, 'found the quote on a string value')
-  console.dir(str, { depth: null })
+  t.assert.ok(str, 'found the quote on a string value')
+  // console.dir(str, { depth: null })
 })

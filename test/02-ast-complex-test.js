@@ -1,4 +1,4 @@
-let test = require('tape')
+let { test } = require('node:test')
 let parse = require('../')
 let isVector = require('../src/parser/_is-vector')
 let isMap = require('../src/parser/_is-map')
@@ -15,7 +15,7 @@ vec   # hi
  some stuff here`
   let tokens = parse.lexer(mock)
   let start = tokens.slice(3, tokens.length) // start at 'vec'
-  t.ok(isVector(start), 'found a valid vector')
+  t.assert.ok(isVector(start), 'found a valid vector')
 })
 
 test('is not a vector', t => {
@@ -26,7 +26,7 @@ map
   one two`
   let tokens = parse.lexer(mock)
   let start = tokens.slice(3, tokens.length) // start at 'map' token
-  t.ok(isVector(start) === false, 'did not find a valid vector')
+  t.assert.ok(isVector(start) === false, 'did not find a valid vector')
 })
 
 test('ast vectors', t => {
@@ -106,8 +106,8 @@ this should be ignored`
     ],
   }
   let parsed = parse.parser(parse.lexer(mock))
-  console.dir(parsed, { depth: null })
-  t.same(parsed, expected, 'successfully parsed vector')
+  // console.dir(parsed, { depth: null })
+  t.assert.deepEqual(parsed, expected, 'successfully parsed vector')
 })
 
 test('isMap', t => {
@@ -123,8 +123,8 @@ map
   `
   let tokens = parse.lexer(mock)
   let start = tokens.slice(3, tokens.length)
-  console.log(start)
-  t.ok(isMap(start))
+  // console.log(start)
+  t.assert.ok(isMap(start))
 })
 
 test('map has three keys (vectors)', t => {
@@ -137,11 +137,11 @@ m1 # also cool
   three 3`
   let tokens = parse.lexer(mock)
   let ast = parse.parser(tokens)
-  console.dir(ast, { depth: null })
+  // console.dir(ast, { depth: null })
   let pragma = ast.values.find(t => t.type === 'pragma' && t.name === 'map-test')
   let map = pragma.values.find(t => t.type === 'map' && t.name === 'm1')
   let keys = map.values.filter(t => t.type === 'vector')
-  t.ok(keys.length === 3, 'has three keys')
+  t.assert.ok(keys.length === 3, 'has three keys')
 })
 
 test('map with vector', t => {
@@ -157,10 +157,10 @@ m1 #comment2
     false`
   let tokens = parse.lexer(mock)
   let mapTokens = tokens.slice(5, tokens.length)
-  t.ok(isVector(mapTokens) === false, 'isVector is false')
-  t.ok(isMap(mapTokens) === true, 'isMap is true')
-  let parsed = parse.parser(tokens)
-  console.dir(parsed, { depth: null })
+  t.assert.ok(isVector(mapTokens) === false, 'isVector is false')
+  t.assert.ok(isMap(mapTokens) === true, 'isMap is true')
+  /* let parsed = */parse.parser(tokens)
+  // console.dir(parsed, { depth: null })
 })
 
 test('map with scalars and vectors', t => {
@@ -185,7 +185,7 @@ m1 #comment2
   let map = pragma.values.find(t => t.type === 'map')
   let keys = map.values.filter( t => t.type === 'vector')
   let bools = keys.find(t => t.name === 'bools')
-  t.ok(keys.length === 4, 'has four keys')
-  t.ok(bools.values.filter(t => t.type === 'boolean').length === 2, 'bools has two booleans')
-  console.dir(parsed, { depth: null })
+  t.assert.ok(keys.length === 4, 'has four keys')
+  t.assert.ok(bools.values.filter(t => t.type === 'boolean').length === 2, 'bools has two booleans')
+  // console.dir(parsed, { depth: null })
 })

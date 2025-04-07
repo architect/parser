@@ -1,4 +1,4 @@
-let test = require('tape')
+let { test } = require('node:test')
 let parse = require('../')
 
 /* lex errors */
@@ -9,9 +9,9 @@ test('pragma errors', t => {
     parse.lexer(`@pragm&`)
   }
   catch (e) {
-    t.ok(e.name === 'PragmaSyntaxError', e.name)
-    t.ok(e.line === 1, 'line one')
-    console.log(e)
+    t.assert.ok(e.name === 'PragmaSyntaxError', e.name)
+    t.assert.ok(e.line === 1, 'line one')
+    // console.log(e)
   }
 })
 
@@ -22,9 +22,9 @@ test('missing end quote', t => {
     "uh oh`)
   }
   catch (e) {
-    t.ok(e.name === 'CloseQuoteNotFoundError', e.name)
-    t.ok(e.line === 2, 'on line two')
-    console.log(e)
+    t.assert.ok(e.name === 'CloseQuoteNotFoundError', e.name)
+    t.assert.ok(e.line === 2, 'on line two')
+    // console.log(e)
   }
 })
 
@@ -34,9 +34,9 @@ test('unknown! (you can quote this to get it working)', t => {
     parse.lexer(`🤠`)
   }
   catch (e) {
-    t.ok(e.name === 'UnknownCharacterError', e.name)
-    t.ok(e.line === 1, 'on line one')
-    console.log(e)
+    t.assert.ok(e.name === 'UnknownCharacterError', e.name)
+    t.assert.ok(e.line === 1, 'on line one')
+    // console.log(e)
   }
 })
 
@@ -48,8 +48,8 @@ test('InvalidTokens', t => {
     parse.parser('blep')
   }
   catch (e) {
-    t.ok(e.name === 'InvalidTokensError', 'got an InvalidTokensError')
-    console.log(e)
+    t.assert.ok(e.name === 'InvalidTokensError', 'got an InvalidTokensError')
+    // console.log(e)
   }
 })
 
@@ -59,8 +59,8 @@ test('PragmaNotFound', t => {
     parse.parser(parse.lexer('# nothin to see'))
   }
   catch (e) {
-    t.ok(e.name === 'PragmaNotFound', 'got an PragmaNotFound')
-    console.log(e)
+    t.assert.ok(e.name === 'PragmaNotFound', 'got an PragmaNotFound')
+    // console.log(e)
   }
 })
 
@@ -74,8 +74,8 @@ test('PragmaAlreadyDefined', t => {
     parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
-    t.ok(e.name === 'PragmaAlreadyDefined', 'got an PragmaAlreadyDefined')
-    console.log(e)
+    t.assert.ok(e.name === 'PragmaAlreadyDefined', 'got an PragmaAlreadyDefined')
+    // console.log(e)
   }
 })
 
@@ -86,8 +86,8 @@ test('array space; not an error!', t => {
 @pragma
 arr val here
  uh oh`))
-  t.ok(value, 'did not parse')
-  console.dir(value, { depth: null })
+  t.assert.ok(value, 'did not parse')
+  // console.dir(value, { depth: null })
 })
 
 // context; this was an error in parser 4.x and lower
@@ -100,8 +100,8 @@ map
  `
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
-  t.ok(ast)
-  console.dir(ast, { depth: null })
+  t.assert.ok(ast)
+  // console.dir(ast, { depth: null })
 })
 
 // context; this was an error in parser 4.x and lower
@@ -114,8 +114,8 @@ map
  `
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
-  t.ok(ast)
-  console.dir(ast, { depth: null })
+  t.assert.ok(ast)
+  // console.dir(ast, { depth: null })
 })
 
 test('map name not string error', t => {
@@ -128,9 +128,9 @@ false
     parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
-    t.same(e.name, 'MapNameNotString')
-    t.ok(e.line === 2, 'on line 2')
-    console.log(e)
+    t.assert.deepEqual(e.name, 'MapNameNotString')
+    t.assert.ok(e.line === 2, 'on line 2')
+    // console.log(e)
   }
 })
 
@@ -145,9 +145,9 @@ test('vector name not string error', t => {
     parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
-    t.same(e.name, 'VectorNameNotString')
-    t.ok(e.line === 2, 'on line 2')
-    console.log(e)
+    t.assert.deepEqual(e.name, 'VectorNameNotString')
+    t.assert.ok(e.line === 2, 'on line 2')
+    // console.log(e)
   }
 })
 
@@ -165,9 +165,9 @@ map
     t.fail()
   }
   catch (e) {
-    t.same('MapKeyNotString', e.name)
-    t.ok(e.line === 4, 'on line 4')
-    console.log(e)
+    t.assert.deepEqual('MapKeyNotString', e.name)
+    t.assert.ok(e.line === 4, 'on line 4')
+    // console.log(e)
   }
 })
 
@@ -184,9 +184,9 @@ map
     parse.parser(parse.lexer(arcfile))
   }
   catch (e) {
-    t.same(e.name, 'MapKeyNotString')
-    t.ok(e.line === 4, 'on line 4')
-    console.log(e)
+    t.assert.deepEqual(e.name, 'MapKeyNotString')
+    t.assert.ok(e.line === 4, 'on line 4')
+    // console.log(e)
   }
 })
 
@@ -202,8 +202,8 @@ asdfasdfa`
     console.log(parsed)
   }
   catch (e) {
-    t.ok(e, 'failed on bad input')
-    console.log(e)
+    t.assert.ok(e, 'failed on bad input')
+    // console.log(e)
   }
 })
 
@@ -220,7 +220,7 @@ obj
     parse.parser(parse.lexer(mock))
   }
   catch (e) {
-    t.ok(e.name === 'MapKeyUndefinedValue', 'MayKeyUndefinedValue')
-    console.log(e)
+    t.assert.ok(e.name === 'MapKeyUndefinedValue', 'MayKeyUndefinedValue')
+    // console.log(e)
   }
 })

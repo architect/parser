@@ -2,6 +2,14 @@
 
 ---
 
+## [8.0.0] 2025-04-06
+
+### Changed
+
+- Breaking change: dropped node 16, 18 support
+
+---
+
 ## [7.0.0 - 7.0.1] 2024-01-08
 
 ### Changed

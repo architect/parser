@@ -1,4 +1,4 @@
-let test = require('tape')
+let { test } = require('node:test')
 let parse = require('../')
 
 test('ast empty', t => {
@@ -32,8 +32,8 @@ test('ast empty', t => {
   }
 
   let parsed = parse.parser(parse.lexer(mock))
-  console.dir(parsed, { depth: null })
-  t.same(parsed, expected, 'successfully parsed ast for empty types')
+  // console.dir(parsed, { depth: null })
+  t.assert.deepEqual(parsed, expected, 'successfully parsed ast for empty types')
 })
 
 test('ast scalars', t => {
@@ -74,8 +74,8 @@ true`
   }
 
   let parsed = parse.parser(parse.lexer(mock))
-  console.dir(parsed, { depth: null })
-  t.same(parsed, expected, 'successfully parsed ast for scalar types')
+  // console.dir(parsed, { depth: null })
+  t.assert.deepEqual(parsed, expected, 'successfully parsed ast for scalar types')
 })
 
 test('ast arrays', t => {
@@ -127,6 +127,6 @@ one true 3 # comment2`
 
   let tokens = parse.lexer(mock)
   let parsed = parse.parser(tokens)
-  console.dir(parsed, { depth: null })
-  t.same(parsed, expected, 'successfully parsed array')
+  // console.dir(parsed, { depth: null })
+  t.assert.deepEqual(parsed, expected, 'successfully parsed array')
 })

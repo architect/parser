@@ -59,7 +59,7 @@ Parsing the file with the following code:
 ```javascript
 #!/usr/bin/env node
 const parse = require('@architect/parser')
-const fs = require('fs')
+const fs = require('node:fs')
 const text = fs.readFileSync('./some-arc-file.txt').toString()
 const result = parse(text)
 

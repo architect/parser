@@ -1,4 +1,4 @@
-let test = require('tape')
+let { test } = require('node:test')
 let parse = require('../')
 
 test('can compile scalar values', t => {
@@ -13,8 +13,8 @@ true`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { hello: [ 'world', 2, true ] })
-  console.log(arc)
+  t.assert.deepEqual(arc, { hello: [ 'world', 2, true ] })
+  // console.log(arc)
 })
 
 test('can compile array values', t => {
@@ -25,8 +25,8 @@ one 2 true`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { hello: [ [ 'one', 2, true ] ] })
-  console.log(arc)
+  t.assert.deepEqual(arc, { hello: [ [ 'one', 2, true ] ] })
+  // console.log(arc)
 })
 
 test('can compile array values with quotes (js)', t => {
@@ -39,12 +39,12 @@ ssr "node_modules/@enhance/ssr"`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { bundles: [
+  t.assert.deepEqual(arc, { bundles: [
     [ 'my-package', 'node_modules/my-package' ],
     [ 'store', 'node_modules/@enhance/store' ],
     [ 'ssr', 'node_modules/@enhance/ssr' ],
   ] })
-  console.log(arc)
+  // console.log(arc)
 })
 
 test('can compile array values with quotes (arc)', t => {
@@ -57,10 +57,10 @@ ssr "node_modules/@enhance/ssr"`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.ok(arc.includes(`my-package node_modules/my-package`))
-  t.ok(arc.includes(`store 'node_modules/@enhance/store'`))
-  t.ok(arc.includes(`ssr "node_modules/@enhance/ssr"`))
-  console.log(arc)
+  t.assert.ok(arc.includes(`my-package node_modules/my-package`))
+  t.assert.ok(arc.includes(`store 'node_modules/@enhance/store'`))
+  t.assert.ok(arc.includes(`ssr "node_modules/@enhance/ssr"`))
+  // console.log(arc)
 })
 
 test('can compile array values with quotes (yaml)', t => {
@@ -73,10 +73,10 @@ ssr "node_modules/@enhance/ssr"`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'yaml')
-  t.ok(arc.includes(`my-package, node_modules/my-package`))
-  t.ok(arc.includes(`store, 'node_modules/@enhance/store'`))
-  t.ok(arc.includes(`ssr, "node_modules/@enhance/ssr"`))
-  console.log(arc)
+  t.assert.ok(arc.includes(`my-package, node_modules/my-package`))
+  t.assert.ok(arc.includes(`store, 'node_modules/@enhance/store'`))
+  t.assert.ok(arc.includes(`ssr, "node_modules/@enhance/ssr"`))
+  // console.log(arc)
 })
 
 test('can compile scalar and array values', t => {
@@ -90,8 +90,8 @@ one 2 true`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { hello: [ 'world', 'two', false, [ 'one', 2, true ] ] })
-  console.log(arc)
+  t.assert.deepEqual(arc, { hello: [ 'world', 'two', false, [ 'one', 2, true ] ] })
+  // console.log(arc)
 })
 
 test('can compile vector', t => {
@@ -103,8 +103,8 @@ hi
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { hello: [ { hi: [ 'world' ] } ] })
-  console.dir(arc, { depth: null })
+  t.assert.deepEqual(arc, { hello: [ { hi: [ 'world' ] } ] })
+  // console.dir(arc, { depth: null })
 })
 
 test('can compile map', t => {
@@ -116,8 +116,8 @@ cat
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, { pets: [ { cat: { name: 'sutro' } } ] })
-  console.dir(arc, { depth: null })
+  t.assert.deepEqual(arc, { pets: [ { cat: { name: 'sutro' } } ] })
+  // console.dir(arc, { depth: null })
 })
 
 test('can compile map with vector', t => {
@@ -131,12 +131,12 @@ cat
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast)
-  t.same(arc, {
+  t.assert.deepEqual(arc, {
     pets: [
       { cat: { names: [ 'sutr0', 'tux3d0' ] } },
     ],
   })
-  console.dir(arc, { depth: null })
+  // console.dir(arc, { depth: null })
 })
 
 test('can compile a simple arc plaintext string', t => {
@@ -148,7 +148,7 @@ hello 1 true`
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.ok(arc === origin)
+  t.assert.ok(arc === origin)
 })
 
 test('can compile arc plaintext string with vector', t => {
@@ -163,7 +163,7 @@ hello
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.ok(arc === origin)
+  t.assert.ok(arc === origin)
 })
 
 test('can compile arc plaintext string with map', t => {
@@ -177,7 +177,7 @@ hello
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.ok(arc === origin)
+  t.assert.ok(arc === origin)
 })
 
 test('can compile arc plaintext string with map with vector', t => {
@@ -195,8 +195,8 @@ hello
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  console.log(origin, arc)
-  t.ok(arc === origin)
+  // console.log(origin, arc)
+  t.assert.ok(arc === origin)
 })
 
 test('line breaks are preserved across all primitive types', t => {
@@ -269,7 +269,7 @@ array a b
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'arc')
-  t.ok(arc === origin)
+  t.assert.ok(arc === origin)
 })
 
 test('can compile simple yaml string', t => {
@@ -285,7 +285,7 @@ hi:
   let tokens = parse.lexer(origin)
   let ast = parse.parser(tokens)
   let arc = parse.compiler(ast, 'yaml')
-  t.same(arc, expected)
+  t.assert.deepEqual(arc, expected)
 })
 
 test('js compilation strips escape quotes', t => {
@@ -300,10 +300,10 @@ docsearch-css \`node_modules/@docsearch/css/dist/style.css\``
   let first = js.bundles[0][1]
   let second = js.bundles[1][1]
   let third = js.bundles[2][1]
-  t.ok(first.includes("'") === false)
-  t.ok(second.includes('"') === false)
-  t.ok(third.includes('`') === false)
-  console.dir([ first, second, third ], { depth: null })
+  t.assert.ok(first.includes("'") === false)
+  t.assert.ok(second.includes('"') === false)
+  t.assert.ok(third.includes('`') === false)
+  // console.dir([ first, second, third ], { depth: null })
 })
 
 test('js compilation does not strip heterogenous quotes in a string literal', t => {
@@ -319,10 +319,10 @@ hello \`"howdy"\`
   let tokens = parse.lexer(arcfile)
   let ast = parse.parser(tokens)
   let js = parse.compiler(ast, 'js')
-  t.equal(js.bundles[0][1], '\`howdy\`', 'Single quoted string literal returned string with escaped backticks')
-  t.equal(js.bundles[1][1], '"howdy"', 'Single quoted string literal returned string with escaped double quotes')
-  t.equal(js.bundles[2][1], '\`howdy\`', 'Double quoted string literal returned string with escaped backticks')
-  t.equal(js.bundles[3][1], "'howdy'", 'Double quoted string literal returned string with escaped single quotes')
-  t.equal(js.bundles[4][1], `'howdy'`, 'Backtick quoted string literal returned string with escaped single quotes')
-  t.equal(js.bundles[5][1], `"howdy"`, 'Backtick quoted string literal returned string with escaped double quotes')
+  t.assert.equal(js.bundles[0][1], '\`howdy\`', 'Single quoted string literal returned string with escaped backticks')
+  t.assert.equal(js.bundles[1][1], '"howdy"', 'Single quoted string literal returned string with escaped double quotes')
+  t.assert.equal(js.bundles[2][1], '\`howdy\`', 'Double quoted string literal returned string with escaped backticks')
+  t.assert.equal(js.bundles[3][1], "'howdy'", 'Double quoted string literal returned string with escaped single quotes')
+  t.assert.equal(js.bundles[4][1], `'howdy'`, 'Backtick quoted string literal returned string with escaped single quotes')
+  t.assert.equal(js.bundles[5][1], `"howdy"`, 'Backtick quoted string literal returned string with escaped double quotes')
 })

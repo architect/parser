@@ -31,13 +31,13 @@
   ],
   "devDependencies": {
     "@architect/eslint-config": "~3.0.0",
-    "@rollup/plugin-commonjs": "~25.0.3",
+    "@rollup/plugin-commonjs": "~28.0.6",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-terser": "~0.4.3",
     "browserify": "~17.0.0",
-    "eslint": "~9.1.1",
+    "eslint": "~9.36.0",
     "js-yaml": "~4.1.0",
-    "rollup": "^3.27.0",
-    "terser": "~5.31.0"
+    "rollup": "~4.52.2",
+    "terser": "~5.44.0"
   }
 }

@@ -4,18 +4,11 @@
   "description": "Architect Parser accepts plaintext, JSON, or YAML .arc manifests and returns a plain JavaScript Object",
   "main": "./src/index.js",
   "scripts": {
-    "deno:test": "deno test -A --unstable mod.test.ts",
-    "deno:fmt": "deno fmt mod.ts && deno fmt mod.test.ts",
     "lint": "eslint . --fix",
+    "test": "npm run lint && npm run test:unit",
     "test:unit": "node --test --test-reporter=spec",
-    "coverage:node20": "npm run test:unit -- --experimental-test-coverage",
-    "coverage": "npm run coverage:node20 -- --test-coverage-exclude=test/*.js",
-    "test:node20": "npm run lint && npm run coverage:node20",
-    "test": "npm run lint && npm run coverage",
-    "rc": "npm version prerelease --preid RC",
-    "build": "rollup -c",
-    "vendor:js-yaml": "mkdir -p tmp && browserify --node --standalone js-yaml --im --no-builtins node_modules/js-yaml/index.js > tmp/js-yaml.js && mkdir -p src/compat/vendor && terser tmp/js-yaml.js -o src/compat/vendor/js-yaml.min.js",
-    "vendor": "npm run vendor:js-yaml"
+    "_coverage": "npm run coverage -- --test-coverage-exclude=test/*.js",
+    "rc": "npm version prerelease --preid RC"
   },
   "engines": {
     "node": ">=20"
@@ -31,13 +24,6 @@
   ],
   "devDependencies": {
     "@architect/eslint-config": "~3.0.0",
-    "@rollup/plugin-commonjs": "~28.0.6",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-terser": "~0.4.3",
-    "browserify": "~17.0.0",
-    "eslint": "~9.36.0",
-    "js-yaml": "~4.1.0",
-    "rollup": "~4.52.2",
-    "terser": "~5.44.0"
+    "eslint": "~9.36.0"
   }
 }
